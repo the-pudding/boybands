@@ -23,11 +23,18 @@ function setupAnimation(){
 		container: container2,
 		autoplay: true,
 		loop: true,
-		path: 'assets/animation/data.json'
+		animationData: animation
 	}
 
 	let dance = lottie.loadAnimation(animData)
 
+	let hair = d3.select('.hair').select('g').select('path')
+
+	container.on('click', d => {
+		hair.style('fill', 'yellow')
+	})
+
+	console.log({hair})
 }
 
 function init() {
