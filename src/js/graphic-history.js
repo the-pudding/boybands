@@ -55,6 +55,8 @@ function setupBoys() {
 	animation.create($boy.nodes());
 }
 
+function resize(){}
+
 function init(data) {
 	bandData = data;
 	setupBoys();
