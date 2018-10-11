@@ -20,6 +20,10 @@ const layers = ['hair'];
 function updateAppearance({ boys }) {
 	boys.forEach((b, index) => {
 		const $b = $boy.filter((d, i) => i === index);
+		const name = b[index]
+		console.log({b})
+		// Update name
+		$b.select('.boy__name').text(b.name)
 		layers.forEach(l => {
 			// $b.selectAll(`.${l}`).st('opacity', 0);
 			// $b.select(`.${l}--${b[l]}`)
@@ -66,6 +70,11 @@ function setupBoys() {
 		.data(data)
 		.enter()
 		.append('div.boy');
+
+	const boyName = $boy
+		.append('text')
+		.attr('class', 'boy__name')
+		.text("name")
 
 	animation.create($boy.nodes());
 }
