@@ -4,10 +4,16 @@ import audio from './audio';
 const $section = d3.select('#history');
 const $figure = $section.select('.history__figure');
 const $boys = $figure.select('.figure__boys');
+const $bandInfo = $section.select('.figure__info')
+const $songYear =  $bandInfo.select('.figure__info--year')
+const $songName = $bandInfo.select('.figure__info--song')
+const $bandName = $bandInfo.select('.figure__info--band')
 let $boy = null;
 
 let bandData = [];
 let currentBandIndex = -1;
+
+
 
 const layers = ['hair'];
 
@@ -25,6 +31,14 @@ function updateAppearance({ boys }) {
 	});
 }
 
+function updateInfo({band, highest_pos_date, highest_song}){
+	const parseTime = d3.timeParse('%Y-%m-%d')
+	const getYear = d3.timeFormat('%Y')
+	$songYear.text(getYear(parseTime(highest_pos_date)))
+	$songName.text(highest_song)
+	$bandName.text(band)
+}
+
 function swapBoys(dir) {
 	currentBandIndex += dir;
 	currentBandIndex = Math.min(
@@ -40,6 +54,7 @@ function swapBoys(dir) {
 
 	// change layer style
 	updateAppearance(data);
+	updateInfo(data)
 }
 
 function setupBoys() {
