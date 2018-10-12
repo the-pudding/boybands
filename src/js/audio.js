@@ -9,10 +9,17 @@ function slugify(str) {
 function play(band) {
 	const name = slugify(band);
 	const audio = bands[name];
+	console.log({bands})
 	if (audio) {
+		// Find if any are playing
+		const currentlyPlaying = Object.values(bands).map(d => {
+			const playing = d.playing()
+			if (playing == true) d.stop()
+		})
+
 		// todo: if previous song playing, fade it out / stop
 		// play new one
-		// audio.play();
+		audio.play();
 	} else {
 		// todo
 	}

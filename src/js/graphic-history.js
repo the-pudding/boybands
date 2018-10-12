@@ -7,7 +7,7 @@ const $boys = $figure.select('.figure__boys');
 const $bandInfo = $section.select('.figure__info');
 const $songYear = $bandInfo.select('.info__year');
 const $songName = $bandInfo.select('.info__song');
-const $bandName = $bandInfo.select('info__band');
+const $bandName = $bandInfo.select('.info__band');
 let $boy = null;
 
 let bandData = [];
@@ -23,8 +23,6 @@ function updateAppearance({ boys }) {
 		layers.forEach(l => {
 			// $b.selectAll(`.${l}`).st('opacity', 0);
 			// $b.select(`.${l}--${b[l]}`)
-			console.log({l})
-			console.log(b[`${l}_color`]);
 			$b.select(`.${l}--fade-high path`)
 				.st('opacity', 1)
 				.st('fill', b[`${l}_color`]);
@@ -82,7 +80,7 @@ function setupBoys() {
 function resize() {}
 
 function init(data) {
-	//Audio.init(data);
+	Audio.init(data);
 	bandData = data;
 	setupBoys();
 	$section.classed('is-selected', true);
