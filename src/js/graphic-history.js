@@ -23,10 +23,13 @@ function updateAppearance({ boys }) {
 		layers.forEach(l => {
 			// $b.selectAll(`.${l}`).st('opacity', 0);
 			// $b.select(`.${l}--${b[l]}`)
+			console.log({l})
 			console.log(b[`${l}_color`]);
-			$b.select(`.${l} path`)
+			$b.select(`.${l}--fade-high path`)
 				.st('opacity', 1)
 				.st('fill', b[`${l}_color`]);
+
+			$b.select(`.${l}--swept-long`).st('display', 'none')
 		});
 	});
 }
@@ -79,7 +82,7 @@ function setupBoys() {
 function resize() {}
 
 function init(data) {
-	Audio.init(data);
+	//Audio.init(data);
 	bandData = data;
 	setupBoys();
 	$section.classed('is-selected', true);
