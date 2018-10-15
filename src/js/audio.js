@@ -1,27 +1,30 @@
 import { Howl, Howler } from 'howler';
 
+const FADE_DUR = 500;
 const bands = {};
+let current = null;
 
 function slugify(str) {
 	return str.toLowerCase().replace(/[^\w]/g, '_');
 }
 
+function pause() {
+	const v = bands[current].volume();
+	bands[current].fade(v, 0, FADE_DUR);
+}
+
 function play(band) {
 	const name = slugify(band);
-	const audio = bands[name];
-	console.log({bands})
-	if (audio) {
-		// Find if any are playing
-		const currentlyPlaying = Object.values(bands).map(d => {
-			const playing = d.playing()
-			if (playing == true) d.stop()
-		})
-
-		// todo: if previous song playing, fade it out / stop
-		// play new one
-		audio.play();
-	} else {
-		// todo
+	// pause previous
+	if (current && bands[current] && bands[current].playing()) pause();
+	// update current
+	current = name;
+	// if exist, play it
+	const next = bands[name];
+	if (next) {
+		next.volume(0);
+		next.play();
+		next.fade(0, 1, FADE_DUR * 4);
 	}
 }
 
@@ -40,10 +43,10 @@ function load(filenames) {
 			onend: () => {
 				// todo
 			},
-			onloaderror: advance
-			// onfade: () => {
-			// 	tracks[f].stop();
-			// }
+			onloaderror: advance,
+			onfade: () => {
+				if (f !== current) bands[f].stop();
+			}
 		});
 	};
 
