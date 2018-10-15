@@ -15,6 +15,10 @@ let currentBandIndex = -1;
 
 const layers = ['hair'];
 
+function handleAudioEnd() {
+	swapBoys(1);
+}
+
 function updateAppearance({ boys }) {
 	boys.forEach((b, index) => {
 		const $b = $boy.filter((d, i) => i === index);
@@ -27,7 +31,7 @@ function updateAppearance({ boys }) {
 				.st('opacity', 1)
 				.st('fill', b[`${l}_color`]);
 
-			$b.select(`.${l}--swept-long`).st('display', 'none')
+			$b.select(`.${l}--swept-long`).st('display', 'none');
 		});
 	});
 }
@@ -80,7 +84,7 @@ function setupBoys() {
 function resize() {}
 
 function init(data) {
-	Audio.init(data);
+	Audio.init(data, handleAudioEnd);
 	bandData = data;
 	setupBoys();
 	$section.classed('is-selected', true);

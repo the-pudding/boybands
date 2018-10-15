@@ -28,7 +28,7 @@ function play(band) {
 	}
 }
 
-function load(filenames) {
+function load(filenames, cbEnd) {
 	let i = 0;
 	const path = 'assets/audio';
 	const loadNext = () => {
@@ -40,9 +40,7 @@ function load(filenames) {
 				bands[f] = t;
 				advance();
 			},
-			onend: () => {
-				// todo
-			},
+			onend: cbEnd,
 			onloaderror: advance,
 			onfade: () => {
 				if (f !== current) bands[f].stop();
@@ -58,8 +56,8 @@ function load(filenames) {
 	loadNext();
 }
 
-function init(data) {
+function init(data, cbEnd) {
 	const filenames = data.map(d => slugify(d.band));
-	load(filenames);
+	load(filenames, cbEnd);
 }
 export default { init, play };
