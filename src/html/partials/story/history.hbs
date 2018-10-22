@@ -13,16 +13,17 @@
 		</div>
 	</figure>
 	<div class='history__player'>
-		<div class='player__controls'>
-			<p class='player__queue'>
-				<span class='player__current'></span>
-				of
-				<span class='player__total'></span>
+		<div class='player__control'>
+			<p class='control__queue'>
+				<span class='queue__current'>1</span> of <span class='queue__total'>55</span>
 			</p>
-			<div class='player__back'>@@include('skip-back.svg')</div>
-			<div class='player__play'>@@include('play.svg')</div>
-			<div class='player__forward'>@@include('skip-forward.svg')</div>
-			<div class='player__volume'>@@include('volume.svg')</div>
+			<div class='control__back'>@@include('skip-back.svg')</div>
+			<div class='control__toggle'><span class='toggle--play is-visible'>@@include('play.svg')</span><span class='toggle--pause'>@@include('pause.svg')</span></div>
+			<div class='control__forward'>@@include('skip-forward.svg')</div>
+			<div class='control__volume'><span class='volume--on is-visible'>@@include('volume-2.svg')</span><span class='volume--off'>@@include('volume-x.svg')</span></div>
+		</div>
+		<div class='player__progress'>
+			<div class='progress__bar'></div>
 		</div>
 	</div>
 </section>
