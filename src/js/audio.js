@@ -1,5 +1,5 @@
 import { Howl, Howler } from 'howler';
-import { request } from 'http';
+import Player from './history-player';
 
 const FADE_DUR = 500;
 const bands = {};
@@ -11,7 +11,15 @@ function slugify(str) {
 	return str.toLowerCase().replace(/[^\w]/g, '_');
 }
 
+function mute(shouldMote) {
+	Howler.mute(shouldMote);
+}
+
 function pause() {
+	if (current && bands[current]) bands[current].pause();
+}
+
+function fade() {
 	const v = bands[current].volume();
 	bands[current].fade(v, 0, FADE_DUR);
 }
@@ -25,17 +33,24 @@ function timerTick() {
 }
 
 function play(band) {
-	const name = slugify(band);
-	// pause previous
-	if (current && bands[current] && bands[current].playing()) pause();
-	// update current
-	current = name;
-	// if exist, play it
-	const next = bands[name];
-	if (next) {
-		next.volume(0);
-		next.play();
-		next.fade(0, 1, FADE_DUR * 4);
+	const prev = bands[current];
+
+	if (!band) {
+		// resume play
+		if (prev && !prev.playing()) prev.play();
+	} else {
+		// swap - fade previous
+		const name = slugify(band);
+		if (current && current !== name && prev && prev.playing()) fade();
+		// update current
+		current = name;
+		// if exist, play it
+		const next = bands[name];
+		if (next) {
+			next.volume(0);
+			next.play();
+			next.fade(0, 1, FADE_DUR * 4);
+		}
 	}
 }
 
@@ -73,4 +88,4 @@ function init({ data, cbEnd, cbProgress }) {
 	load(filenames, cbEnd);
 	timer = d3.interval(timerTick, 250);
 }
-export default { init, play };
+export default { init, play, pause, mute };

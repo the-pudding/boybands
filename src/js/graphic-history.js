@@ -25,6 +25,27 @@ function handleAudioEnd() {
 	swapBoys(1);
 }
 
+function handlePlayerClick({ control, state }) {
+	switch (control) {
+	case 'toggle':
+		if (state === 'play') Audio.play();
+		else Audio.pause();
+		break;
+
+	case 'back':
+		swapBoys(-1);
+		break;
+	case 'forward':
+		swapBoys(1);
+		break;
+	case 'volume':
+		Audio.mute(state === 'on');
+		break;
+	default:
+		break;
+	}
+}
+
 function updateAppearance({ boys }) {
 	boys.forEach((b, index) => {
 		const $b = $boy.filter((d, i) => i === index);
@@ -67,6 +88,7 @@ function swapBoys(dir) {
 	updateInfo(data);
 
 	// change music
+	Player.queue(currentBandIndex);
 	Player.progress({ seek: 0, duration: 1 });
 	Audio.play(data.band);
 }
@@ -93,13 +115,13 @@ function resize() {}
 
 function init(data) {
 	Audio.init({ data, cbEnd: handleAudioEnd, cbProgress: handleAudioProgress });
-	Player.init();
+	Player.init(handlePlayerClick);
 	bandData = data;
 	setupBoys();
 	$section.classed('is-selected', true);
-	// setTimeout(() => {
-	// 	swapBoys(1);
-	// }, 1000);
+	setTimeout(() => {
+		swapBoys(1);
+	}, 1000);
 }
 
 export default { init, resize };
