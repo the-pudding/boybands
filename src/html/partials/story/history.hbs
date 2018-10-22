@@ -17,10 +17,10 @@
 			<p class='control__queue'>
 				<span class='queue__current'>1</span> of <span class='queue__total'>55</span>
 			</p>
-			<div class='control__back'>@@include('skip-back.svg')</div>
-			<div class='control__toggle'><span class='toggle--play is-visible'>@@include('play.svg')</span><span class='toggle--pause'>@@include('pause.svg')</span></div>
-			<div class='control__forward'>@@include('skip-forward.svg')</div>
-			<div class='control__volume'><span class='volume--on is-visible'>@@include('volume-2.svg')</span><span class='volume--off'>@@include('volume-x.svg')</span></div>
+			<button class='control--back' data-control='back'>@@include('skip-back.svg')</button>
+			<button class='control--toggle' data-control='toggle'><span class='is-visible' data-state='play'>@@include('play.svg')</span><span data-state='pause'>@@include('pause.svg')</span></button>
+			<button class='control--forward' data-control='forward'>@@include('skip-forward.svg')</button>
+			<button class='control--volume' data-control='volume'><span class='is-visible' data-state='on'>@@include('volume-2.svg')</span><span data-state='off'>@@include('volume-x.svg')</span></button>
 		</div>
 		<div class='player__progress'>
 			<div class='progress__bar'></div>

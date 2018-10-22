@@ -1,6 +1,65 @@
 #history .history__player
-	margin-top 2rem
-	.player__controls
+	position fixed
+	bottom 0
+	left 0
+	width 100%
+	.player__control
 		display flex
 		flex-direction row
 		align-items center
+		justify-content space-between
+		color $tertiary
+		padding 0 1rem
+		margin 0 auto
+		max-width 40rem
+
+	p
+		margin 0
+	
+	p.control__queue
+		font-weight 800
+		
+	button
+		background-color $tertiary
+		line-height 1
+		padding 1em
+		border-radius 50%
+		box-shadow 3px 3px 6px rgba($off-black, 0.25)
+		border 2px solid $white
+		transition background-color 150ms ease-in-out
+		&:hover
+			background-color $secondary
+		&:active
+			box-shadow 3px 3px 6px rgba($primary, 0)
+			transform translate(1.5px, 1.5px)
+		
+		span
+			display none
+			&.is-visible
+				display block
+
+		svg
+			width 1.75rem
+			height 1.75rem
+			path, line
+				stroke $white
+				fill none
+			polygon, rect
+				stroke none
+				fill $white
+		
+	
+	.player__progress
+		width 100%
+		background-image linear-gradient(to right, $yellow, $pink 82.5%)
+		position relative
+		height 0.75rem
+
+		.progress__bar
+			position absolute
+			top 0
+			right 0
+			height 100%
+			width 100%
+			background-color $bg
+			transition width 267ms linear

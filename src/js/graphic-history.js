@@ -1,5 +1,6 @@
 import Animation from './animation';
 import Audio from './audio';
+import Player from './history-player';
 
 const $section = d3.select('#history');
 const $figure = $section.select('.history__figure');
@@ -8,12 +9,17 @@ const $bandInfo = $section.select('.figure__info');
 const $songYear = $bandInfo.select('.info__year');
 const $songName = $bandInfo.select('.info__song');
 const $bandName = $bandInfo.select('.info__band');
+
 let $boy = null;
 
 let bandData = [];
 let currentBandIndex = -1;
 
 const layers = ['hair'];
+
+function handleAudioProgress({ seek, duration }) {
+	Player.progress({ seek, duration });
+}
 
 function handleAudioEnd() {
 	swapBoys(1);
@@ -55,11 +61,13 @@ function swapBoys(dir) {
 
 	// change arrangement
 	$boy.classed('is-visible', (d, i) => i < data.boys.length);
-	// change music
 
 	// change layer style
 	updateAppearance(data);
 	updateInfo(data);
+
+	// change music
+	Player.progress({ seek: 0, duration: 1 });
 	Audio.play(data.band);
 }
 
@@ -84,14 +92,14 @@ function setupBoys() {
 function resize() {}
 
 function init(data) {
-	Audio.init(data, handleAudioEnd);
+	Audio.init({ data, cbEnd: handleAudioEnd, cbProgress: handleAudioProgress });
+	Player.init();
 	bandData = data;
 	setupBoys();
 	$section.classed('is-selected', true);
-	$section.on('click', () => swapBoys(1));
-	setTimeout(() => {
-		swapBoys(1);
-	}, 1000);
+	// setTimeout(() => {
+	// 	swapBoys(1);
+	// }, 1000);
 }
 
 export default { init, resize };

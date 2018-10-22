@@ -1,8 +1,11 @@
 import { Howl, Howler } from 'howler';
+import { request } from 'http';
 
 const FADE_DUR = 500;
 const bands = {};
+let timer = null;
 let current = null;
+let progressCallback = null;
 
 function slugify(str) {
 	return str.toLowerCase().replace(/[^\w]/g, '_');
@@ -11,6 +14,14 @@ function slugify(str) {
 function pause() {
 	const v = bands[current].volume();
 	bands[current].fade(v, 0, FADE_DUR);
+}
+
+function timerTick() {
+	if (bands[current] && bands[current].playing()) {
+		const seek = bands[current].seek();
+		const duration = bands[current].duration();
+		progressCallback({ seek, duration });
+	}
 }
 
 function play(band) {
@@ -56,8 +67,10 @@ function load(filenames, cbEnd) {
 	loadNext();
 }
 
-function init(data, cbEnd) {
+function init({ data, cbEnd, cbProgress }) {
 	const filenames = data.map(d => slugify(d.band));
+	progressCallback = cbProgress;
 	load(filenames, cbEnd);
+	timer = d3.interval(timerTick, 250);
 }
 export default { init, play };
