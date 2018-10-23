@@ -1,7 +1,9 @@
 #history .history__figure
+	position relative
 	.figure__boys
 		display flex
 		flex-wrap wrap
+		padding-top 12rem
 		.boy
 			width 12rem
 			opacity 0
@@ -9,3 +11,41 @@
 			&.is-visible
 				opacity 1
 				display block
+
+
+	.figure__info
+		position absolute
+		top 0rem
+		left 1rem
+		height 4rem
+		+mq('bp-5')
+			height 12rem
+	
+	.info__year
+		position absolute
+		top 0
+		left 0
+		margin 0
+		line-height 1
+		font-weight 800
+		font-size 8rem
+		+mq('bp-5')
+			font-size 12rem
+			color $white
+			opacity 0.5
+
+	.info__band
+		position relative
+		font-size 2.25rem
+		margin 0
+		line-height 1
+		margin-top 1.75rem
+		font-weight 800
+		text-shadow 0 0 3px $white
+	.info__song
+		position relative
+		font-size 1.75rem
+		margin 0
+		line-height 1
+		font-weight 500
+		text-shadow 0 0 3px $white
