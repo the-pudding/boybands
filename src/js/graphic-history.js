@@ -130,16 +130,16 @@ function setupBoys() {
 
 function resize() {}
 
+function start() {
+	swapBoys(1);
+}
+
 function init(data) {
 	Audio.init({ data, cbEnd: handleAudioEnd, cbProgress: handleAudioProgress });
 	Player.init(handlePlayerClick);
 	Rating.init(handleRatingClick);
 	bandData = data;
 	setupBoys();
-	$section.classed('is-selected', true);
-	setTimeout(() => {
-		swapBoys(1);
-	}, 1000);
 }
 
-export default { init, resize };
+export default { init, start, resize };

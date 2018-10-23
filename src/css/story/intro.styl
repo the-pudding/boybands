@@ -1,6 +1,8 @@
 .intro
 	margin 0 auto
 	padding 4rem 1rem 1.5rem 1rem
+	&.is-hidden
+		display none
 
 	&__title
 		text-align center
@@ -41,3 +43,37 @@
 		padding-top 1.5rem
 		text-align center
 		set-type-size('large', true)
+
+	&__choice
+		max-width 28rem
+		margin 2rem auto
+		display flex
+		flex-direction column
+		button
+			display flex
+			background-color $purple
+			color $white
+			text-align left
+			align-items center
+			border-radius 10px
+			margin-bottom 0.5rem
+			padding 0.75rem
+			transition background-color 100ms ease-in-out
+			set-type-size(medium, false)
+			+mq('bp-4')
+				set-type-size(large, false)
+			&:hover
+				background-color $pink
+		img
+			width 4rem
+			height 4rem
+			margin 0 0.5em
+		svg
+			width 1em
+			height 1em
+			margin-left 0.25rem
+			display inline
+			vertical-align middle
+			transform translateY(-12.5%)
+		.choice__wall
+			text-align right

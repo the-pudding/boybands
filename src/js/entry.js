@@ -6,6 +6,8 @@ import loadBoys from './load-boys';
 import graphicHistory from './graphic-history';
 
 const $body = d3.select('body');
+const $intro = $body.select('.intro');
+const $choice = $body.selectAll('.intro__choice button');
 let previousWidth = 0;
 
 function resize() {
@@ -31,6 +33,15 @@ function setupStickyHeader() {
 	}
 }
 
+function handleChoiceClick() {
+	const $btn = d3.select(this);
+	const value = $btn.at('data-value');
+	$body.select(`#${value}`).classed('is-selected', true);
+	if (value === 'history') graphicHistory.start();
+	// else graphicHistory.start();
+	$intro.classed('is-hidden', true);
+}
+
 function init() {
 	// add mobile class to body tag
 	$body.classed('is-mobile', isMobile.any());
@@ -45,6 +56,7 @@ function init() {
 		.then(boyData => {
 			// TODO remove loading screen
 			graphicHistory.init(boyData);
+			$choice.on('click', handleChoiceClick);
 		});
 }
 
