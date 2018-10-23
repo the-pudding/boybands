@@ -13,6 +13,12 @@
 		background transparent 
 		transition transform 150ms ease-in-out
 		text-shadow 3px 3px 6px rgba($off-black 0.25)
+		&:disabled
+			cursor not-allowed
+			filter grayscale(100%)
+			opacity 0.75
+		&.is-selected:disabled
+			filter grayscale(33%)
 		&:hover
 			+mq('bp-4')
 				transform scale(1.5)

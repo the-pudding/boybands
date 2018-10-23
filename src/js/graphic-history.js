@@ -1,6 +1,8 @@
 import Animation from './animation';
 import Audio from './audio';
 import Player from './history-player';
+import Rating from './history-rating';
+import tracker from './utils/tracker';
 
 const $section = d3.select('#history');
 const $figure = $section.select('.history__figure');
@@ -17,12 +19,25 @@ let currentBandIndex = -1;
 
 const layers = ['hair'];
 
+function slugify(str) {
+	return str.toLowerCase().replace(/[^\w]/g, '_');
+}
+
 function handleAudioProgress({ seek, duration }) {
 	Player.progress({ seek, duration });
 }
 
 function handleAudioEnd() {
 	swapBoys(1);
+}
+
+function handleRatingClick(value) {
+	console.log(currentBandIndex, value);
+	const b = bandData[currentBandIndex];
+	const name = slugify(b.band);
+	tracker.send({ category: `boy-band--${name}`, action: value, once: true });
+	b.rating = value;
+	Rating.preset(b.rating);
 }
 
 function handlePlayerClick({ control, state }) {
@@ -77,7 +92,6 @@ function swapBoys(dir) {
 		bandData.length - 1,
 		Math.max(0, currentBandIndex)
 	);
-
 	const data = bandData[currentBandIndex];
 
 	// change arrangement
@@ -91,6 +105,9 @@ function swapBoys(dir) {
 	Player.queue(currentBandIndex);
 	Player.progress({ seek: 0, duration: 1 });
 	Audio.play(data.band);
+
+	// change rating button state
+	Rating.preset(data.rating);
 }
 
 function setupBoys() {
@@ -116,6 +133,7 @@ function resize() {}
 function init(data) {
 	Audio.init({ data, cbEnd: handleAudioEnd, cbProgress: handleAudioProgress });
 	Player.init(handlePlayerClick);
+	Rating.init(handleRatingClick);
 	bandData = data;
 	setupBoys();
 	$section.classed('is-selected', true);
