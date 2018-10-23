@@ -18,17 +18,24 @@
 	
 	p.control__queue
 		font-weight 700
-		width 5.5rem
 		text-align center
+		set-type-size(root, false)
+		width 3.75rem
+		line-height 1
+		+mq('bp-4')
+			set-type-size(large, false)
+			width 5.5rem
 		
 	button
 		background-color $tertiary
 		line-height 1
-		padding 1em
 		border-radius 50%
+		padding 0.5em
 		box-shadow 3px 3px 6px rgba($off-black, 0.25)
 		border 2px solid $white
 		transition background-color 100ms ease-in-out
+		+mq('bp-4')
+			padding 1em
 		&:hover
 			background-color $secondary
 		&:active
@@ -41,8 +48,11 @@
 				display block
 
 		svg
-			width 1.75rem
-			height 1.75rem
+			width 1rem
+			height 1rem
+			+mq('bp-4')
+				width 1.75rem
+				height 1.75rem
 			path, line
 				stroke $white
 				fill none

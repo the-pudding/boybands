@@ -1,9 +1,19 @@
 .intro
 	margin 0 auto
-	padding 4rem 1rem 1.5rem 1rem
+	padding 1rem 1rem
+	+mq('bp-4')
+		padding 3.5rem 1rem
 	&.is-hidden
 		display none
-
+	
+	&__overline
+		text-align center
+		background-image linear-gradient(to bottom right, $yellow, $pink 67%)
+		width 5rem
+		font-weight 800
+		color $fg
+		margin 0 auto
+		border-radius 10px
 	&__title
 		text-align center
 		svg
@@ -28,19 +38,24 @@
 	
 	&__byline
 		max-width $column-width
-		margin 0.75rem
 		set-type-size('small', true)
 		font-weight 700
 		position absolute
-		top 0
-		left 0
-		text-align left
-		z-index set-index(overlay)
+		top 3.5rem
+		left 1rem
+		z-index set-index(top)
+		margin 0
+		a
+			margin 0 0.25em
+		br
+			display none
+			+mq('bp-4')
+				display block
 		
 	&__dek
 		max-width $column-width
 		margin 0 auto
-		padding-top 1.5rem
+		padding-top 0rem
 		text-align center
 		set-type-size('large', true)
 

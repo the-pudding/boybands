@@ -10,12 +10,13 @@ header
 		display block
 		border none
 		max-width 9rem
-		margin 1rem auto
-
+		position absolute
+		top 0.75rem
+		left 1rem
 		svg
 			fill $fg
 			display block
-			width 100%
+			width 100%	
 	
 header.is-sticky
 	position absolute
@@ -62,7 +63,7 @@ header.is-sticky
 		width 100%
 		max-width 30rem
 		padding 1rem 1.5rem
-		background-color $off-black
+		background-color $purple
 		color $off-white
 		z-index set-index(overlay)
 		transition transform 200ms ease-in-out
@@ -78,11 +79,14 @@ header.is-sticky
 			&:hover
 				color $gray-light
 
-		.menu__links li
-			margin-bottom 0.5rem
-			set-type-size(large)
-			+mq('bp-3')
-				set-type-size(x-large)
+		.menu__links
+			display flex
+			li
+				margin-bottom 0.5rem
+				margin-right 1rem
+				set-type-size(large)
+				+mq('bp-3')
+					set-type-size(x-large)
 
 		.menu__patreon a
 			font-weight 600
@@ -126,3 +130,6 @@ header.is-sticky.is-dark
 			svg
 				stroke $off-black
 				
+.menu__method
+	padding-bottom 1rem
+	border-bottom 1px dashed $white
