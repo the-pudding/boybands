@@ -32,10 +32,9 @@ function handleAudioEnd() {
 }
 
 function handleRatingClick(value) {
-	console.log(currentBandIndex, value);
 	const b = bandData[currentBandIndex];
 	const name = slugify(b.band);
-	tracker.send({ category: `boy-band--${name}`, action: value, once: true });
+	tracker.send({ category: name, action: value, once: true });
 	b.rating = value;
 	Rating.preset(b.rating);
 }
