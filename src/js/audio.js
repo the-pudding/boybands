@@ -7,10 +7,6 @@ let timer = null;
 let current = null;
 let progressCallback = null;
 
-function slugify(str) {
-	return str.toLowerCase().replace(/[^\w]/g, '_');
-}
-
 function mute(shouldMote) {
 	Howler.mute(shouldMote);
 }
@@ -32,20 +28,19 @@ function timerTick() {
 	}
 }
 
-function play(band) {
+function play(slug) {
 	const prev = bands[current];
 
-	if (!band) {
+	if (!slug) {
 		// resume play
 		if (prev && !prev.playing()) prev.play();
 	} else {
 		// swap - fade previous
-		const name = slugify(band);
-		if (current && current !== name && prev && prev.playing()) fade();
+		if (current && current !== slug && prev && prev.playing()) fade();
 		// update current
-		current = name;
+		current = slug;
 		// if exist, play it
-		const next = bands[name];
+		const next = bands[slug];
 		if (next) {
 			next.volume(0);
 			next.play();
@@ -83,7 +78,7 @@ function load(filenames, cbEnd) {
 }
 
 function init({ data, cbEnd, cbProgress }) {
-	const filenames = data.map(d => slugify(d.band));
+	const filenames = data.map(d => d.slug);
 	progressCallback = cbProgress;
 	load(filenames, cbEnd);
 	timer = d3.interval(timerTick, 250);

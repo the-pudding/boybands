@@ -1,3 +1,7 @@
+function slugify(str) {
+	return str.toLowerCase().replace(/[^\w]/g, '_');
+}
+
 function clean([bands, boys]) {
 	const nestedBoys = d3
 		.nest()
@@ -17,7 +21,13 @@ function clean([bands, boys]) {
 
 	withBoys.sort((a, b) => d3.ascending(a.highest_pos_date, b.highest_pos_date));
 
-	return withBoys.filter(d => d.boys.length);
+	const filtered = withBoys.filter(d => d.boys.length);
+	const withSlug = filtered.map(d => ({
+		...d,
+		slug: slugify(d.band)
+	}));
+
+	return withSlug;
 }
 
 export default function() {

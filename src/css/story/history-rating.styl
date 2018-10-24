@@ -8,6 +8,7 @@
 	flex-wrap wrap
 	z-index set-index(top)
 	button
+		position relative
 		set-type-size(xx-large, false)
 		padding 0.15em 0
 		line-height 1
@@ -18,8 +19,24 @@
 			cursor not-allowed
 			filter grayscale(100%)
 			opacity 0.75
+			span
+				display block
 		&.is-selected:disabled
 			filter grayscale(33%)
 		&:hover
 			+mq('bp-4')
 				transform scale(1.5)
+	
+	span
+		display block
+		position absolute
+		right 100%
+		margin-right 0.25em
+		top 0
+		line-height 1
+		set-type-size(medium, false)
+		color $fg
+		top 50%
+		transform translateY(-50%)
+		text-shadow none
+		display none

@@ -19,10 +19,6 @@ let currentBandIndex = -1;
 
 const layers = ['hair'];
 
-function slugify(str) {
-	return str.toLowerCase().replace(/[^\w]/g, '_');
-}
-
 function handleAudioProgress({ seek, duration }) {
 	Player.progress({ seek, duration });
 }
@@ -33,10 +29,10 @@ function handleAudioEnd() {
 
 function handleRatingClick(value) {
 	const b = bandData[currentBandIndex];
-	const name = slugify(b.band);
-	tracker.send({ category: name, action: value, once: true });
 	b.rating = value;
-	Rating.preset(b.rating);
+	const { slug, rating } = b;
+	tracker.send({ category: slug, action: value, once: true });
+	Rating.update({ slug, rating });
 }
 
 function handlePlayerClick({ control, state }) {
@@ -91,22 +87,23 @@ function swapBoys(dir) {
 		bandData.length - 1,
 		Math.max(0, currentBandIndex)
 	);
-	const data = bandData[currentBandIndex];
+	const band = bandData[currentBandIndex];
 
 	// change arrangement
-	$boy.classed('is-visible', (d, i) => i < data.boys.length);
+	$boy.classed('is-visible', (d, i) => i < band.boys.length);
 
 	// change layer style
-	updateAppearance(data);
-	updateInfo(data);
+	updateAppearance(band);
+	updateInfo(band);
 
 	// change music
 	Player.queue(currentBandIndex);
 	Player.progress({ seek: 0, duration: 1 });
-	Audio.play(data.band);
+	Audio.play(band.slug);
 
 	// change rating button state
-	Rating.preset(data.rating);
+	const { slug, rating } = band;
+	Rating.update({ slug, rating });
 }
 
 function setupBoys() {
