@@ -6,8 +6,6 @@ let timer = null;
 let current = null;
 let progressCallback = null;
 
-Howler.mute(true);
-
 function mute(shouldMote) {
 	Howler.mute(shouldMote);
 }
