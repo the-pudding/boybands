@@ -1,11 +1,12 @@
 import { Howl, Howler } from 'howler';
-import Player from './history-player';
 
 const FADE_DUR = 500;
 const bands = {};
 let timer = null;
 let current = null;
 let progressCallback = null;
+
+Howler.mute(true);
 
 function mute(shouldMote) {
 	Howler.mute(shouldMote);

@@ -1,25 +1,52 @@
 #history .history__figure
 	position relative
+	height $info-h-mobile + $boys-h-mobile
+	+mq('bp-5')
+		height $info-h-desktop + $boys-h-desktop
+	
 	.figure__boys
 		display flex
 		flex-wrap wrap
-		padding-top 12rem
-		.boy
-			width 12rem
-			opacity 0
-			display none
-			&.is-visible
-				opacity 1
-				display block
-
+		justify-content space-around
+		position absolute
+		left 0
+		top $info-h-mobile
+		width 100%
+		height $boys-h-mobile
+		+mq('bp-5')
+			top $info-h-desktop
+			height $boys-h-desktop
+	
+	.boy
+		visibility hidden
+		display flex
+		flex-direction column
+		align-items flex-start
+		&.is-visible
+			visibility visible
+		&__name
+			order 1
+			margin 0
+			width 100%
+			text-align center
+			flex 1 0 auto
+			set-type-size(root, false)
+			line-height 1
+			padding 0 0.5rem
+		svg
+			display block
+			order 0
+			flex 1 0 auto
+			
 
 	.figure__info
 		position absolute
-		top 0rem
+		top 0
 		left 1rem
-		height 4rem
+		height $info-h-mobile
+		// width 100%
 		+mq('bp-5')
-			height 12rem
+			height $info-h-desktop
 	
 	.info__year
 		position absolute
@@ -42,6 +69,7 @@
 		margin-top 1.75rem
 		font-weight 800
 		text-shadow 0 0 3px $white
+	
 	.info__song
 		position relative
 		font-size 1.75rem

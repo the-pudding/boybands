@@ -11,7 +11,7 @@
 		color $tertiary
 		padding 0 1rem
 		margin 0.5rem auto
-		max-width 40rem
+		max-width 30rem
 
 	p
 		margin 0
@@ -19,18 +19,20 @@
 	p.control__queue
 		font-weight 700
 		text-align center
-		set-type-size(root, false)
+		margin 0 1rem
+		font-size 16px
 		width 3.75rem
 		line-height 1
 		+mq('bp-4')
-			set-type-size(large, false)
+			font-size 20px
 			width 5.5rem
 		
 	button
+		margin 0 1rem
 		background-color $tertiary
 		line-height 1
 		border-radius 50%
-		padding 0.5em
+		padding 0.5rem
 		box-shadow 3px 3px 6px rgba($off-black, 0.25)
 		border 2px solid $white
 		transition background-color 100ms ease-in-out
@@ -59,7 +61,29 @@
 			polygon, rect
 				stroke none
 				fill $white
-		
+
+	button.control--volume
+		background transparent
+		border none
+		box-shadow none
+		width 3.75rem
+		+mq('bp-4')
+			width 5.5rem
+
+		svg
+			path, line
+				stroke $purple
+				fill none
+			polygon, rect
+				stroke none
+				fill $purple
+
+	button.control--toggle
+		margin 0
+		padding 0.75rem
+		svg
+			width 1rem
+			height 1rem
 	
 	.player__progress
 		width 100%
