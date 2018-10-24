@@ -23,10 +23,8 @@ function updateInfo({ band, highest_pos_date, highest_song }) {
 
 function swapBoys(dir) {
 	currentBandIndex += dir;
-	currentBandIndex = Math.min(
-		bandData.length - 1,
-		Math.max(0, currentBandIndex)
-	);
+	currentBandIndex = Math.max(0, currentBandIndex);
+	if (currentBandIndex >= bandData.length) currentBandIndex = 0;
 	const band = bandData[currentBandIndex];
 
 	updateInfo(band);
