@@ -1,29 +1,33 @@
 import lottie from 'lottie-web';
 
 let animationData = null;
-let animations = [];
+const animations = {};
+let current = null;
 
-function create(nodes) {
-	animations = nodes.map(n => {
+function create({ nodes, group }) {
+	animations[group] = nodes.map(n => {
 		const options = {
 			animationData,
 			container: n,
 			loop: true,
-			autoplay: true
+			autoplay: false
 		};
 		return lottie.loadAnimation(options);
 	});
+}
 
-	animations.forEach(a => {
-		a.setSubframe(false);
-		a.playSegments([0, 48], true);
+function pause() {
+	animations[current].forEach(a => {
+		a.goToAndStop(0, true);
 	});
+}
 
-	setTimeout(() => {
-		animations.forEach(a => {
-			a.playSegments([48, 144], true);
-		});
-	}, 5000);
+function play(group) {
+	if (current) pause();
+	current = group;
+	animations[group].forEach(a => {
+		a.playSegments([48, 144], true);
+	});
 }
 
 function load() {
@@ -38,4 +42,4 @@ function load() {
 	});
 }
 
-export default { load, create };
+export default { load, create, play };

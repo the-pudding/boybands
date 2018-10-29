@@ -1,10 +1,16 @@
 import { Howl, Howler } from 'howler';
 
 const FADE_DUR = 500;
-const bands = {};
+window.bands = {};
 let timer = null;
 let current = null;
 let progressCallback = null;
+let endCallback = null;
+
+function setCallbacks({ cbEnd, cbProgress }) {
+	progressCallback = cbProgress;
+	endCallback = cbEnd;
+}
 
 function mute(shouldMote) {
 	Howler.mute(shouldMote);
@@ -23,7 +29,7 @@ function timerTick() {
 	if (bands[current] && bands[current].playing()) {
 		const seek = bands[current].seek();
 		const duration = bands[current].duration();
-		progressCallback({ seek, duration });
+		if (progressCallback) progressCallback({ seek, duration });
 	}
 }
 
@@ -41,6 +47,7 @@ function play(slug) {
 		// if exist, play it
 		const next = bands[slug];
 		if (next) {
+			next.on('end', endCallback);
 			next.volume(0);
 			next.play();
 			next.fade(0, 1, FADE_DUR * 4);
@@ -48,7 +55,7 @@ function play(slug) {
 	}
 }
 
-function load(filenames, cbEnd) {
+function load(filenames) {
 	let i = 0;
 	const path = 'assets/audio';
 	const loadNext = () => {
@@ -60,7 +67,6 @@ function load(filenames, cbEnd) {
 				bands[f] = t;
 				advance();
 			},
-			onend: cbEnd,
 			onloaderror: advance,
 			onfade: () => {
 				if (f !== current) bands[f].stop();
@@ -76,10 +82,9 @@ function load(filenames, cbEnd) {
 	loadNext();
 }
 
-function init({ data, cbEnd, cbProgress }) {
+function init(data) {
 	const filenames = data.map(d => d.slug);
-	progressCallback = cbProgress;
-	load(filenames, cbEnd);
+	load(filenames);
 	timer = d3.interval(timerTick, 250);
 }
-export default { init, play, pause, mute };
+export default { init, play, pause, mute, setCallbacks };

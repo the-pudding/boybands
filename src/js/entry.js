@@ -1,9 +1,11 @@
 /* global d3 */
 import debounce from 'lodash.debounce';
 import isMobile from './utils/is-mobile';
-import animation from './animation';
 import loadBoys from './load-boys';
-import graphicHistory from './graphic-history';
+import Animation from './animation';
+import Audio from './audio';
+import GraphicHistory from './graphic-history';
+import GraphicWall from './graphic-wall';
 
 const $body = d3.select('body');
 const $intro = $body.select('.intro');
@@ -16,7 +18,8 @@ function resize() {
 	const width = $body.node().offsetWidth;
 	if (previousWidth !== width) {
 		previousWidth = width;
-		graphicHistory.resize();
+		GraphicHistory.resize();
+		GraphicWall.resize();
 	}
 }
 
@@ -37,8 +40,8 @@ function handleChoiceClick() {
 	const $btn = d3.select(this);
 	const value = $btn.at('data-value');
 	$body.select(`#${value}`).classed('is-selected', true);
-	if (value === 'history') graphicHistory.start();
-	// else graphicHistory.start();
+	if (value === 'history') GraphicHistory.start();
+	else if (value === 'wall') GraphicWall.start();
 	$intro.classed('is-hidden', true);
 }
 
@@ -50,12 +53,13 @@ function init() {
 	// setup sticky header menu
 	setupStickyHeader();
 	// kick off graphic code
-	animation
-		.load()
+	Animation.load()
 		.then(loadBoys)
 		.then(boyData => {
 			// TODO remove loading screen
-			graphicHistory.init(boyData);
+			Audio.init(boyData);
+			GraphicHistory.init(boyData);
+			GraphicWall.init(boyData);
 			$choice.on('click', handleChoiceClick);
 		});
 }

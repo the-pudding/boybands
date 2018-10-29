@@ -3,7 +3,7 @@ import Animation from './animation';
 const MIN_BOY_SIZE = 72;
 const MARGIN = 20;
 const $section = d3.select('#history');
-const $figure = $section.select('.history__figure');
+const $figure = $section.select('figure');
 const $boys = $figure.select('.figure__boys');
 let $boy = null;
 let width = 0;
@@ -74,7 +74,9 @@ function init(bandData) {
 
 	$boy = $boyEnter.merge($boy);
 
-	Animation.create($boy.nodes());
+	Animation.create({nodes: $boy.nodes(), group: 'all'});
+
+	resize();
 }
 
 export default { init, update, resize };

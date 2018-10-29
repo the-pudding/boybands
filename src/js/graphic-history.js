@@ -83,16 +83,18 @@ function resize() {
 }
 
 function start() {
+	Stage.init(bandData);
+	Audio.setCallbacks({
+		cbEnd: handleAudioEnd,
+		cbProgress: handleAudioProgress
+	});
 	swapBoys(1);
 }
 
 function init(data) {
 	bandData = data;
-	Audio.init({ data, cbEnd: handleAudioEnd, cbProgress: handleAudioProgress });
 	Player.init(handlePlayerClick);
 	Rating.init(handleRatingClick);
-	Stage.init(data);
-	resize();
 }
 
 export default { init, start, resize };
