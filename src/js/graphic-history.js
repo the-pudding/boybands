@@ -1,8 +1,9 @@
 import Audio from './audio';
+import DB from './db';
 import Player from './history-player';
 import Rating from './history-rating';
 import Stage from './history-stage';
-import tracker from './utils/tracker';
+import Tracker from './utils/tracker';
 
 const $section = d3.select('#history');
 const $bandInfo = $section.select('.figure__info');
@@ -53,7 +54,9 @@ function handleRatingClick(value) {
 	const b = bandData[currentBandIndex];
 	b.rating = value;
 	const { slug, rating } = b;
-	tracker.send({ category: slug, action: value, once: true });
+
+	DB.set({ key: slug, value: rating });
+	Tracker.send({ category: slug, action: value, once: true });
 	Rating.update({ slug, rating });
 }
 

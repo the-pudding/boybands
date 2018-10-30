@@ -10,6 +10,7 @@ import GraphicWall from './graphic-wall';
 const $body = d3.select('body');
 const $intro = $body.select('.intro');
 const $choice = $body.selectAll('.intro__choice button');
+const $loading = $body.select('.choice__loading');
 let previousWidth = 0;
 
 function resize() {
@@ -60,7 +61,8 @@ function init() {
 			Audio.init(boyData);
 			GraphicHistory.init(boyData);
 			GraphicWall.init(boyData);
-			$choice.on('click', handleChoiceClick);
+			$choice.classed('is-visible', true).on('click', handleChoiceClick);
+			$loading.classed('is-hidden', true);
 		});
 }
 

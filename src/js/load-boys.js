@@ -1,3 +1,5 @@
+import DB from './db';
+
 function slugify(str) {
 	return str.toLowerCase().replace(/[^\w]/g, '_');
 }
@@ -30,6 +32,14 @@ function clean([bands, boys]) {
 	return withSlug;
 }
 
+function addRating(d) {
+	const rating = DB.get(d.slug);
+	return {
+		...d,
+		rating
+	};
+}
+
 export default function() {
 	return new Promise((resolve, reject) => {
 		d3.loadData(
@@ -37,7 +47,11 @@ export default function() {
 			'assets/data/boys.csv',
 			(err, response) => {
 				if (err) reject(err);
-				else resolve(clean(response));
+				else {
+					const cleanData = clean(response);
+					const withRating = cleanData.map(addRating);
+					resolve(withRating);
+				}
 			}
 		);
 	});

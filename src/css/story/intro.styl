@@ -55,7 +55,7 @@
 		display flex
 		flex-direction column
 		button
-			display flex
+			display none
 			background-color $tertiary
 			border 2px solid $white
 			color $white
@@ -69,6 +69,8 @@
 			set-type-size(medium, false)
 			+mq('bp-5')
 				set-type-size(large, false)
+			&.is-visible
+				display flex
 			&:hover
 				background-color $pink
 		img
@@ -84,3 +86,15 @@
 			transform translateY(-12.5%)
 		.choice__wall
 			text-align right
+		
+		.choice__loading
+			margin 0
+			text-align center
+			text-transform uppercase
+			letter-spacing 0.05em
+			font-weight 700
+			color $tertiary
+			&.is-hidden
+				display none
+			+mq('bp-5')
+				set-type-size(large, false)
