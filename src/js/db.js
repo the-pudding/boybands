@@ -2,10 +2,8 @@ import checkStorage from './check-storage';
 
 const hasStorage = checkStorage('localStorage');
 
-function clear(slugs) {
-	slugs.forEach(slug => {
-		window.localStorage.removeItem(`pudding_boybands_${slug}`);
-	});
+function clear(slug) {
+	if (hasStorage) window.localStorage.removeItem(`pudding_boybands_${slug}`);
 }
 
 function get(slug) {

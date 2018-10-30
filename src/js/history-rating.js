@@ -1,6 +1,7 @@
 const $section = d3.select('#history');
 const $rating = $section.select('.history__rating');
 const $button = $rating.selectAll('button');
+const $tomato = d3.select('.tomato');
 
 let clickCallback = null;
 let ratingData = [];
@@ -24,6 +25,10 @@ function update({ slug, rating }) {
 function handleButtonClick() {
 	const $btn = d3.select(this);
 	const value = $btn.at('data-value');
+	$tomato
+		.classed('is-thrown', true)
+		.st('top', '75%')
+		.st('left', '75%');
 	clickCallback(value);
 }
 

@@ -1,4 +1,5 @@
 import DB from './db';
+import db from './db';
 
 function slugify(str) {
 	return str.toLowerCase().replace(/[^\w]/g, '_');
@@ -33,6 +34,7 @@ function clean([bands, boys]) {
 }
 
 function addRating(d) {
+	DB.clear(d.slug);
 	const rating = DB.get(d.slug);
 	return {
 		...d,
