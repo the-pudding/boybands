@@ -1,4 +1,5 @@
 import Audio from './audio';
+import Animation from './animation';
 import DB from './db';
 import Player from './history-player';
 import Rating from './history-rating';
@@ -63,8 +64,14 @@ function handleRatingClick(value) {
 function handlePlayerClick({ control, state }) {
 	switch (control) {
 	case 'toggle':
-		if (state === 'play') Audio.play();
-		else Audio.pause();
+		if (state === 'play') {
+			Audio.play();
+			Animation.play({});
+		}
+		else {
+			Animation.pause();
+			Audio.pause();
+		}
 		break;
 
 	case 'back':

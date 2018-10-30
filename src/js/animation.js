@@ -1,32 +1,59 @@
 import lottie from 'lottie-web';
+import danceData from './dance';
 
-let animationData = null;
 const animations = {};
-let current = null;
+let animationData = null;
+let currentGroup = null;
+let currentCat = null;
+
+function setFrames(frames) {
+	animations[currentGroup].forEach(a => {
+		a.playSegments(frames, true);
+	});
+}
+
+function change() {
+	// TODO start/stop matching, repeat / keep track of basics, weighted basic/complex randomization
+	const choices = danceData.filter(d => d.cat === currentCat);
+	const r = Math.floor(Math.random() * choices.length);
+	const { frames } = choices[r];
+	setFrames(frames);
+}
+
+function pause() {
+	animations[currentGroup].forEach(a => {
+		a.goToAndStop(0, true);
+	});
+}
+
+function play({ group = 'all', cat = currentCat || 'pop' }) {
+	if (currentGroup) pause();
+	currentGroup = group;
+	currentCat = cat;
+	change();
+}
+
+function transition({ cat }) {
+	currentCat = cat;
+	const { frames } = danceData.find(d => d.cat === 'transition');
+	setFrames(frames);
+}
+
+function onComplete() {
+	change();
+}
 
 function create({ nodes, group }) {
 	animations[group] = nodes.map(n => {
 		const options = {
 			animationData,
 			container: n,
-			loop: true,
+			// loop: true,
 			autoplay: false
 		};
-		return lottie.loadAnimation(options);
-	});
-}
-
-function pause() {
-	animations[current].forEach(a => {
-		a.goToAndStop(0, true);
-	});
-}
-
-function play(group) {
-	if (current) pause();
-	current = group;
-	animations[group].forEach(a => {
-		a.playSegments([48, 144], true);
+		const anim = lottie.loadAnimation(options);
+		anim.addEventListener('complete', onComplete);
+		return anim;
 	});
 }
 
@@ -42,4 +69,4 @@ function load() {
 	});
 }
 
-export default { load, create, play };
+export default { load, create, play, pause, transition };

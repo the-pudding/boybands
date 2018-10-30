@@ -1,0 +1,25 @@
+[
+  {
+    "name": "bop",
+    "frames": [0, 48],
+    "cat": "slow",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "arm-raise",
+    "frames": [48, 144],
+    "cat": "pop",
+    "move": "complex",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "shuffle",
+    "frames": [0, 48],
+    "cat": "transition",
+    "start": 0,
+    "end": 0
+  }
+]

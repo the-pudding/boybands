@@ -34,6 +34,7 @@ function clean([bands, boys]) {
 }
 
 function addRating(d) {
+	// TODO remove clear
 	DB.clear(d.slug);
 	const rating = DB.get(d.slug);
 	return {

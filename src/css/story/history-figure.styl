@@ -14,7 +14,7 @@
 		top $info-h-mobile
 		width 100%
 		height $boys-h-mobile
-		transition left 2s linear
+		transition left 1s linear
 		+mq('bp-5')
 			top $info-h-desktop
 			height $boys-h-desktop
@@ -31,15 +31,14 @@
 			margin 0
 			width 100%
 			text-align center
-			flex 1 0 auto
 			set-type-size(root, false)
 			line-height 1
 			padding 0 0.5rem
+			min-height 32px
 		svg
 			display block
 			order 0
-			flex 1 0 auto
-			
+			// flex 1 0 auto
 
 	.figure__info
 		position absolute

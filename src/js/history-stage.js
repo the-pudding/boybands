@@ -19,9 +19,8 @@ function updatePosition({ start, end }) {
 }
 
 function updateName({ boys, subset }) {
-	const index = subset.start;
-	boys.forEach(b => {
-		const $b = $boy.filter((d, i) => i === index);
+	boys.forEach((b, index) => {
+		const $b = $boy.filter((d, i) => i === index + subset.start);
 		// Update name
 		$b.select('.boy__name').text(b.name);
 	});
@@ -32,6 +31,7 @@ function resize() {
 	boySize = Math.floor(width / maxBoys);
 	boySize = Math.max(boySize, MIN_BOY_SIZE);
 	stacked = boySize === MIN_BOY_SIZE;
+	console.log({ width, boySize, stacked });
 	$boy.st('width', boySize);
 }
 
@@ -46,6 +46,8 @@ function update({ boys }) {
 
 	updateName({ boys, subset });
 	updatePosition(subset);
+	// styles - pop, slow, instrument
+	Animation.transition({ cat: 'pop' });
 }
 
 function init(bandData) {
@@ -56,15 +58,13 @@ function init(bandData) {
 
 	const $boyEnter = $boy.enter().append('div.boy');
 
-	$boyEnter
-		.append('p')
-		.attr('class', 'boy__name')
-		.text('name');
+	$boyEnter.append('p').attr('class', 'boy__name');
 
 	$boy = $boyEnter.merge($boy);
 
 	Animation.create({ nodes: $boy.nodes(), group: 'all' });
 
+	Animation.play({});
 	resize();
 }
 
