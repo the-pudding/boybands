@@ -1,124 +1,43 @@
-[{
-  "name": "black",
-  "hex": "#000000"
-}, {
-  "name": "white",
-  "hex": "#ffffff"
-}, {
-  "name": "light blue",
-  "hex": "#2074b2"
-}, {
-  "name": "blue",
-  "hex": "#1d5ea1"
-}, {
-  "name": "dark blue",
-  "hex": "#272a51"
-}, {
-  "name": "light brown",
-  "hex": "#ad775c"
-}, {
-  "name": "brown",
-  "hex": "#773f25"
-}, {
-  "name": "dark brown",
-  "hex": "#462615"
-}, {
-  "name": "light gray",
-  "hex": "#bfbfbf"
-}, {
-  "name": "gray",
-  "hex": "#7f7f7f"
-}, {
-  "name": "dark gray",
-  "hex": "#3f3f3f"
-}, {
-  "name": "light green",
-  "hex": "#16b279"
-}, {
-  "name": "green",
-  "hex": "#008f63"
-}, {
-  "name": "dark green",
-  "hex": "#003f2a"
-}, {
-  "name": "light orange",
-  "hex": "#e5a367"
-}, {
-  "name": "orange",
-  "hex": "#ea8b49"
-}, {
-  "name": "dark orange",
-  "hex": "#ba520c"
-}, {
-  "name": "light pink",
-  "hex": "#ed8eae"
-}, {
-  "name": "pink",
-  "hex": "#ef6891"
-}, {
-  "name": "dark pink",
-  "hex": "#c13865"
-}, {
-  "name": "light purple",
-  "hex": "#a46eea"
-}, {
-  "name": "purple",
-  "hex": "#9848ed"
-}, {
-  "name": "dark purple",
-  "hex": "#602ea0"
-}, {
-  "name": "light red",
-  "hex": "#f26179"
-}, {
-  "name": "red",
-  "hex": "#ef465b"
-}, {
-  "name": "dark red",
-  "hex": "#aa273d"
-}, {
-  "name": "light yellow",
-  "hex": "#f9d798"
-}, {
-  "name": "yellow",
-  "hex": "#f7c76d"
-}, {
-  "name": "dark yellow",
-  "hex": "#c1b13d"
-}, {
-  "name": "blonde",
-  "hex": "#f9d798"
-}, {
-  "name": "light",
-  "hex": "#f6c7b7"
-}, {
-  "name": "medium-light",
-  "hex": "#f9a092"
-}, {
-  "name": "medium",
-  "hex": "#e78660"
-}, {
-  "name": "medium-dark",
-  "hex": "#b85546"
-}, {
-  "name": "dark",
-  "hex": "#993434"
-}, {
-  "name": "navy",
-  "hex": "#272a51"
-}, {
-  "name": "rust orange",
-  "hex": "#ba520c"
-}, {
-  "name": "salmon",
-  "hex": "#ed8eae"
-}, {
-  "name": "silver/blue",
-  "hex": "#3f3f3f"
-}, {
-  "name": "strawberry blonde",
-  "hex": "#ea8b49"
-}, {
-  "name": "tan",
-  "hex": "#ad775c"
-}]
+{
+  "black": "#000000",
+  "white": "#ffffff",
+  "light blue": "#2074b2",
+  "blue": "#1d5ea1",
+  "dark blue": "#272a51",
+  "light brown": "#ad775c",
+  "brown": "#773f25",
+  "dark brown": "#462615",
+  "light gray": "#bfbfbf",
+  "gray": "#7f7f7f",
+  "dark gray": "#3f3f3f",
+  "light green": "#16b279",
+  "green": "#008f63",
+  "dark green": "#003f2a",
+  "light orange": "#e5a367",
+  "orange": "#ea8b49",
+  "dark orange": "#ba520c",
+  "light pink": "#ed8eae",
+  "pink": "#ef6891",
+  "dark pink": "#c13865",
+  "light purple": "#a46eea",
+  "purple": "#9848ed",
+  "dark purple": "#602ea0",
+  "light red": "#f26179",
+  "red": "#ef465b",
+  "dark red": "#aa273d",
+  "light yellow": "#f9d798",
+  "yellow": "#f7c76d",
+  "dark yellow": "#c1b13d",
+  "blonde": "#f9d798",
+  "light": "#f6c7b7",
+  "medium-light": "#f9a092",
+  "medium": "#e78660",
+  "medium-dark": "#b85546",
+  "dark": "#993434",
+  "navy": "#272a51",
+  "rust orange": "#ba520c",
+  "salmon": "#ed8eae",
+  "silver/blue": "#3f3f3f",
+  "strawberry blonde": "#ea8b49",
+  "tan": "#ad775c"
+}
