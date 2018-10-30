@@ -35,14 +35,18 @@
 		padding 0.5rem
 		box-shadow 3px 3px 6px rgba($off-black, 0.25)
 		border 2px solid $white
-		transition background-color 100ms ease-in-out
+		transition background-color 100ms ease-in-out, opacity 250ms ease-in-out
 		+mq('bp-4')
 			padding 1em
 		&:hover
 			background-color $secondary
 		&:active
 			box-shadow 3px 3px 6px rgba($primary, 0)
-			transform translate(1.5px, 1.5px)
+			+mq('bp-4')
+				transform translate(1.5px, 1.5px)
+		&:disabled
+			opacity 0.5
+			cursor not-allowed
 		
 		span
 			display none

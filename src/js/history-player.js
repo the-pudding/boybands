@@ -1,3 +1,5 @@
+const DISABLE_DURATION = 2000;
+
 const $section = d3.select('#history');
 const $player = $section.select('.history__player');
 const $progressBar = $player.select('.progress__bar');
@@ -26,6 +28,15 @@ function setToggle(control) {
 	}
 }
 
+function disable(control) {
+	if (['back', 'forward'].includes(control)) {
+		$button.at('disabled', true);
+		setTimeout(() => {
+			$button.at('disabled', null);
+		}, DISABLE_DURATION);
+	}
+}
+
 function swapSpan() {
 	const $s = d3.select(this);
 	const visible = $s.classed('is-visible');
@@ -46,6 +57,8 @@ function handleButtonClick() {
 
 	// set to play if forward/back
 	setToggle(control);
+	// temporary disable buttons so they can't advance to quickly
+	disable(control);
 
 	clickCallback({ control, state });
 }
