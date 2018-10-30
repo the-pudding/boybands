@@ -1,4 +1,5 @@
 #history figure
+	overflow hidden
 	position relative
 	height $info-h-mobile + $boys-h-mobile
 	+mq('bp-5')
@@ -13,6 +14,7 @@
 		top $info-h-mobile
 		width 100%
 		height $boys-h-mobile
+		transition left 2s linear
 		+mq('bp-5')
 			top $info-h-desktop
 			height $boys-h-desktop

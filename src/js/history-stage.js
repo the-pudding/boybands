@@ -11,31 +11,20 @@ let maxBoys = 0;
 let boySize = 0;
 let stacked = false;
 
-const layers = ['hair'];
+function updatePosition({ start, end }) {
+	// center out
+	$boy.classed('is-visible', (d, i) => i >= start && i < end);
+	const offset = (end - start) % 2 === 0 ? boySize / 2 : 0;
+	$boys.st('left', offset);
+}
 
-function updateAppearance({ boys, subset }) {
-	let index = subset.start;
+function updateName({ boys, subset }) {
+	const index = subset.start;
 	boys.forEach(b => {
 		const $b = $boy.filter((d, i) => i === index);
 		// Update name
 		$b.select('.boy__name').text(b.name);
-		layers.forEach(l => {
-			// $b.selectAll(`.${l}`).st('opacity', 0);
-			// $b.select(`.${l}--${b[l]}`)
-			$b.select(`.${l}--fade-high path`)
-				.st('opacity', 1)
-				.st('fill', b[`${l}_color`]);
-
-			$b.select(`.${l}--swept-long`).st('display', 'none');
-		});
-
-		index += 1;
 	});
-}
-
-function updatePosition({ subset }) {
-	// center out
-	$boy.classed('is-visible', (d, i) => i >= subset.start && i < subset.end);
 }
 
 function resize() {
@@ -55,8 +44,8 @@ function update({ boys }) {
 	const end = start + total;
 	const subset = { start, end };
 
-	updateAppearance({ boys, subset });
-	updatePosition({ boys, subset });
+	updateName({ boys, subset });
+	updatePosition(subset);
 }
 
 function init(bandData) {
@@ -74,7 +63,7 @@ function init(bandData) {
 
 	$boy = $boyEnter.merge($boy);
 
-	Animation.create({nodes: $boy.nodes(), group: 'all'});
+	Animation.create({ nodes: $boy.nodes(), group: 'all' });
 
 	resize();
 }
