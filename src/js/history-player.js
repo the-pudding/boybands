@@ -1,4 +1,4 @@
-const DISABLE_DURATION = 2000;
+const DISABLE_DURATION = 250;
 
 const $section = d3.select('#history');
 const $player = $section.select('.history__player');
