@@ -1,20 +1,24 @@
 import Animation from './animation';
 
+const BOY_W = 170;
+const BOY_H = 320;
+const BOY_RATIO = BOY_W / BOY_H;
 const MIN_BOY_SIZE = 72;
 const MARGIN = 20;
 const $section = d3.select('#history');
 const $figure = $section.select('figure');
+const $info = $figure.select('.figure__info');
 const $boys = $figure.select('.figure__boys');
+
 let $boy = null;
-let width = 0;
 let maxBoys = 0;
-let boySize = 0;
+let boyWidth = 0;
 let stacked = false;
 
 function updatePosition({ start, end }) {
 	// center out
 	$boy.classed('is-visible', (d, i) => i >= start && i < end);
-	const offset = (end - start) % 2 === 0 ? boySize / 2 : 0;
+	const offset = (end - start) % 2 === 0 ? boyWidth / 2 : 0;
 	$boys.st('left', offset);
 }
 
@@ -27,12 +31,18 @@ function updateName({ boys, subset }) {
 }
 
 function resize() {
-	width = $figure.node().offsetWidth - MARGIN * 2;
-	boySize = Math.floor(width / maxBoys);
-	boySize = Math.max(boySize, MIN_BOY_SIZE);
-	stacked = boySize === MIN_BOY_SIZE;
-	console.log({ width, boySize, stacked });
-	$boy.st('width', boySize);
+	const w = $figure.node().offsetWidth - MARGIN * 2;
+	const width = Math.max(Math.floor(w / maxBoys), MIN_BOY_SIZE);
+	const height = width / BOY_RATIO;
+	stacked = width === MIN_BOY_SIZE;
+	$boy.st({ width, height });
+
+	// update figure and boys height
+	$boys.st({ height });
+	const infoH = $info.node().offsetHeight;
+	$figure.st('height', height + infoH);
+
+	boyWidth = width;
 }
 
 function update({ boys }) {

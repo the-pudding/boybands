@@ -1,10 +1,9 @@
 #history .history__figure
 	overflow hidden
 	position relative
-	height $info-h-mobile + $boys-h-mobile
-	+mq('bp-5')
-		height $info-h-desktop + $boys-h-desktop
-	
+	max-width 70rem
+	margin 0 auto
+
 	.figure__boys
 		display flex
 		flex-wrap wrap
@@ -13,11 +12,9 @@
 		left 0
 		top $info-h-mobile
 		width 100%
-		height $boys-h-mobile
 		transition left 1s linear
 		+mq('bp-5')
 			top $info-h-desktop
-			height $boys-h-desktop
 	
 	.boy
 		visibility hidden

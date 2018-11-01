@@ -59,7 +59,7 @@ function create({ nodes, group }) {
 
 function load() {
 	return new Promise((resolve, reject) => {
-		d3.loadData('assets/animation/data3.json', (err, response) => {
+		d3.loadData('assets/animation/data.json', (err, response) => {
 			if (err) reject(err);
 			else {
 				animationData = response[0];
