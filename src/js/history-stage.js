@@ -1,4 +1,5 @@
 import Animation from './animation';
+import Appearance from './appearance';
 import transitionEvent from './utils/transition-event';
 
 const BOY_W = 170;
@@ -16,7 +17,6 @@ let maxBoys = 0;
 let boyWidth = 0;
 let stacked = false;
 let prevBoyCount = 0;
-const onDeckCat = null;
 
 function updatePosition({ start, end }) {
 	// center out
@@ -31,6 +31,15 @@ function updatePosition({ start, end }) {
 function updateName({ boys, subset }) {
 	boys.forEach((b, index) => {
 		const $b = $boy.filter((d, i) => i === index + subset.start);
+		// Update name
+		$b.select('.boy__name').text(b.name);
+	});
+}
+
+function updateAppearance({ boys, subset }) {
+	boys.forEach((b, index) => {
+		const $b = $boy.filter((d, i) => i === index + subset.start);
+		Appearance.change({ $b, d: b });
 		// Update name
 		$b.select('.boy__name').text(b.name);
 	});

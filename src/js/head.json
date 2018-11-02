@@ -1,0 +1,15 @@
+[
+  { "name": "Afro", "base": "Bald", "full": "Yes" },
+  { "name": "Bangs", "base": "Bald", "full": "Yes" },
+  { "name": "Braids", "base": "Bald", "full": "No" },
+  { "name": "Crew", "base": "Bald", "full": "Yes" },
+  { "name": "Cornrows", "base": "Bald", "full": "No" },
+  { "name": "Curly", "base": "Bald", "full": "Yes" },
+  { "name": "Fade", "base": "Bald", "full": "Yes" },
+  { "name": "Feathered", "base": "Bald", "full": "Yes" },
+  { "name": "High-top", "base": "General", "full": "No" },
+  { "name": "Pigtail Braids", "base": "Bald", "full": "Yes" },
+  { "name": "Shaggy", "base": "Bald", "full": "Yes" },
+  { "name": "Slick", "base": "Bald", "full": "Yes" },
+  { "name": "Swept", "base": "Bald", "full": "Yes" }
+]
