@@ -2,19 +2,23 @@ import colors from './colors';
 import head from './head';
 
 const layers = ['hair'];
+const skinClass = [
+	'leg-right',
+	'leg-left',
+	'torso-sleeveless',
+	'arm-right',
+	'arm-left',
+	'head-bald'
+];
 
-function change({ $b, d }) {
-	// color
-
-	// layers
-	layers.forEach(l => {
-		// $b.selectAll(`.${l}`).st('opacity', 0);
-		// $b.select(`.${l}--${b[l]}`)
-		// $b.select(`.${l}--fade-high path`)
-		// 	.st('opacity', 1)
-		// 	.st('fill', b[`${l}_color`]);
-		// $b.select(`.${l}--swept-long`).st('display', 'none');
+function skin({ $svg, val }) {
+	skinClass.forEach(c => {
+		$svg.select(`.${c}-skin`).st('fill', colors[val]);
 	});
+}
+
+function change({ $svg, d }) {
+	skin({ $svg, val: d.skin });
 }
 
 export default { change };

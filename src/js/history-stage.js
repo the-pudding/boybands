@@ -28,18 +28,10 @@ function updatePosition({ start, end }) {
 	});
 }
 
-function updateName({ boys, subset }) {
+function updateBoy({ boys, subset }) {
 	boys.forEach((b, index) => {
 		const $b = $boy.filter((d, i) => i === index + subset.start);
-		// Update name
-		$b.select('.boy__name').text(b.name);
-	});
-}
-
-function updateAppearance({ boys, subset }) {
-	boys.forEach((b, index) => {
-		const $b = $boy.filter((d, i) => i === index + subset.start);
-		Appearance.change({ $b, d: b });
+		Appearance.change({ $svg: $b.select('svg'), d: b });
 		// Update name
 		$b.select('.boy__name').text(b.name);
 	});
@@ -49,13 +41,14 @@ function resize() {
 	const w = $figure.node().offsetWidth - MARGIN * 2;
 	const width = Math.max(Math.floor(w / maxBoys), MIN_BOY_SIZE);
 	const height = width / BOY_RATIO;
-	stacked = width === MIN_BOY_SIZE;
-	$boy.st({ width, height });
-
-	// update figure and boys height
-	$boys.st({ height });
 	const infoH = $info.node().offsetHeight;
-	$figure.st('height', height + infoH);
+	stacked = width === MIN_BOY_SIZE;
+
+	if ($boy) {
+		$figure.st('height', height + infoH);
+		$boy.st({ width, height });
+		$boys.st({ height });
+	}
 
 	boyWidth = width;
 }
@@ -69,8 +62,8 @@ function update({ boys }) {
 	const end = start + total;
 	const subset = { start, end };
 
-	updateName({ boys, subset });
 	updatePosition(subset);
+	updateBoy({ boys, subset });
 	// styles - pop, slow, instrument
 	Animation.transition({
 		shift: prevBoyCount !== total,
