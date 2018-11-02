@@ -67,12 +67,21 @@ function create({ nodes, group }) {
 	});
 }
 
+function cleanData(data){
+	const layers = data.layers.map(d => {
+		const broad = d.cl.split("--")[0]
+		const cl = `${broad} ${d.cl}`
+		return {...d, cl}
+	})
+	return {...data,layers}
+}
+
 function load() {
 	return new Promise((resolve, reject) => {
 		d3.loadData('assets/animation/data.json', (err, response) => {
 			if (err) reject(err);
 			else {
-				animationData = response[0];
+				animationData = cleanData(response[0]);
 				resolve();
 			}
 		});
