@@ -1,4 +1,5 @@
 import Animation from './animation';
+import transitionEvent from './utils/transition-event';
 
 const BOY_W = 170;
 const BOY_H = 320;
@@ -14,12 +15,17 @@ let $boy = null;
 let maxBoys = 0;
 let boyWidth = 0;
 let stacked = false;
+let prevBoyCount = 0;
+const onDeckCat = null;
 
 function updatePosition({ start, end }) {
 	// center out
 	$boy.classed('is-visible', (d, i) => i >= start && i < end);
 	const offset = (end - start) % 2 === 0 ? boyWidth / 2 : 0;
 	$boys.st('left', offset);
+	$boys.on(transitionEvent, () => {
+		Animation.transitionEnd();
+	});
 }
 
 function updateName({ boys, subset }) {
@@ -57,12 +63,18 @@ function update({ boys }) {
 	updateName({ boys, subset });
 	updatePosition(subset);
 	// styles - pop, slow, instrument
-	Animation.transition({ cat: 'pop' });
+	Animation.transition({
+		shift: prevBoyCount !== total,
+		cat: 'pop'
+	});
+
+	prevBoyCount = total;
 }
 
 function init(bandData) {
 	maxBoys = d3.max(bandData, d => d.boys.length);
 	const data = d3.range(maxBoys);
+	prevBoyCount = bandData[0].boys.length;
 
 	$boy = $boys.selectAll('.boy').data(data);
 

@@ -5,6 +5,7 @@ const animations = {};
 let animationData = null;
 let currentGroup = null;
 let currentCat = null;
+let nextCat = null;
 
 function setFrames(frames) {
 	animations[currentGroup].forEach(a => {
@@ -33,10 +34,19 @@ function play({ group = 'all', cat = currentCat || 'pop' }) {
 	change();
 }
 
-function transition({ cat }) {
-	currentCat = cat;
-	const { frames } = danceData.find(d => d.cat === 'transition');
-	setFrames(frames);
+function transition({ shift, cat = 'pop' }) {
+	nextCat = cat;
+	currentCat = shift ? 'transition' : nextCat;
+	if (shift) {
+		const { frames } = danceData.find(
+			d => d.cat === currentCat && d.name === 'two step left'
+		);
+		setFrames(frames);
+	}
+}
+
+function transitionEnd() {
+	currentCat = nextCat;
 }
 
 function onComplete() {
@@ -69,4 +79,4 @@ function load() {
 	});
 }
 
-export default { load, create, play, pause, transition };
+export default { load, create, play, pause, transition, transitionEnd };

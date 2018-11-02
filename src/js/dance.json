@@ -1,80 +1,93 @@
 [
   {
-    "name": "bop",
-    "frames": [0, 48],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [48, 144],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [144, 228],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [228, 348],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [348, 432],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [432, 528],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [528, 576],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [576, 636],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "arm-raise",
-    "frames": [636, 732],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "shuffle",
-    "frames": [0, 48],
+    "name": "none",
+    "frames": [0, 6],
     "cat": "transition",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "shoulder shimmy",
+    "frames": [6, 54],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "trucker honk",
+    "frames": [54, 150],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "head bob",
+    "frames": [150, 234],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "hip rock",
+    "frames": [234, 354],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "lean left",
+    "frames": [354, 438],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "lean right",
+    "frames": [438, 534],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "open up",
+    "frames": [534, 582],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "holding heart",
+    "frames": [582, 642],
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "reaching to audience",
+    "frames": [642, 738],
+    "cat": "basic",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "two step left",
+    "frames": [738, 774],
+    "cat": "transition",
+    "start": 0,
+    "end": 0
+  },
+  {
+    "name": "na2",
+    "frames": [774, 800],
+    "cat": "none",
     "start": 0,
     "end": 0
   }
