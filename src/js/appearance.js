@@ -1,10 +1,7 @@
 import colors from './colors';
 import head from './head';
 
-const hairClass = [
-	'hair-front',
-	'hair-back'
-];
+const hairClass = ['hair-front', 'hair-back'];
 const skinClass = [
 	'leg-right',
 	'leg-left',
@@ -14,21 +11,28 @@ const skinClass = [
 	'head-bald'
 ];
 
+function getColor(val) {
+	let col = colors[val];
+	if (!col) console.log(val);
+	col = col || colors.black;
+}
 function skin({ $svg, val }) {
+	const col = getColor(val);
 	skinClass.forEach(c => {
-		$svg.selectAll(`.${c}-skin g path`).st({fill: colors[val], stroke: colors[val]});
+		$svg.selectAll(`.${c}-skin g path`).st({ fill: col, stroke: col });
 	});
 }
 
 function hair({ $svg, val }) {
+	const col = getColor(val);
 	hairClass.forEach(c => {
-		$svg.selectAll(`.${c} g path`).st({fill: colors[val], stroke: colors[val]});
+		$svg.selectAll(`.${c} g path`).st({ fill: col, stroke: col });
 	});
 }
 
 function change({ $svg, d }) {
 	skin({ $svg, val: d.skin });
-	hair({ $svg, val: d.hair_color})
+	hair({ $svg, val: d.hair_color });
 }
 
 export default { change };
