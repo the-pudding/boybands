@@ -12,9 +12,9 @@ const skinClass = [
 ];
 
 function getColor(val) {
-	let col = colors[val];
-	if (!col) console.log(val);
-	col = col || colors.black;
+	const c = colors[val];
+	if (!c) console.log(val);
+	return c || colors.black;
 }
 function skin({ $svg, val }) {
 	const col = getColor(val);

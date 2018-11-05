@@ -65,10 +65,9 @@ function update({ boys }) {
 	updatePosition(subset);
 	updateBoy({ boys, subset });
 	// styles - pop, slow, instrument
-	Animation.transition({
-		shift: prevBoyCount !== total,
-		cat: 'pop'
-	});
+	const shift = Math.abs(prevBoyCount - total) % 2 === 1;
+	const cat = 'pop';
+	Animation.transition({ shift, cat });
 
 	prevBoyCount = total;
 }
