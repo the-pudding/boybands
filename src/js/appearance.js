@@ -3,12 +3,14 @@ import head from './head';
 
 const hairClass = ['hair-front', 'hair-back'];
 const skinClass = [
+	'head-general',
+	'head-bald',
+	'neck',
 	'leg-right',
 	'leg-left',
 	'torso-sleeveless',
 	'arm-right',
-	'arm-left',
-	'head-bald'
+	'arm-left'
 ];
 
 function getColor(val) {

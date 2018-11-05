@@ -5,7 +5,7 @@ import transitionEvent from './utils/transition-event';
 const BOY_W = 170;
 const BOY_H = 320;
 const BOY_RATIO = BOY_W / BOY_H;
-const MIN_BOY_SIZE = 72;
+const MIN_BOY_SIZE = 96;
 const MARGIN = 20;
 const $section = d3.select('#history');
 const $figure = $section.select('figure');
