@@ -68,11 +68,15 @@ function create({ nodes, group }) {
 }
 
 function cleanData(data) {
+	const dev = [];
 	const layers = data.layers.map(d => {
 		const broad = d.cl.split('--')[0];
 		const cl = `${broad} ${d.cl}`;
+		dev.push(cl);
 		return { ...d, cl };
 	});
+	dev.sort(d3.ascending);
+	window.dev = dev.join('\n');
 	return { ...data, layers };
 }
 

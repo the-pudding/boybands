@@ -86,8 +86,8 @@ function init(bandData) {
 	$boy = $boyEnter.merge($boy);
 
 	Animation.create({ nodes: $boy.nodes(), group: 'all' });
-
 	Animation.play({});
+	Appearance.init();
 	resize();
 }
 

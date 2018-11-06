@@ -57,7 +57,6 @@ function init() {
 	Animation.load()
 		.then(loadBoys)
 		.then(boyData => {
-			// TODO remove loading screen
 			Audio.init(boyData);
 			GraphicHistory.init(boyData);
 			GraphicWall.init(boyData);
