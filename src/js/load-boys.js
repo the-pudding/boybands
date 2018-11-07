@@ -6,10 +6,26 @@ function slugify(str) {
 }
 
 function clean([bands, boys]) {
+	const cleanBoys = boys.map(d => ({
+		...d,
+		accessories: d.accessories
+			.split(',')
+			.map(v => v.trim())
+			.filter(v => v),
+		top_style: d.top_style
+			.split(',')
+			.map(v => v.trim())
+			.filter(v => v),
+		facial_hair: d.facial_hair
+			.split(',')
+			.map(v => v.trim())
+			.filter(v => v)
+	}));
+
 	const nestedBoys = d3
 		.nest()
 		.key(d => d.band)
-		.entries(boys);
+		.entries(cleanBoys);
 
 	const getBoys = band => {
 		const match = nestedBoys.find(b => b.key === band);

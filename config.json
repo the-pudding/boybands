@@ -1,5 +1,10 @@
 {
-	"google": {
-		"id": ""
-	}
+  "google": {
+    "doc": "",
+    "sheet": {
+      "id": "1fSSjzQ0x1zNZMJ1hAK1bD0Jy-brJ8ZcX7psMUZWOH7c",
+      "gid": "0",
+      "filepath": "src/js/crosswalk.json"
+    }
+  }
 }

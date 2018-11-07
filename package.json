@@ -8,6 +8,7 @@
     "node": ">=8.0.0"
   },
   "dependencies": {
+    "d3-dsv": "1.0.10",
     "fontfaceobserver": "^2.0.13",
     "howler": "2.0.15",
     "lodash.debounce": "^4.0.8",

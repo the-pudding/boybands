@@ -75,8 +75,8 @@ function cleanData(data) {
 		dev.push(cl);
 		return { ...d, cl };
 	});
-	dev.sort(d3.ascending);
-	window.dev = dev.join('\n');
+	// dev.sort(d3.ascending);
+	// window.dev = dev.join('\n');
 	return { ...data, layers };
 }
 
