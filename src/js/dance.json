@@ -1,94 +1,234 @@
 [
   {
-    "name": "none",
-    "frames": [0, 6],
+    "name": "default",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [0, 6]
+  },
+  {
+    "name": "Shoulder Shimmy",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [6, 54]
+  },
+  {
+    "name": "Trucker Honk",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [54, 150]
+  },
+  {
+    "name": "Head Bob",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [150, 234]
+  },
+  {
+    "name": "Hip Rock",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [234, 312]
+  },
+  {
+    "name": "Lean (Left)",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [312, 366]
+  },
+  {
+    "name": "Lean (Right)",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [366, 420]
+  },
+  {
+    "name": "Open Up",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [420, 474]
+  },
+  {
+    "name": "Holding Heart",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [474, 522]
+  },
+  {
+    "name": "Reaching to Audience",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [522, 606]
+  },
+  {
+    "name": "Two-Step (Left)",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [606, 636]
+  },
+  {
+    "name": "Jump",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [636, 660]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [660, 666]
+  },
+  {
+    "name": "Drums",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [666, 702]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [702, 714]
+  },
+  {
+    "name": "Guitar",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [714, 750]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [750, 762]
+  },
+  {
+    "name": "Tambourine",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [762, 858]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [858, 870]
+  },
+  {
+    "name": "Bass",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [870, 966]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [966, 978]
+  },
+  {
+    "name": "Keyboard",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [978, 1026]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [1026, 1038]
+  },
+  {
+    "name": "Piano",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [1038, 1086]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [1086, 1098]
+  },
+  {
+    "name": "Microphone",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [1098, 1138]
+  },
+  {
+    "name": "N/A",
+    "cat": "pop",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [1138, 1150]
+  },
+  {
+    "name": "Shuffle",
     "cat": "transition",
+    "move": "basic",
     "start": 0,
-    "end": 0
+    "end": 0,
+    "frames": [1150, 1166]
   },
   {
-    "name": "shoulder shimmy",
-    "frames": [6, 54],
+    "name": "N/A",
     "cat": "pop",
     "move": "basic",
     "start": 0,
-    "end": 0
-  },
-  {
-    "name": "trucker honk",
-    "frames": [54, 150],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "head bob",
-    "frames": [150, 234],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "hip rock",
-    "frames": [234, 354],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "lean left",
-    "frames": [354, 438],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "lean right",
-    "frames": [438, 534],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "open up",
-    "frames": [534, 582],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "holding heart",
-    "frames": [582, 642],
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "reaching to audience",
-    "frames": [642, 738],
-    "cat": "basic",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "two step left",
-    "frames": [738, 774],
-    "cat": "transition",
-    "start": 0,
-    "end": 0
-  },
-  {
-    "name": "na2",
-    "frames": [774, 800],
-    "cat": "none",
-    "start": 0,
-    "end": 0
+    "end": 0,
+    "frames": [1166, 1172]
   }
 ]

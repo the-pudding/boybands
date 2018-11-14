@@ -15,7 +15,9 @@ function setFrames(frames) {
 
 function change() {
 	// TODO start/stop matching, repeat / keep track of basics, weighted basic/complex randomization
-	const choices = danceData.filter(d => d.cat === currentCat);
+	const choices = danceData.filter(
+		d => d.cat === currentCat && d.name !== 'N/A'
+	);
 	const r = Math.floor(Math.random() * choices.length);
 	const { frames } = choices[r];
 	setFrames(frames);
@@ -39,7 +41,7 @@ function transition({ shift, cat = 'pop' }) {
 	currentCat = shift ? 'transition' : nextCat;
 	if (shift) {
 		const { frames } = danceData.find(
-			d => d.cat === currentCat && d.name === 'two step left'
+			d => d.cat === currentCat && d.name === 'Shuffle'
 		);
 		setFrames(frames);
 	}
@@ -72,11 +74,11 @@ function cleanData(data) {
 	const layers = data.layers.map(d => {
 		const broad = d.cl.split('--')[0];
 		const cl = `${broad} ${d.cl}`;
-		dev.push(cl);
+		dev.push(`${broad} | ${d.cl}`);
 		return { ...d, cl };
 	});
-	// dev.sort(d3.ascending);
-	// window.dev = dev.join('\n');
+	dev.sort(d3.ascending);
+	window.dev = dev.join('\n');
 	return { ...data, layers };
 }
 

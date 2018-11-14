@@ -39,25 +39,33 @@ function skin({ $svg, d }) {
 }
 
 function hair({ $svg, d }) {
-	const item = getItem(d.hair_style);
-	const col = getColor(d.hair_color);
+	const styles = d.hair_style.split(',').map(v => v.trim());
+	styles.forEach(s => {
+		const item = getItem(s);
+		const col = getColor(d.hair_color);
+		$svg.select('.skin--bald').st('display', 'none');
+		$svg.select('.skin--general').st('display', 'none');
+		// if no item, do bald
+		const $base = $svg.select(`.skin--${item ? item.layer_base : 'bald'}`);
+		if ($base.size()) $base.st('display', 'block');
 
-	const $base = $svg.select(`.hair-front--${item.layer_base}`);
-	if ($base.size()) $base.st('display', 'block');
-
-	// check side count and show front and/or back of style
-	item.layer_extra.forEach(layer => {
-		const $f = $svg.select(`.hair-front--${layer}-${d.hair_length}`);
-		if ($f.size())
-			$f.st('display', 'block')
-				.selectAll('g path')
-				.st({ fill: col, stroke: col });
-		if (item.sides === 2) {
-			const $b = $svg.select(`.hair-back--${layer}-${d.hair_length}`);
-			if ($b.size())
-				$b.st('display', 'block')
-					.selectAll('g path')
-					.st({ fill: col, stroke: col });
+		// check side count and show front and/or back of style
+		if (item) {
+			item.layer_extra.forEach(layer => {
+				// TODO add -${d.hair_length}
+				const $f = $svg.select(`.hair-front--${layer}`);
+				if ($f.size())
+					$f.st('display', 'block')
+						.selectAll('g path')
+						.st({ fill: col, stroke: col });
+				if (item.sides === 2) {
+					const $b = $svg.select(`.hair-back--${layer}`);
+					if ($b.size())
+						$b.st('display', 'block')
+							.selectAll('g path')
+							.st({ fill: col, stroke: col });
+				}
+			});
 		}
 	});
 }
@@ -65,22 +73,21 @@ function hair({ $svg, d }) {
 function accessories({ $svg, d }) {
 	d.accessories.forEach(accessory => {
 		const item = getItem(accessory);
-
 		// check side count and show front and/or back of style
-		item.layer_extra.forEach(layer => {
-			const $f = $svg.select(`.accessories-front--${layer}`);
-			if ($f.size()) $f.st('display', 'block');
-			if (item.sides === 2) {
-				const $b = $svg.select(`.accessories-back--${layer}`);
-				if ($b.size()) $b.st('display', 'block');
-			}
-		});
+		const $f = $svg.select(`.accessories-front--${item.value}`);
+		if ($f.size()) $f.st('display', 'block');
+		if (item.sides === 2) {
+			const $b = $svg.select(`.accessories-back--${item.value}`);
+			if ($b.size()) $b.st('display', 'block');
+		}
 	});
 }
 
 function top({ $svg, d }) {
 	d.top_style.forEach(t => {
+		// console.log(t);
 		const item = getItem(t);
+		// console.log(item);
 		const col = ['jacket', 'vest'].includes(t)
 			? getColor(d.jacket_color)
 			: getColor(d.shirt_color);
@@ -88,8 +95,13 @@ function top({ $svg, d }) {
 		const $base = $svg.select(`.top--${item.layer_base}`);
 		if ($base.size()) $base.st('display', 'block');
 
+		$base.selectAll('g path').st({ fill: col, stroke: col });
+
+		// TODO handle skin--sleeveless
+		$svg.select('.skin--sleeveless').st('display', 'none');
+
 		item.layer_extra.forEach(layer => {
-			const $t = $svg.select(`.top--${layer}`);
+			const $t = $svg.select(`.${layer}`);
 			if ($t.size())
 				$t.st('display', 'block')
 					.selectAll('g path')
@@ -99,8 +111,10 @@ function top({ $svg, d }) {
 }
 
 function bottom({ $svg, d }) {
+	console.log(d.bottom_style);
 	const item = getItem(d.bottom_style);
 	const col = getColor(d.bottom_color);
+	console.log(item);
 
 	const $base = $svg.select(`.bottom--${item.layer_base}`);
 	if ($base.size()) $base.st('display', 'block');
@@ -142,13 +156,13 @@ function disable($svg) {
 
 function change({ $svg, d }) {
 	disable($svg);
-	skin({ $svg, d });
-	hair({ $svg, d });
-	accessories({ $svg, d });
-	top({ $svg, d });
-	bottom({ $svg, d });
-	facialHair({ $svg, d });
-	instrument({ $svg, d });
+	// skin({ $svg, d });
+	// hair({ $svg, d });
+	// accessories({ $svg, d });
+	// top({ $svg, d });
+	// bottom({ $svg, d });
+	// facialHair({ $svg, d });
+	// instrument({ $svg, d });
 }
 
 function init() {}
