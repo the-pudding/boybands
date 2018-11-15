@@ -34,6 +34,7 @@ function getItem(val) {
 }
 
 function activateLayer({ $svg, selector, col }) {
+	// console.log(`activate: ${selector}`);
 	const $el = $svg.select(selector);
 	if ($el.size()) {
 		$el.st('display', 'block').selectAll('g path');
@@ -82,19 +83,14 @@ function accessories({ $svg, d }) {
 
 function top({ $svg, d }) {
 	d.top_style.forEach(t => {
-		// console.log(t);
 		const item = getItem(t);
-		// console.log(item);
 		const col = ['jacket', 'vest'].includes(t)
 			? getColor(d.jacket_color)
 			: getColor(d.shirt_color);
 
-		const $base = $svg.select(`.top--${item.layer_base}`);
-		if ($base.size()) $base.st('display', 'block');
+		const base = `.top--${item.layer_base}`;
+		activateLayer({ $svg, selector: base, col });
 
-		$base.selectAll('g path').st({ fill: col, stroke: col });
-
-		// TODO handle skin--sleeveless
 		$svg.select('.skin--sleeveless').st('display', 'none');
 
 		item.layer_extra.forEach(layer => {
@@ -107,8 +103,12 @@ function bottom({ $svg, d }) {
 	const item = getItem(d.bottom_style);
 	const col = getColor(d.bottom_color);
 
-	const $base = $svg.select(`.bottom--${item.layer_base}`);
-	if ($base.size()) $base.st('display', 'block');
+	const baseR = `.bottom--right-base-${item.layer_base}`;
+	const baseL = `.bottom--left-base-${item.layer_base}`;
+	const baseW = '.bottom--waist';
+	activateLayer({ $svg, selector: baseR, col });
+	activateLayer({ $svg, selector: baseL, col });
+	activateLayer({ $svg, selector: baseW, col });
 
 	item.layer_extra.forEach(layer => {
 		activateLayer({ $svg, selector: `.${layer}`, col });
@@ -141,10 +141,10 @@ function disable($svg) {
 function change({ $svg, d }) {
 	disable($svg);
 	skin({ $svg, d });
-	hair({ $svg, d });
-	accessories({ $svg, d });
-	top({ $svg, d });
-	// bottom({ $svg, d });
+	// hair({ $svg, d });
+	// accessories({ $svg, d });
+	// top({ $svg, d });
+	bottom({ $svg, d });
 	// facialHair({ $svg, d });
 	// instrument({ $svg, d });
 }
