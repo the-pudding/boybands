@@ -73,8 +73,8 @@ function accessories({ $svg, d }) {
 	d.accessories.forEach(accessory => {
 		const item = getItem(accessory);
 
-		const front = `.hair-front--${item.value}-${d.hair_length}`;
-		const back = `.hair-back--${item.value}-${d.hair_length}`;
+		const front = `.accessories-front--${item.value}`;
+		const back = `.accessories-back--${item.value}`;
 		activateLayer({ $svg, selector: front });
 		if (item.sides === 2) activateLayer({ $svg, selector: back });
 	});
@@ -142,8 +142,8 @@ function change({ $svg, d }) {
 	disable($svg);
 	skin({ $svg, d });
 	hair({ $svg, d });
-	// accessories({ $svg, d });
-	// top({ $svg, d });
+	accessories({ $svg, d });
+	top({ $svg, d });
 	// bottom({ $svg, d });
 	// facialHair({ $svg, d });
 	// instrument({ $svg, d });
