@@ -6,10 +6,20 @@ let animationData = null;
 let currentGroup = null;
 let currentCat = null;
 let nextCat = null;
+let currentStart = 0;
+let currentInstruments = [];
+
+function getInstrumentFrames(val) {
+	const match = danceData.find(d => d.cat === 'instrument' && d.name === val);
+	if (match) return match.frames;
+	return danceData[0].frames;
+}
 
 function setFrames(frames) {
-	animations[currentGroup].forEach(a => {
-		a.playSegments(frames, true);
+	animations[currentGroup].forEach((a, i) => {
+		const instrument = currentInstruments[i - currentStart];
+		const f = instrument ? getInstrumentFrames(instrument) : frames;
+		a.playSegments(f, true);
 	});
 }
 
@@ -36,9 +46,11 @@ function play({ group = 'all', cat = currentCat || 'pop' }) {
 	change();
 }
 
-function transition({ shift, cat = 'pop' }) {
+function transition({ shift, cat = 'pop', instruments = [], start = 0 }) {
 	nextCat = cat;
 	currentCat = shift ? 'transition' : nextCat;
+	currentInstruments = instruments;
+	currentStart = start;
 	if (shift) {
 		const { frames } = danceData.find(
 			d => d.cat === currentCat && d.name === 'Shuffle'

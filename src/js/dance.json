@@ -32,6 +32,14 @@
     "frames": [150, 234]
   },
   {
+    "name": "Head Bob",
+    "cat": "slow",
+    "move": "basic",
+    "start": 0,
+    "end": 0,
+    "frames": [150, 234]
+  },
+  {
     "name": "Hip Rock",
     "cat": "pop",
     "move": "basic",
@@ -104,7 +112,7 @@
     "frames": [660, 666]
   },
   {
-    "name": "Drums",
+    "name": "drums",
     "cat": "instrument",
     "move": "basic",
     "start": 0,
@@ -120,7 +128,7 @@
     "frames": [702, 714]
   },
   {
-    "name": "Guitar",
+    "name": "guitar",
     "cat": "instrument",
     "move": "basic",
     "start": 0,
@@ -136,7 +144,7 @@
     "frames": [750, 762]
   },
   {
-    "name": "Tambourine",
+    "name": "tambourine",
     "cat": "instrument",
     "move": "basic",
     "start": 0,
@@ -152,7 +160,7 @@
     "frames": [858, 870]
   },
   {
-    "name": "Bass",
+    "name": "bass guitar",
     "cat": "instrument",
     "move": "basic",
     "start": 0,
@@ -168,7 +176,7 @@
     "frames": [966, 978]
   },
   {
-    "name": "Keyboard",
+    "name": "keyboard",
     "cat": "instrument",
     "move": "basic",
     "start": 0,
@@ -184,7 +192,7 @@
     "frames": [1026, 1038]
   },
   {
-    "name": "Piano",
+    "name": "piano",
     "cat": "instrument",
     "move": "basic",
     "start": 0,
@@ -200,7 +208,7 @@
     "frames": [1086, 1098]
   },
   {
-    "name": "Microphone",
+    "name": "microphone",
     "cat": "instrument",
     "move": "basic",
     "start": 0,

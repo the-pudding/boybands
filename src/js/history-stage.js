@@ -18,6 +18,22 @@ let boyWidth = 0;
 let stacked = false;
 let prevBoyCount = 0;
 
+function resize() {
+	const w = $figure.node().offsetWidth - MARGIN * 2;
+	const width = Math.max(Math.floor(w / maxBoys), MIN_BOY_SIZE);
+	const height = width / BOY_RATIO;
+	const infoH = $info.node().offsetHeight;
+	stacked = width === MIN_BOY_SIZE;
+
+	if ($boy) {
+		$figure.st('height', height + infoH);
+		$boy.st({ width, height });
+		$boys.st({ height });
+	}
+
+	boyWidth = width;
+}
+
 function updatePosition({ start, end }) {
 	// center out
 	$boy.classed('is-visible', (d, i) => i >= start && i < end);
@@ -37,23 +53,7 @@ function updateBoy({ boys, subset }) {
 	});
 }
 
-function resize() {
-	const w = $figure.node().offsetWidth - MARGIN * 2;
-	const width = Math.max(Math.floor(w / maxBoys), MIN_BOY_SIZE);
-	const height = width / BOY_RATIO;
-	const infoH = $info.node().offsetHeight;
-	stacked = width === MIN_BOY_SIZE;
-
-	if ($boy) {
-		$figure.st('height', height + infoH);
-		$boy.st({ width, height });
-		$boys.st({ height });
-	}
-
-	boyWidth = width;
-}
-
-function update({ boys }) {
+function update({ boys, danceSpeed }) {
 	resize();
 	const mid = Math.floor(maxBoys / 2);
 	const total = boys.length;
@@ -61,13 +61,13 @@ function update({ boys }) {
 	const start = Math.floor(mid) - half;
 	const end = start + total;
 	const subset = { start, end };
-
 	updatePosition(subset);
 	updateBoy({ boys, subset });
 	// styles - pop, slow, instrument
 	const shift = Math.abs(prevBoyCount - total) % 2 === 1;
-	const cat = 'pop';
-	Animation.transition({ shift, cat });
+	const cat = danceSpeed;
+	const instruments = boys.map(b => b.instrument);
+	Animation.transition({ shift, cat, instruments, start });
 
 	prevBoyCount = total;
 }

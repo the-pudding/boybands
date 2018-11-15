@@ -141,12 +141,12 @@ function disable($svg) {
 function change({ $svg, d }) {
 	disable($svg);
 	skin({ $svg, d });
-	// hair({ $svg, d });
-	// accessories({ $svg, d });
-	// top({ $svg, d });
+	hair({ $svg, d });
+	accessories({ $svg, d });
+	top({ $svg, d });
 	bottom({ $svg, d });
-	// facialHair({ $svg, d });
-	// instrument({ $svg, d });
+	facialHair({ $svg, d });
+	instrument({ $svg, d });
 }
 
 function init() {}
