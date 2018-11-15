@@ -23,14 +23,22 @@ const crosswalk = crosswalkRaw.map(d => ({
 
 function getColor(val) {
 	const c = colors[val];
-	if (!c) console.log('no color', val);
+	if (!c) console.log(`no color: ${val}`);
 	return c || colors.black;
 }
 
 function getItem(val) {
 	const match = crosswalk.find(d => d.value === val);
-	if (!match) console.log('no item', val);
+	if (!match) console.log(`no item in crosswalk: ${val}`);
 	return match;
+}
+
+function activateLayer({ $svg, selector, col }) {
+	const $el = $svg.select(selector);
+	if ($el.size()) {
+		$el.st('display', 'block').selectAll('g path');
+		if (col) $el.st({ fill: col, stroke: col });
+	} else console.log(`no svg: ${selector}`);
 }
 
 function skin({ $svg, d }) {
@@ -52,19 +60,10 @@ function hair({ $svg, d }) {
 		// check side count and show front and/or back of style
 		if (item) {
 			item.layer_extra.forEach(layer => {
-				// TODO add -${d.hair_length}
-				const $f = $svg.select(`.hair-front--${layer}`);
-				if ($f.size())
-					$f.st('display', 'block')
-						.selectAll('g path')
-						.st({ fill: col, stroke: col });
-				if (item.sides === 2) {
-					const $b = $svg.select(`.hair-back--${layer}`);
-					if ($b.size())
-						$b.st('display', 'block')
-							.selectAll('g path')
-							.st({ fill: col, stroke: col });
-				}
+				const front = `.hair-front--${layer}-${d.hair_length}`;
+				const back = `.hair-back--${layer}-${d.hair_length}`;
+				activateLayer({ $svg, selector: front, col });
+				if (item.sides === 2) activateLayer({ $svg, selector: back, col });
 			});
 		}
 	});
@@ -73,13 +72,11 @@ function hair({ $svg, d }) {
 function accessories({ $svg, d }) {
 	d.accessories.forEach(accessory => {
 		const item = getItem(accessory);
-		// check side count and show front and/or back of style
-		const $f = $svg.select(`.accessories-front--${item.value}`);
-		if ($f.size()) $f.st('display', 'block');
-		if (item.sides === 2) {
-			const $b = $svg.select(`.accessories-back--${item.value}`);
-			if ($b.size()) $b.st('display', 'block');
-		}
+
+		const front = `.hair-front--${item.value}-${d.hair_length}`;
+		const back = `.hair-back--${item.value}-${d.hair_length}`;
+		activateLayer({ $svg, selector: front });
+		if (item.sides === 2) activateLayer({ $svg, selector: back });
 	});
 }
 
@@ -101,30 +98,20 @@ function top({ $svg, d }) {
 		$svg.select('.skin--sleeveless').st('display', 'none');
 
 		item.layer_extra.forEach(layer => {
-			const $t = $svg.select(`.${layer}`);
-			if ($t.size())
-				$t.st('display', 'block')
-					.selectAll('g path')
-					.st({ fill: col, stroke: col });
+			activateLayer({ $svg, selector: `.${layer}`, col });
 		});
 	});
 }
 
 function bottom({ $svg, d }) {
-	console.log(d.bottom_style);
 	const item = getItem(d.bottom_style);
 	const col = getColor(d.bottom_color);
-	console.log(item);
 
 	const $base = $svg.select(`.bottom--${item.layer_base}`);
 	if ($base.size()) $base.st('display', 'block');
 
 	item.layer_extra.forEach(layer => {
-		const $b = $svg.select(`.bottom--${layer}`);
-		if ($b.size())
-			$b.st('display', 'block')
-				.selectAll('g path')
-				.st({ fill: col, stroke: col });
+		activateLayer({ $svg, selector: `.${layer}`, col });
 	});
 }
 
@@ -134,18 +121,15 @@ function facialHair({ $svg, d }) {
 		const col = getColor(d.hair_color);
 
 		item.layer_extra.forEach(layer => {
-			const $f = $svg.select(`.facial-hair--${layer}`);
-			if ($f.size())
-				$f.st('display', 'block')
-					.selectAll('g path')
-					.st({ fill: col, stroke: col });
+			const selector = `.facial-hair--${layer}`;
+			activateLayer({ $svg, selector, col });
 		});
 	});
 }
 
 function instrument({ $svg, d }) {
-	const $i = $svg.select(`.instrument--${d.instrument}`);
-	if ($i.size()) $i.st('display', 'block');
+	const selector = `.instrument--${d.instrument}`;
+	activateLayer({ $svg, selector });
 }
 
 function disable($svg) {
@@ -156,8 +140,8 @@ function disable($svg) {
 
 function change({ $svg, d }) {
 	disable($svg);
-	// skin({ $svg, d });
-	// hair({ $svg, d });
+	skin({ $svg, d });
+	hair({ $svg, d });
 	// accessories({ $svg, d });
 	// top({ $svg, d });
 	// bottom({ $svg, d });
