@@ -37,8 +37,8 @@ function activateLayer({ $svg, selector, col }) {
 	// console.log(`activate: ${selector}`);
 	const $el = $svg.select(selector);
 	if ($el.size()) {
-		$el.st('display', 'block').selectAll('g path');
-		if (col) $el.st({ fill: col, stroke: col });
+		$el.st('display', 'block');
+		if (col) $el.selectAll('g path').st({ fill: col, stroke: col });
 	} else console.log(`no svg: ${selector}`);
 }
 
@@ -55,8 +55,8 @@ function hair({ $svg, d }) {
 		$svg.select('.skin--bald').st('display', 'none');
 		$svg.select('.skin--general').st('display', 'none');
 		// if no item, do bald
-		const $base = $svg.select(`.skin--${item ? item.layer_base : 'bald'}`);
-		if ($base.size()) $base.st('display', 'block');
+		const base = `.skin--${item ? item.layer_base : 'bald'}`;
+		activateLayer({ $svg, selector: base });
 
 		// check side count and show front and/or back of style
 		if (item) {
