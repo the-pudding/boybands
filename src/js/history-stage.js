@@ -68,7 +68,6 @@ function update({ boys, danceSpeed }) {
 	const cat = danceSpeed;
 	const instruments = boys.map(b => b.instrument);
 	Animation.transition({ shift, cat, instruments, start });
-
 	prevBoyCount = total;
 }
 

@@ -19,6 +19,7 @@ function setFrames(frames) {
 	animations[currentGroup].forEach((a, i) => {
 		const instrument = currentInstruments[i - currentStart];
 		const f = instrument ? getInstrumentFrames(instrument) : frames;
+		// console.log({ instrument, f });
 		a.playSegments(f, true);
 	});
 }
@@ -39,7 +40,7 @@ function pause() {
 	});
 }
 
-function play({ group = 'all', cat = currentCat || 'pop' }) {
+function play({ group = 'all', cat = currentCat || 'default' }) {
 	if (currentGroup) pause();
 	currentGroup = group;
 	currentCat = cat;

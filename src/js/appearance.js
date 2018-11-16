@@ -128,8 +128,10 @@ function facialHair({ $svg, d }) {
 }
 
 function instrument({ $svg, d }) {
-	const selector = `.instrument--${d.instrument}`;
-	activateLayer({ $svg, selector });
+	if (d.instrument) {
+		const selector = `.instrument--${d.instrument}`;
+		activateLayer({ $svg, selector });
+	}
 }
 
 function disable($svg) {
@@ -142,7 +144,7 @@ function change({ $svg, d }) {
 	disable($svg);
 	skin({ $svg, d });
 	hair({ $svg, d });
-	accessories({ $svg, d });
+	// accessories({ $svg, d });
 	top({ $svg, d });
 	bottom({ $svg, d });
 	facialHair({ $svg, d });
