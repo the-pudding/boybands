@@ -35,15 +35,12 @@ function getItem(val) {
 
 function activateLayer({ $svg, selector, col }) {
 	// console.log(`activate: ${selector}`);
-	console.log({selector, col})
 	const $el = $svg.select(selector);
-	console.log({$el})
 	if ($el.size()) {
 		$el.st('display', 'block');
 		if (col) {
 			let dark = d3.color(col).darker().toString()
 			let light = d3.color(col).brighter().toString()
-			//console.log({dark, darkHex})
 			let gEl = $el.selectAll('g')
 			gEl.selectAll('path').st({ fill: col, stroke: col})
 			gEl.selectAll('g.dark path').st({ fill: dark, stroke: dark })
@@ -96,7 +93,7 @@ function accessories({ $svg, d }) {
 function top({ $svg, d }) {
 	d.top_style.forEach(t => {
 		const item = getItem(t);
-		const col = ['jacket', 'vest'].includes(t)
+		const col = ['jacket', 'vest', 'leather jacket', 'other jacket', 'suit jacket'].includes(t)
 			? getColor(d.jacket_color)
 			: getColor(d.shirt_color);
 
