@@ -38,7 +38,16 @@ function activateLayer({ $svg, selector, col }) {
 	const $el = $svg.select(selector);
 	if ($el.size()) {
 		$el.st('display', 'block');
-		if (col) $el.selectAll('g path').st({ fill: col, stroke: col });
+		if (col) {
+			let dark = d3.color(col).darker().toString()
+			let light = d3.color(col).brighter().toString()
+			//console.log({dark, darkHex})
+			let gEl = $el.selectAll('g')
+			gEl.selectAll('path').st({ fill: col, stroke: col})
+			$el.selectAll('g g.dark path').st({ fill: dark, stroke: dark })
+			$el.selectAll('g g.light path').st({ fill: light, stroke: light })
+			$el.selectAll('g g.white path').st({ fill: '#ffffff', stroke: '#ffffff'})
+		};
 	} else console.log(`no svg: ${selector}`);
 }
 
