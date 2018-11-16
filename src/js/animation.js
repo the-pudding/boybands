@@ -1,4 +1,4 @@
-import lottie from 'lottie-web';
+// import lottie from 'lottie-web';
 import danceData from './dance';
 
 const animations = {};
