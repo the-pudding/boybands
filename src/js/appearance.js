@@ -92,6 +92,7 @@ function top({ $svg, d }) {
 		activateLayer({ $svg, selector: base, col });
 
 		$svg.select('.skin--sleeveless').st('display', 'none');
+		$svg.select('.skin--chest').st('display', 'none')
 
 		item.layer_extra.forEach(layer => {
 			activateLayer({ $svg, selector: `.${layer}`, col });
