@@ -35,7 +35,9 @@ function getItem(val) {
 
 function activateLayer({ $svg, selector, col }) {
 	// console.log(`activate: ${selector}`);
+	console.log({selector, col})
 	const $el = $svg.select(selector);
+	console.log({$el})
 	if ($el.size()) {
 		$el.st('display', 'block');
 		if (col) {
@@ -44,9 +46,10 @@ function activateLayer({ $svg, selector, col }) {
 			//console.log({dark, darkHex})
 			let gEl = $el.selectAll('g')
 			gEl.selectAll('path').st({ fill: col, stroke: col})
-			$el.selectAll('g g.dark path').st({ fill: dark, stroke: dark })
-			$el.selectAll('g g.light path').st({ fill: light, stroke: light })
-			$el.selectAll('g g.white path').st({ fill: '#ffffff', stroke: '#ffffff'})
+			gEl.selectAll('g.dark path').st({ fill: dark, stroke: dark })
+			gEl.selectAll('g.light path').st({ fill: light, stroke: light })
+			gEl.selectAll('g.white path').st({ fill: '#ffffff', stroke: '#ffffff'})
+			$el.selectAll('.skin path').st({ fill: 'red', stroke: 'red' })
 		};
 	} else console.log(`no svg: ${selector}`);
 }
@@ -104,7 +107,12 @@ function top({ $svg, d }) {
 		$svg.select('.skin--chest').st('display', 'none')
 
 		item.layer_extra.forEach(layer => {
-			activateLayer({ $svg, selector: `.${layer}`, col });
+			if(layer.includes('skin')){
+				let skinCol = getColor(d.skin)
+				activateLayer({ $svg, selector: `.${layer}`, skinCol })
+			} else {
+					activateLayer({ $svg, selector: `.${layer}`, col });
+			}
 		});
 	});
 }
