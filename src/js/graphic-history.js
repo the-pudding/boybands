@@ -26,7 +26,7 @@ function updateInfo({ band, highest_pos_date, highest_song }) {
 function swapBoys(dir) {
 	currentBandIndex += dir;
 	if (currentBandIndex >= bandData.length) currentBandIndex = 0;
-	else if (currentBandIndex < 0) currentBandIndex = bandData.length - 1
+	else if (currentBandIndex < 0) currentBandIndex = bandData.length - 1;
 	const band = bandData[currentBandIndex];
 
 	updateInfo(band);
@@ -67,8 +67,7 @@ function handlePlayerClick({ control, state }) {
 		if (state === 'play') {
 			Audio.play();
 			Animation.play({});
-		}
-		else {
+		} else {
 			Animation.pause();
 			Audio.pause();
 		}
