@@ -33,6 +33,29 @@ function getItem(val) {
 	return match;
 }
 
+function frostTips({$svg, col}){
+	// add gradient for future frosted tips
+	//Append a defs (for definition) element to your SVG
+	let defs = $svg.append("defs");
+
+	//Append a radialGradient element to the defs and give it a unique id
+	let radialGradient = defs.append("radialGradient")
+	    .attr("id", "frostedTips")
+	    .attr("cx", "50%")    //The x-center of the gradient
+	    .attr("cy", "50%")    //The y-center of the gradient
+	    .attr("r", "50%");   //The radius of the gradient
+
+		radialGradient.append("stop")
+		    .attr("offset", "0%")
+		    .attr("stop-color", col);
+		radialGradient.append("stop")
+		    .attr("offset", "90%")
+		    .attr("stop-color", col);
+		radialGradient.append("stop")
+		    .attr("offset", "100%")
+		    .attr("stop-color", getColor('blonde'));
+}
+
 function activateLayer({ $svg, selector, col }) {
 	// console.log(`activate: ${selector}`);
 	const $el = $svg.select(selector);
@@ -60,7 +83,15 @@ function hair({ $svg, d }) {
 	const styles = d.hair_style.split(',').map(v => v.trim());
 	styles.forEach(s => {
 		const item = getItem(s);
-		const col = getColor(d.hair_color);
+		let col = getColor(d.hair_color)
+		// if (d.hair_frosted == 'no'){
+		// 	console.log("frosted tips")
+		// 	frostTips({ $svg, col })
+		// 	col = `url(#frostedTips)`
+		// } else {
+		// 	console.log("no tips")
+		// }
+
 		$svg.select('.skin--bald').st('display', 'none');
 		$svg.select('.skin--general').st('display', 'none');
 		// if no item, do bald
