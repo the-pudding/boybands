@@ -66,14 +66,19 @@ function activateLayer({ $svg, selector, col }) {
 	if ($el.size()) {
 		$el.st('display', 'block');
 		if (col) {
-			const dark = d3
+			let dark = d3
 				.color(col)
-				.darker()
-				.toString();
-			const light = d3
+
+			if (col === "#000000") dark = getColor('dark gray')
+			else dark = dark.darker().toString()
+
+			let light = d3
 				.color(col)
-				.brighter()
-				.toString();
+
+			if (col === "#000000") light = getColor('gray')
+			else if (col === "#ffffff") light = getColor('light gray')
+			else light = light.brighter().toString()
+
 			const $g = $el.selectAll('g');
 			$g.selectAll('path').st({ fill: col, stroke: col });
 			$g.selectAll('g.dark path').st({ fill: dark, stroke: dark });
