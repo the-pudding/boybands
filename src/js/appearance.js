@@ -33,27 +33,31 @@ function getItem(val) {
 	return match;
 }
 
-function frostTips({$svg, col}){
+function frostTips({ $svg, col }) {
 	// add gradient for future frosted tips
-	//Append a defs (for definition) element to your SVG
-	let defs = $svg.append("defs");
+	// Append a defs (for definition) element to your SVG
+	const defs = $svg.append('defs');
 
-	//Append a radialGradient element to the defs and give it a unique id
-	let radialGradient = defs.append("radialGradient")
-	    .attr("id", "frostedTips")
-	    .attr("cx", "50%")    //The x-center of the gradient
-	    .attr("cy", "50%")    //The y-center of the gradient
-	    .attr("r", "50%");   //The radius of the gradient
+	// Append a radialGradient element to the defs and give it a unique id
+	const radialGradient = defs
+		.append('radialGradient')
+		.attr('id', 'frostedTips')
+		.attr('cx', '50%') // The x-center of the gradient
+		.attr('cy', '50%') // The y-center of the gradient
+		.attr('r', '50%'); // The radius of the gradient
 
-		radialGradient.append("stop")
-		    .attr("offset", "0%")
-		    .attr("stop-color", col);
-		radialGradient.append("stop")
-		    .attr("offset", "90%")
-		    .attr("stop-color", col);
-		radialGradient.append("stop")
-		    .attr("offset", "100%")
-		    .attr("stop-color", getColor('blonde'));
+	radialGradient
+		.append('stop')
+		.attr('offset', '0%')
+		.attr('stop-color', col);
+	radialGradient
+		.append('stop')
+		.attr('offset', '90%')
+		.attr('stop-color', col);
+	radialGradient
+		.append('stop')
+		.attr('offset', '100%')
+		.attr('stop-color', getColor('blonde'));
 }
 
 function activateLayer({ $svg, selector, col }) {
@@ -62,15 +66,28 @@ function activateLayer({ $svg, selector, col }) {
 	if ($el.size()) {
 		$el.st('display', 'block');
 		if (col) {
-			let dark = d3.color(col).darker().toString()
-			let light = d3.color(col).brighter().toString()
-			let gEl = $el.selectAll('g')
-			gEl.selectAll('path').st({ fill: col, stroke: col})
-			gEl.selectAll('g.dark path').st({ fill: dark, stroke: dark })
-			gEl.selectAll('g.light path').st({ fill: light, stroke: light })
-			gEl.selectAll('g.white path').st({ fill: '#ffffff', stroke: '#ffffff'})
-			$el.selectAll('.skin path').st({ fill: 'red', stroke: 'red' })
-		};
+			const dark = d3
+				.color(col)
+				.darker()
+				.toString();
+			const light = d3
+				.color(col)
+				.brighter()
+				.toString();
+			const $g = $el.selectAll('g');
+			$g.selectAll('path').st({ fill: col, stroke: col });
+			$g.selectAll('g.dark path').st({ fill: dark, stroke: dark });
+			$g.selectAll('g.light path').st({ fill: light, stroke: light });
+			$g.selectAll('g.white path').st({
+				fill: colors.white,
+				stroke: colors.white
+			});
+			$g.selectAll('g.gray path').st({
+				fill: colors.gray,
+				stroke: colors.gray
+			});
+			// $el.selectAll('.skin path').st({ fill: 'red', stroke: 'red' })
+		}
 	} else console.log(`no svg: ${selector}`);
 }
 
@@ -83,7 +100,7 @@ function hair({ $svg, d }) {
 	const styles = d.hair_style.split(',').map(v => v.trim());
 	styles.forEach(s => {
 		const item = getItem(s);
-		let col = getColor(d.hair_color)
+		const col = getColor(d.hair_color);
 		// if (d.hair_frosted == 'no'){
 		// 	console.log("frosted tips")
 		// 	frostTips({ $svg, col })
@@ -124,7 +141,13 @@ function accessories({ $svg, d }) {
 function top({ $svg, d }) {
 	d.top_style.forEach(t => {
 		const item = getItem(t);
-		const col = ['jacket', 'vest', 'leather jacket', 'other jacket', 'suit jacket'].includes(t)
+		const col = [
+			'jacket',
+			'vest',
+			'leather jacket',
+			'other jacket',
+			'suit jacket'
+		].includes(t)
 			? getColor(d.jacket_color)
 			: getColor(d.shirt_color);
 
@@ -132,14 +155,14 @@ function top({ $svg, d }) {
 		activateLayer({ $svg, selector: base, col });
 
 		$svg.select('.skin--sleeveless').st('display', 'none');
-		$svg.select('.skin--chest').st('display', 'none')
+		$svg.select('.skin--chest').st('display', 'none');
 
 		item.layer_extra.forEach(layer => {
-			if(layer.includes('skin')){
-				let skinCol = getColor(d.skin)
-				activateLayer({ $svg, selector: `.${layer}`, skinCol })
+			if (layer.includes('skin')) {
+				const skinCol = getColor(d.skin);
+				activateLayer({ $svg, selector: `.${layer}`, skinCol });
 			} else {
-					activateLayer({ $svg, selector: `.${layer}`, col });
+				activateLayer({ $svg, selector: `.${layer}`, col });
 			}
 		});
 	});
