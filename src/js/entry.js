@@ -5,7 +5,6 @@ import loadBoys from './load-boys';
 import Animation from './animation';
 import Audio from './audio';
 import GraphicHistory from './graphic-history';
-import GraphicWall from './graphic-wall';
 
 const $body = d3.select('body');
 const $intro = $body.select('.intro');
@@ -20,7 +19,6 @@ function resize() {
 	if (previousWidth !== width) {
 		previousWidth = width;
 		GraphicHistory.resize();
-		GraphicWall.resize();
 	}
 }
 
@@ -42,8 +40,12 @@ function handleChoiceClick() {
 	const value = $btn.at('data-value');
 	$body.select(`#${value}`).classed('is-selected', true);
 	if (value === 'history') GraphicHistory.start();
-	else if (value === 'wall') GraphicWall.start();
 	$intro.classed('is-hidden', true);
+}
+
+function onReady() {
+	$choice.classed('is-visible', true).on('click', handleChoiceClick);
+	$loading.classed('is-hidden', true);
 }
 
 function init() {
@@ -58,10 +60,7 @@ function init() {
 		.then(loadBoys)
 		.then(boyData => {
 			Audio.init(boyData);
-			GraphicHistory.init(boyData);
-			GraphicWall.init(boyData);
-			$choice.classed('is-visible', true).on('click', handleChoiceClick);
-			$loading.classed('is-hidden', true);
+			GraphicHistory.init({ data: boyData, cb: onReady });
 		});
 }
 

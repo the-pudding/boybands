@@ -98,19 +98,19 @@ function resize() {
 }
 
 function start() {
-	Stage.init(bandData);
-	Audio.setCallbacks({
-		cbEnd: handleAudioEnd,
-		cbProgress: handleAudioProgress
-	});
 	swapBoys(1);
 	d3.select('body').on('keyup', handleKeyUp);
 }
 
-function init(data) {
+function init({data, cb}) {
 	bandData = data;
 	Player.init(handlePlayerClick);
 	Rating.init(handleRatingClick);
+	Stage.init({ bandData, cb });
+	Audio.setCallbacks({
+		cbEnd: handleAudioEnd,
+		cbProgress: handleAudioProgress
+	});
 }
 
 export default { init, start, resize };

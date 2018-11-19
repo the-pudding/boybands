@@ -8,6 +8,7 @@ let currentCat = 'default';
 let nextCat = null;
 let currentStart = 0;
 let currentInstruments = [];
+let domLoaded = false;
 
 function getInstrumentFrames(val) {
 	const match = danceData.find(d => d.cat === 'instrument' && d.name === val);
@@ -69,7 +70,7 @@ function onComplete() {
 	change();
 }
 
-function create({ nodes, group }) {
+function create({ nodes, group, cb }) {
 	animations[group] = nodes.map(n => {
 		const options = {
 			animationData,
@@ -79,6 +80,10 @@ function create({ nodes, group }) {
 		};
 		const anim = lottie.loadAnimation(options);
 		anim.addEventListener('complete', onComplete);
+		anim.addEventListener('DOMLoaded', () => {
+			if (!domLoaded) cb();
+			domLoaded = true;
+		});
 		return anim;
 	});
 }

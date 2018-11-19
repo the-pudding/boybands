@@ -71,7 +71,7 @@ function update({ boys, danceSpeed }) {
 	prevBoyCount = total;
 }
 
-function init(bandData) {
+function init({ bandData, cb }) {
 	maxBoys = d3.max(bandData, d => d.boys.length);
 	const data = d3.range(maxBoys);
 	prevBoyCount = bandData[0].boys.length;
@@ -83,8 +83,7 @@ function init(bandData) {
 	$boyEnter.append('p').attr('class', 'boy__name');
 
 	$boy = $boyEnter.merge($boy);
-
-	Animation.create({ nodes: $boy.nodes(), group: 'all' });
+	Animation.create({ nodes: $boy.nodes(), group: 'all', cb });
 	Animation.play({});
 	Appearance.init();
 	resize();
