@@ -6,7 +6,7 @@ let animationData = null;
 let currentGroup = 'all';
 let currentCat = 'default';
 let nextCat = null;
-let currentStart = 0;
+let currentSubset = [];
 let currentInstruments = [];
 let domLoaded = false;
 
@@ -18,7 +18,7 @@ function getInstrumentFrames(val) {
 
 function setFrames(frames) {
 	animations[currentGroup].forEach((a, i) => {
-		const instrument = currentInstruments[i - currentStart];
+		const instrument = currentInstruments[i];
 		const f = instrument ? getInstrumentFrames(instrument) : frames;
 		a.playSegments(f, true);
 	});
@@ -48,12 +48,12 @@ function play({ group = currentGroup, cat = currentCat }) {
 	if (currentCat !== 'default') change();
 }
 
-function transition({ shift, cat = 'pop', instruments = [], start = 0 }) {
+function transition({ shift, cat = 'pop', instruments = [], subset = [] }) {
 	nextCat = cat;
 	const prevCat = currentCat;
 	currentCat = shift ? 'transition' : nextCat;
 	currentInstruments = instruments;
-	currentStart = start;
+	currentSubset = subset;
 	if (shift) {
 		const { frames } = danceData.find(
 			d => d.cat === currentCat && d.name === 'Shuffle'

@@ -16,39 +16,36 @@ let $boy = null;
 let maxBoys = 0;
 let boyWidth = 0;
 let prevBoyCount = 0;
-let bp = 0;
 let margin = 0;
+let inRows = false;
 
 function resize() {
 	const w = $figure.node().offsetWidth;
 	const widthA = Math.floor(w / (maxBoys + 1));
 	const widthB = Math.floor(w / (MIN_BOYS_WIDE + 1));
-	const width = widthA >= IDEAL_BOY_SIZE ? widthA : widthB;
-	console.log({ widthA, widthB, width });
-	margin = width / 2;
-	// width = 100
-	const height = width / BOY_RATIO;
-	// height = 68
-	const infoH = $info.node().offsetHeight;
-	bp = w * maxBoys + margin * 2;
-	// bp = 100 * 7 = 700
-	const mult = w < bp ? 2 : 1;
+	boyWidth = widthA >= IDEAL_BOY_SIZE ? widthA : widthB;
+
+	margin = boyWidth / 2;
+	const boyHeight = boyWidth / BOY_RATIO;
+	const infoHeight = $info.node().offsetHeight;
+	// const bp = w * maxBoys + margin * 2;
+	inRows = boyWidth * maxBoys > w - margin * 2;
+
 	$boys.st('padding', `0 ${margin}px`);
 
-	// mult = 2
 	if ($boy) {
-		$figure.st('height', height * mult + infoH);
-		$boy.st({ width, height });
-		$boys.st({ height });
+		$figure.st('height', boyHeight * (inRows ? 2 : 1) + infoHeight);
+		$boy.st({ width: boyWidth, height: boyHeight });
+		$boys.st({ height: boyHeight });
 	}
-
-	boyWidth = width;
 }
-
-function updatePosition({ start, end }) {
+function updatePosition(subset) {
 	// center out
-	$boy.classed('is-visible', (d, i) => i >= start && i < end);
-	const offset = (end - start) % 2 === 0 ? boyWidth / 2 : 0;
+	$boy.classed('is-visible', (d, i) => subset[i]);
+	const total = subset.filter(s => s).length;
+	const shouldOffset =
+		inRows && total === 3 ? true : !inRows && total % 2 === 0;
+	const offset = shouldOffset ? boyWidth / 2 : 0;
 	$boys.st('left', offset);
 	$boys.on(transitionEvent, () => {
 		Animation.transitionEnd();
@@ -56,29 +53,59 @@ function updatePosition({ start, end }) {
 }
 
 function updateBoy({ boys, subset }) {
+	const subsetIndex = subset.map((s, i) => (s ? i : null));
+	const subsetActive = subsetIndex.filter(s => s !== null);
 	boys.forEach((b, index) => {
-		const $b = $boy.filter((d, i) => i === index + subset.start);
+		const $b = $boy.filter(
+			(d, i) => i === subsetIndex.findIndex(s => s === subsetActive[index])
+		);
+
 		Appearance.change({ $svg: $b.select('svg'), d: b });
 		// Update name
 		$b.select('.boy__name').text(b.name);
 	});
 }
 
+function getSubset(total) {
+	const subset = d3.range(maxBoys).map(d => false);
+	if (inRows) {
+		const activate = d3.range(total);
+		const top = activate.slice(0, 4);
+		const bottom = activate.slice(4, maxBoys);
+		top.forEach(a => (subset[a] = true));
+		if (bottom.length === 1) subset[5] = true;
+		else bottom.forEach(b => (subset[b] = true));
+	} else {
+		const mid = Math.floor(maxBoys / 2);
+		const half = Math.floor(total / 2);
+		const start = Math.floor(mid) - half;
+		const end = start + total;
+		d3.range(start, end).forEach(d => (subset[d] = true));
+	}
+	return subset;
+}
+
+function getShift(total) {
+	if (inRows) return prevBoyCount === 3 && total !== 3;
+	return Math.abs(prevBoyCount - total) % 2 === 1;
+}
+
 function update({ boys, danceSpeed }) {
 	resize();
-	const mid = Math.floor(maxBoys / 2);
 	const total = boys.length;
-	const half = Math.floor(total / 2);
-	const start = Math.floor(mid) - half;
-	const end = start + total;
-	const subset = { start, end };
+	const subset = getSubset(total);
+	const shift = getShift(total);
 	updatePosition(subset);
 	updateBoy({ boys, subset });
-	// styles - pop, slow, instrument
-	const shift = Math.abs(prevBoyCount - total) % 2 === 1;
 	const cat = danceSpeed;
-	const instruments = boys.map(b => b.instrument);
-	Animation.transition({ shift, cat, instruments, start });
+	const preInstruments = boys.map(b => b.instrument);
+
+	preInstruments.reverse();
+	const instruments = subset.map(s => {
+		if (s) return preInstruments.pop();
+		return null;
+	});
+	Animation.transition({ shift, cat, instruments, subset });
 	prevBoyCount = total;
 }
 

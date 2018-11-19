@@ -21,6 +21,14 @@
 		display flex
 		flex-direction column
 		align-items flex-start
+		&:nth-of-type(n+5)
+			@media only screen and (max-width: 40em)
+				transform translateY(-82.5%)
+			@media only screen and (max-width: 30em)
+				transform translateY(-75%)
+			@media only screen and (max-width: 30em)
+				transform translateY(-50%)	
+			
 		&.is-visible
 			visibility visible
 		&__name
