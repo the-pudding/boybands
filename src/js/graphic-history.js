@@ -87,6 +87,12 @@ function handlePlayerClick({ control, state }) {
 	}
 }
 
+function handleKeyUp() {
+	const { keyCode } = d3.event;
+	if (keyCode === 37) handlePlayerClick({ control: 'back' });
+	else if (keyCode === 39) handlePlayerClick({ control: 'forward' });
+}
+
 function resize() {
 	Stage.resize();
 }
@@ -98,6 +104,7 @@ function start() {
 		cbProgress: handleAudioProgress
 	});
 	swapBoys(1);
+	d3.select('body').on('keyup', handleKeyUp);
 }
 
 function init(data) {
