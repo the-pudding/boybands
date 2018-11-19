@@ -118,10 +118,16 @@ function hair({ $svg, d }) {
 		// check side count and show front and/or back of style
 		if (item) {
 			item.layer_extra.forEach(layer => {
-				const front = `.hair-front--${layer}-${d.hair_length}`;
-				const back = `.hair-back--${layer}-${d.hair_length}`;
-				activateLayer({ $svg, selector: front, col });
-				if (item.sides === 2) activateLayer({ $svg, selector: back, col });
+				if (layer == 'rattail'){
+					const tail =  `.hair-back--rattail`
+					activateLayer({$svg, selector: tail, col})
+				} else {
+					const front = `.hair-front--${layer}-${d.hair_length}`;
+					const back = `.hair-back--${layer}-${d.hair_length}`;
+					activateLayer({ $svg, selector: front, col });
+					if (item.sides === 2) activateLayer({ $svg, selector: back, col });
+				}
+
 			});
 		}
 	});
