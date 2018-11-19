@@ -4,9 +4,9 @@ import transitionEvent from './utils/transition-event';
 
 const BOY_W = 170;
 const BOY_H = 320;
+const IDEAL_BOY_SIZE = 100;
 const BOY_RATIO = BOY_W / BOY_H;
-const MIN_BOY_SIZE = 96;
-const MARGIN = 20;
+const MIN_BOYS_WIDE = 4;
 const $section = d3.select('#history');
 const $figure = $section.select('figure');
 const $info = $figure.select('.figure__info');
@@ -15,18 +15,29 @@ const $boys = $figure.select('.figure__boys');
 let $boy = null;
 let maxBoys = 0;
 let boyWidth = 0;
-let stacked = false;
 let prevBoyCount = 0;
+let bp = 0;
+let margin = 0;
 
 function resize() {
-	const w = $figure.node().offsetWidth - MARGIN * 2;
-	const width = Math.max(Math.floor(w / maxBoys), MIN_BOY_SIZE);
+	const w = $figure.node().offsetWidth;
+	const widthA = Math.floor(w / (maxBoys + 1));
+	const widthB = Math.floor(w / (MIN_BOYS_WIDE + 1));
+	const width = widthA >= IDEAL_BOY_SIZE ? widthA : widthB;
+	console.log({ widthA, widthB, width });
+	margin = width / 2;
+	// width = 100
 	const height = width / BOY_RATIO;
+	// height = 68
 	const infoH = $info.node().offsetHeight;
-	stacked = width === MIN_BOY_SIZE;
+	bp = w * maxBoys + margin * 2;
+	// bp = 100 * 7 = 700
+	const mult = w < bp ? 2 : 1;
+	$boys.st('padding', `0 ${margin}px`);
 
+	// mult = 2
 	if ($boy) {
-		$figure.st('height', height + infoH);
+		$figure.st('height', height * mult + infoH);
 		$boy.st({ width, height });
 		$boys.st({ height });
 	}
