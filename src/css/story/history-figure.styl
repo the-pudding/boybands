@@ -36,13 +36,15 @@
 			margin 0
 			width 100%
 			text-align center
-			set-type-size(small, false)
+			set-type-size(x-small, false)
 			line-height 1
 			padding 0 0.5rem
 			height 3rem
 			min-height 3rem
 			max-height 3rem
 			font-weight 500
+			+mq('bp-3')
+				set-type-size(small, false)
 		svg
 			display block
 			order 0
@@ -51,35 +53,38 @@
 	.figure__info
 		position absolute
 		top 0
-		left 4rem
 		height $info-h-mobile
 		// width 100%
+		left 1rem
 		+mq('bp-5')
+			left 4rem
 			height $info-h-desktop
 	
 	.info__year
-		position absolute
-		top 0
-		left 0
 		margin 0
 		line-height 1
 		font-weight 800
-		font-size 8rem
+		font-size 7rem
 		color $white
 		opacity 0.5
 		+mq('bp-5')
 			font-size 12rem
+			position absolute
+			top 0
+			left 0
 
 	.info__band
 		position relative
-		font-size 2.25rem
+		font-size 1.5rem
 		margin 0
 		line-height 1
-		margin-top 1.75rem
 		font-weight 800
 		text-shadow 0 0 3px $white
+		+mq('bp-5')
+			font-size 2.25rem
+			margin-top 1.75rem
 		a
-			display block
+			display none
 			position absolute
 			top 0
 			left 0
@@ -87,6 +92,8 @@
 			text-decoration none
 			border none
 			line-height 1
+			+mq('bp-5')
+				display block
 			&:hover
 				svg
 					stroke-opacity 1
@@ -104,10 +111,12 @@
 	
 	.info__song
 		position relative
-		font-size 1.75rem
+		font-size 1.25rem
 		margin 0
 		line-height 1
 		font-weight 500
 		text-shadow 0 0 3px $white
+		+mq('bp-5')
+			font-size 1.75rem
 
 	

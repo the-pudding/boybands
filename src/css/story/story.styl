@@ -27,9 +27,12 @@ button
 
 .tweet
 	position absolute
-	bottom 0.75rem
 	right 1rem
+	bottom 0.75rem
 	border none
+	display none
+	+mq('bp-5')
+		display block
 	svg
 		stroke none
 		fill $white

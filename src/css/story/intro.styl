@@ -28,10 +28,15 @@
 			background-clip text
 	
 	&__prelude
-		max-width $column-width
+		max-width 17rem
 		margin 1rem auto
 		text-align center
-		font-size 18px
+		font-size 16px
+		line-height 1.4
+		+mq('bp-3')
+			font-size 18px
+			max-width 19rem
+		
 
 	&__note
 		position absolute
@@ -41,8 +46,11 @@
 		width 100%
 		margin 1rem auto
 		text-align center
-		set-type-size('root', true)
-
+		set-type-size('small', false)
+		line-height 1.4
+		padding 0 1rem
+		+mq('bp-3')
+			set-type-size('root', false)
 	
 	&__byline
 		max-width $column-width
@@ -64,7 +72,7 @@
 		text-align center
 		set-type-size('large', true)
 		display none
-		+mq('bp-5')
+		+mq('bp-3')
 			display block
 
 	&__choice
@@ -84,7 +92,9 @@
 			border-radius 10px
 			padding 0.75rem
 			transition background-color 100ms ease-in-out
-			set-type-size(large, false)
+			set-type-size(medium, false)
+			+mq('bp-3')
+				set-type-size(large, false)
 			line-height 1
 			margin 0 auto
 			&.is-visible
