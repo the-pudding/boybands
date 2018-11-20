@@ -231,7 +231,9 @@ function top({ $svg, d }) {
 			'leather jacket',
 			'other jacket',
 			'suit jacket',
-			'windbreaker'
+			'windbreaker',
+			'letterman jacket',
+			'trenchcoat'
 		].includes(t)
 			? getColor(d.jacket_color)
 			: getColor(d.shirt_color);
