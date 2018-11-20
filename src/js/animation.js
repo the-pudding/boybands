@@ -89,16 +89,15 @@ function create({ nodes, group, cb }) {
 }
 
 function cleanData(data) {
-	// TODO remove dev
-	const dev = [];
+	// const dev = [];
 	const layers = data.layers.map(d => {
 		const broad = d.cl.split('--')[0];
 		const cl = `${broad} ${d.cl}`;
-		dev.push(`${broad} | ${d.cl}`);
+		// dev.push(`${broad} | ${d.cl}`);
 		return { ...d, cl };
 	});
-	dev.sort(d3.ascending);
-	window.dev = dev.join('\n');
+	// dev.sort(d3.ascending);
+	// window.dev = dev.join('\n');
 	return { ...data, layers };
 }
 
