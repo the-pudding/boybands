@@ -1,6 +1,8 @@
 import colors from './colors';
 import crosswalkRaw from './crosswalk';
 
+const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
 const layerClasses = [
 	'hair-front',
 	'hair-back',
@@ -24,7 +26,7 @@ const crosswalk = crosswalkRaw.map(d => ({
 function getColor(val) {
 	const c = colors[val];
 	if (!c) console.log(`no color: ${val}`);
-	return c || colors.black;
+	return c || colors.orange;
 }
 
 function getItem(val) {
@@ -33,68 +35,103 @@ function getItem(val) {
 	return match;
 }
 
+function checkForHat(d) {
+	let hasHat = false;
+	d.accessories.forEach(a => {
+		if (
+			[
+				'baseballcap',
+				'beanie',
+				'beret',
+				'dorag',
+				'fedora',
+				'flathat',
+				'tophat',
+				'newsboycap',
+				'ushanka'
+			].includes(getItem(a))
+		)
+			hasHat = true;
+	});
+	return hasHat;
+}
+
 function frostTips({ $svg, col }) {
 	// add gradient for future frosted tips
 	// Append a defs (for definition) element to your SVG
+	$svg.select('defs').remove();
 	const defs = $svg.append('defs');
 
 	// Append a radialGradient element to the defs and give it a unique id
-	const radialGradient = defs
-		.append('radialGradient')
-		.attr('id', 'frostedTips')
-		.attr('cx', '50%') // The x-center of the gradient
-		.attr('cy', '50%') // The y-center of the gradient
-		.attr('r', '50%'); // The radius of the gradient
-
+	const id = d3
+		.range(5)
+		.map(() => ALPHABET[Math.floor(Math.random() * ALPHABET.length)])
+		.join('');
+	const radialGradient = defs.append('radialGradient').at({
+		id,
+		cx: '50%',
+		cy: '50%',
+		r: '50%'
+	});
 	radialGradient
 		.append('stop')
-		.attr('offset', '0%')
-		.attr('stop-color', col);
+		.at('offset', '0%')
+		.at('stop-color', col);
 	radialGradient
 		.append('stop')
-		.attr('offset', '90%')
-		.attr('stop-color', col);
+		.at('offset', '90%')
+		.at('stop-color', col);
 	radialGradient
 		.append('stop')
-		.attr('offset', '100%')
-		.attr('stop-color', getColor('blonde'));
+		.at('offset', '100%')
+		.at('stop-color', getColor('blonde'));
+	return `url(#${id})`;
 }
 
-function activateLayer({ $svg, selector, col }) {
+function getDark(col) {
+	if (col === colors.black) return colors['dark gray'];
+	return d3
+		.color(col)
+		.darker()
+		.toString();
+}
+
+function getLight(col) {
+	if (col === colors.white) return colors['light gray'];
+	if (col === colors.black) return colors.gray;
+	return d3
+		.color(col)
+		.brighter()
+		.toString();
+}
+
+function activateLayer({ $svg, selector, col, base }) {
 	// console.log(`activate: ${selector}`);
+	const baseColor = base || col;
 	const $el = $svg.select(selector);
 	if ($el.size()) {
 		$el.st('display', 'block');
-		if (col) {
-			let dark = d3.color(col);
-
-			if (col === '#000000') dark = getColor('dark gray');
-			else dark = dark.darker().toString();
-
-			let light = d3.color(col);
-
-			if (col === '#000000') light = getColor('gray');
-			else if (col === '#ffffff') light = getColor('light gray');
-			else light = light.brighter().toString();
-
-			const $g = $el.selectAll('g');
-			$g.selectAll('path').st({ fill: col, stroke: col });
+		const $g = $el.selectAll('g');
+		if (col) $g.selectAll('path').st({ fill: col, stroke: col });
+		if (baseColor) {
+			const dark = getDark(baseColor);
+			const light = getLight(baseColor);
 			$g.selectAll('g.dark path').st({ fill: dark, stroke: dark });
 			$g.selectAll('g.light path').st({ fill: light, stroke: light });
-			$g.selectAll('g.white path').st({
-				fill: colors.white,
-				stroke: colors.white
-			});
-			$g.selectAll('g.gray path').st({
-				fill: colors.gray,
-				stroke: colors.gray
-			});
-			$g.selectAll('g.red path').st({
-				fill: colors.red,
-				stroke: colors.red
-			});
-			// $el.selectAll('.skin path').st({ fill: 'red', stroke: 'red' })
 		}
+
+		$g.selectAll('g.white path').st({
+			fill: colors.white,
+			stroke: colors.white
+		});
+		$g.selectAll('g.gray path').st({
+			fill: colors.gray,
+			stroke: colors.gray
+		});
+		$g.selectAll('g.red path').st({
+			fill: colors.red,
+			stroke: colors.red
+		});
 	} else console.log(`no svg: ${selector}`);
 }
 
@@ -104,17 +141,19 @@ function skin({ $svg, d }) {
 }
 
 function hair({ $svg, d }) {
-	const styles = d.hair_style.split(',').map(v => v.trim());
+	const styles = d.hair_style
+		.split(',')
+		.map(v => v.trim())
+		.filter(v => v);
+
+	$svg.select('.skin--bald').st('display', 'block');
+
 	styles.forEach(s => {
 		const item = getItem(s);
-		const col = getColor(d.hair_color);
-		// if (d.hair_frosted == 'no'){
-		// 	console.log("frosted tips")
-		// 	frostTips({ $svg, col })
-		// 	col = `url(#frostedTips)`
-		// } else {
-		// 	console.log("no tips")
-		// }
+		const shouldFrost = d.hair_frosted && d.hair_frosted !== 'no';
+		// const shouldFrost = false;
+		const c = getColor(d.hair_color);
+		const col = shouldFrost ? frostTips({ $svg, col: c }) : c;
 
 		$svg.select('.skin--bald').st('display', 'none');
 		$svg.select('.skin--general').st('display', 'none');
@@ -125,14 +164,18 @@ function hair({ $svg, d }) {
 		// check side count and show front and/or back of style
 		if (item) {
 			item.layer_extra.forEach(layer => {
-				if (layer == 'rattail') {
+				if (layer === 'rattail') {
 					const tail = '.hair-back--rattail';
-					activateLayer({ $svg, selector: tail, col });
+					activateLayer({ $svg, selector: tail, col, base: c });
 				} else {
 					const front = `.hair-front--${layer}-${d.hair_length}`;
 					const back = `.hair-back--${layer}-${d.hair_length}`;
-					activateLayer({ $svg, selector: front, col });
-					if (item.sides === 2) activateLayer({ $svg, selector: back, col });
+					const hasHat = checkForHat(d);
+					if (item.sides < 3 && !hasHat)
+						activateLayer({ $svg, selector: front, col, base: c });
+
+					if (item.sides > 1)
+						activateLayer({ $svg, selector: back, col, base: c });
 				}
 			});
 		}
@@ -153,7 +196,7 @@ function accessories({ $svg, d }) {
 }
 
 function top({ $svg, d }) {
-	d.top_style.forEach(t => {
+	d.top_style.filter(v => v.trim()).forEach(t => {
 		const item = getItem(t);
 		const col = [
 			'jacket',

@@ -6,19 +6,15 @@
 		</a><br><a href='{{meta.author3.url}}' target='_blank'>{{meta.author3.name}}
 		</a>
 	</p>
-	{{!-- <h1 class='intro__hed'><span>Internet</span> <span>Boy Band</span> <span>Database</span></h1> --}}
-	<div class='intro__title'>@@include('title.svg')</div>
-	<p class='intro__dek'>{{meta.description}}</p>
-	<p class='intro__prelude'>An audio-visual history of every boy band<sup>*</sup> to chart in the Billboard Hot 100 since 1980.</p>
+	<div class='intro__title' alt='{{doc.title}}'>@@include('title.svg')</div>
+	<p class='intro__dek'>{{doc.description}}</p>
+	<p class='intro__prelude'>{{{doc.prelude}}}</p>
 	<div class='intro__choice'>
 		
 		<p class='choice__loading'>Loading Bands...</p>
 		<button class='choice__history tk-dosis' data-value='history'>
-			Let’s do this thing already! @@include('volume-2.svg')
+			{{{doc.button}}} @@include('volume-2.svg')
 		</button>
-		{{!-- <button class='choice__wall tk-dosis' data-value='wall'>
-			<span>I’m feeling curious &amp; want to explore the wall of 241 “boys.”</span><img src='https://placehold.it/128x128.jpg'>
-		</button> --}}
 	</div>
-	<p class='intro__note'><sup>*</sup>Classifying boy bands is not an exact science. We did our best 😅 (see sidebar for details).</p>
+	<p class='intro__note'><sup>*</sup>{{{doc.note}}}</p>
 </div>

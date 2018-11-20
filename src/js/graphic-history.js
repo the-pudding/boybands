@@ -102,7 +102,7 @@ function start() {
 	d3.select('body').on('keyup', handleKeyUp);
 }
 
-function init({data, cb}) {
+function init({ data, cb }) {
 	bandData = data;
 	Player.init(handlePlayerClick);
 	Rating.init(handleRatingClick);
