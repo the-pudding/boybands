@@ -31,6 +31,18 @@
 		max-width $column-width
 		margin 1rem auto
 		text-align center
+		font-size 18px
+
+	&__note
+		position absolute
+		bottom 0
+		left 0
+		text-align center
+		width 100%
+		margin 1rem auto
+		text-align center
+		set-type-size('root', true)
+
 	
 	&__byline
 		max-width $column-width
@@ -56,40 +68,36 @@
 			display block
 
 	&__choice
-		max-width 28rem
+		max-width 20rem
 		margin 2rem auto
 		display flex
 		flex-direction column
+		text-align center
 		button
 			display none
 			background-color $tertiary
 			border 2px solid $white
 			color $white
 			box-shadow 3px 3px 6px rgba(0,0,0,0.25)
-			text-align left
+			text-align center
 			align-items center
 			border-radius 10px
-			margin-bottom 0.5rem
 			padding 0.75rem
 			transition background-color 100ms ease-in-out
-			set-type-size(medium, false)
-			+mq('bp-5')
-				set-type-size(large, false)
+			set-type-size(large, false)
+			line-height 1
+			margin 0 auto
 			&.is-visible
 				display flex
 			&:hover
 				background-color $pink
-		img
-			width 4rem
-			height 4rem
-			margin 0 0.5em
 		svg
-			width 1em
-			height 1em
-			margin-left 0.25rem
+			width 1.25em
+			height 1.25em
+			margin-left 0.5em
 			display inline
 			vertical-align middle
-			transform translateY(-12.5%)
+			// transform translateY(-12.5%)
 		.choice__wall
 			text-align right
 		
