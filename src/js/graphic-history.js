@@ -14,7 +14,7 @@ const $bandName = $bandInfo.select('.info__band span');
 const $bandYoutube = $bandInfo.select('.info__band .band__youtube');
 
 let bandData = [];
-let currentBandIndex = 49;
+let currentBandIndex = -1;
 
 function updateInfo(d) {
 	const parseTime = d3.timeParse('%Y-%m-%d');
