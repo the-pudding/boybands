@@ -56,7 +56,7 @@ function checkForHat(d) {
 	return hasHat;
 }
 
-function frostTips({ $svg, col }) {
+function frostTips({ $svg, col, layer }) {
 	// add gradient for future frosted tips
 	// Append a defs (for definition) element to your SVG
 	$svg.select('defs').remove();
@@ -67,24 +67,27 @@ function frostTips({ $svg, col }) {
 		.range(5)
 		.map(() => ALPHABET[Math.floor(Math.random() * ALPHABET.length)])
 		.join('');
-	const radialGradient = defs.append('radialGradient').at({
+
+	const linearGradient = defs.append('linearGradient').at({
 		id,
-		cx: '50%',
-		cy: '50%',
-		r: '50%'
+		x1: '0%',
+		x2: '0%',
+		y1: layer.includes('swept') ? '0%' : '100%',
+		y2: layer.includes('swept') ? '100%' : '0%'
 	});
-	radialGradient
+	linearGradient
 		.append('stop')
 		.at('offset', '0%')
 		.at('stop-color', col);
-	radialGradient
+	linearGradient
 		.append('stop')
-		.at('offset', '90%')
+		.at('offset', '60%')
 		.at('stop-color', col);
-	radialGradient
+	linearGradient
 		.append('stop')
 		.at('offset', '100%')
 		.at('stop-color', getColor('blonde'));
+
 	return `url(#${id})`;
 }
 
@@ -151,9 +154,7 @@ function hair({ $svg, d }) {
 	styles.forEach(s => {
 		const item = getItem(s);
 		const shouldFrost = d.hair_frosted && d.hair_frosted !== 'no';
-		// const shouldFrost = false;
 		const c = getColor(d.hair_color);
-		const col = shouldFrost ? frostTips({ $svg, col: c }) : c;
 
 		$svg.select('.skin--bald').st('display', 'none');
 		$svg.select('.skin--general').st('display', 'none');
@@ -164,18 +165,44 @@ function hair({ $svg, d }) {
 		// check side count and show front and/or back of style
 		if (item) {
 			item.layer_extra.forEach(layer => {
-				if (layer === 'rattail') {
-					const tail = '.hair-back--rattail';
-					activateLayer({ $svg, selector: tail, col, base: c });
-				} else {
+				if (layer === 'rattail')
+					activateLayer({
+						$svg,
+						selector: '.hair-back--rattail',
+						col: c,
+						base: c
+					});
+				else {
 					const front = `.hair-front--${layer}-${d.hair_length}`;
 					const back = `.hair-back--${layer}-${d.hair_length}`;
 					const hasHat = checkForHat(d);
+					const col = shouldFrost ? frostTips({ $svg, col: c, layer }) : c;
 					if (item.sides < 3 && !hasHat)
-						activateLayer({ $svg, selector: front, col, base: c });
+						activateLayer({
+							$svg,
+							selector: front,
+							col: !layer.includes('curly') ? col : c,
+							base: c
+						});
 
 					if (item.sides > 1)
 						activateLayer({ $svg, selector: back, col, base: c });
+				}
+
+				// pony
+				if (layer === 'ponytail') {
+					activateLayer({
+						$svg,
+						selector: '.hair-front--crew-short',
+						col: c,
+						base: c
+					});
+					activateLayer({
+						$svg,
+						selector: '.hair-back--crew-short',
+						col: c,
+						base: c
+					});
 				}
 			});
 		}
