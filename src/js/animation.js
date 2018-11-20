@@ -89,12 +89,11 @@ function create({ nodes, group, cb }) {
 }
 
 function cleanData(data) {
+	// TODO remove dev
 	const dev = [];
 	const layers = data.layers.map(d => {
 		const broad = d.cl.split('--')[0];
-		let cl = null;
-		if (d.cl.includes('facial-features')) cl = 'facial-features';
-		else cl = `${broad} ${d.cl}`;
+		const cl = `${broad} ${d.cl}`;
 		dev.push(`${broad} | ${d.cl}`);
 		return { ...d, cl };
 	});

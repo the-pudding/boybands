@@ -66,18 +66,16 @@ function activateLayer({ $svg, selector, col }) {
 	if ($el.size()) {
 		$el.st('display', 'block');
 		if (col) {
-			let dark = d3
-				.color(col)
+			let dark = d3.color(col);
 
-			if (col === "#000000") dark = getColor('dark gray')
-			else dark = dark.darker().toString()
+			if (col === '#000000') dark = getColor('dark gray');
+			else dark = dark.darker().toString();
 
-			let light = d3
-				.color(col)
+			let light = d3.color(col);
 
-			if (col === "#000000") light = getColor('gray')
-			else if (col === "#ffffff") light = getColor('light gray')
-			else light = light.brighter().toString()
+			if (col === '#000000') light = getColor('gray');
+			else if (col === '#ffffff') light = getColor('light gray');
+			else light = light.brighter().toString();
 
 			const $g = $el.selectAll('g');
 			$g.selectAll('path').st({ fill: col, stroke: col });
@@ -90,6 +88,10 @@ function activateLayer({ $svg, selector, col }) {
 			$g.selectAll('g.gray path').st({
 				fill: colors.gray,
 				stroke: colors.gray
+			});
+			$g.selectAll('g.red path').st({
+				fill: colors.red,
+				stroke: colors.red
 			});
 			// $el.selectAll('.skin path').st({ fill: 'red', stroke: 'red' })
 		}
@@ -123,16 +125,15 @@ function hair({ $svg, d }) {
 		// check side count and show front and/or back of style
 		if (item) {
 			item.layer_extra.forEach(layer => {
-				if (layer == 'rattail'){
-					const tail =  `.hair-back--rattail`
-					activateLayer({$svg, selector: tail, col})
+				if (layer == 'rattail') {
+					const tail = '.hair-back--rattail';
+					activateLayer({ $svg, selector: tail, col });
 				} else {
 					const front = `.hair-front--${layer}-${d.hair_length}`;
 					const back = `.hair-back--${layer}-${d.hair_length}`;
 					activateLayer({ $svg, selector: front, col });
 					if (item.sides === 2) activateLayer({ $svg, selector: back, col });
 				}
-
 			});
 		}
 	});
@@ -160,7 +161,7 @@ function top({ $svg, d }) {
 			'leather jacket',
 			'other jacket',
 			'suit jacket',
-			'windbreaker',
+			'windbreaker'
 		].includes(t)
 			? getColor(d.jacket_color)
 			: getColor(d.shirt_color);
