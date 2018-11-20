@@ -51,7 +51,7 @@
 	.figure__info
 		position absolute
 		top 0
-		left 1rem
+		left 4rem
 		height $info-h-mobile
 		// width 100%
 		+mq('bp-5')
@@ -78,6 +78,29 @@
 		margin-top 1.75rem
 		font-weight 800
 		text-shadow 0 0 3px $white
+		a
+			display block
+			position absolute
+			top 0
+			left 0
+			transform translate(-150%, 12.5%)
+			text-decoration none
+			border none
+			line-height 1
+			&:hover
+				svg
+					stroke-opacity 1
+				polygon
+					fill-opacity 1
+		svg
+			width 2rem
+			height 2rem
+			stroke $white
+			stroke-opacity 0.5
+			polygon 
+				fill $white
+				fill-opacity 0.5
+				stroke none
 	
 	.info__song
 		position relative

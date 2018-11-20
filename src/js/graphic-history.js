@@ -8,19 +8,21 @@ import Tracker from './utils/tracker';
 
 const $section = d3.select('#history');
 const $bandInfo = $section.select('.figure__info');
-const $songYear = $bandInfo.select('.info__year');
-const $songName = $bandInfo.select('.info__song');
-const $bandName = $bandInfo.select('.info__band');
+const $songYear = $bandInfo.select('.info__year span');
+const $songName = $bandInfo.select('.info__song span');
+const $bandName = $bandInfo.select('.info__band span');
+const $bandYoutube = $bandInfo.select('.info__band .band__youtube');
 
 let bandData = [];
 let currentBandIndex = -1;
 
-function updateInfo({ band, highest_pos_date, highest_song }) {
+function updateInfo(d) {
 	const parseTime = d3.timeParse('%Y-%m-%d');
 	const getYear = d3.timeFormat('%Y');
-	$songYear.text(getYear(parseTime(highest_pos_date)));
-	$songName.text(highest_song);
-	$bandName.text(band);
+	$songYear.text(getYear(parseTime(d.highest_pos_date)));
+	$songName.text(d.highest_song);
+	$bandName.text(d.band);
+	$bandYoutube.attr('href', d.highest_song_vid);
 }
 
 function swapBoys(dir) {
