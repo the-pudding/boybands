@@ -26,7 +26,7 @@ const crosswalk = crosswalkRaw.map(d => ({
 function getColor(val) {
 	const c = colors[val];
 	if (!c) console.log(`no color: ${val}`);
-	return c || colors.orange;
+	return c || colors.black;
 }
 
 function getItem(val) {
