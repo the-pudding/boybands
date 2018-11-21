@@ -7,6 +7,9 @@
 	width 100%
 	pointer-events none
 	overflow hidden
+	display none
+	+mq('bp-4')
+		display block
 	.drawer__menu
 		transform translate3d(0, 0, 0)
 		position absolute
@@ -41,7 +44,7 @@
 	.drawer__tab
 		margin 0
 		position absolute
-		bottom 25%
+		bottom 2rem
 		right -10px
 		border 2px solid $white
 		width auto
