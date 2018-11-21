@@ -48,6 +48,23 @@
 		margin 0
 		padding 0 1rem
 		font-weight 600
+		animation pulse 4s infinite
+		opacity 1
+		pointer-events none
 		&.is-hidden
-			display none
+			opacity 0
 		// set-type-size(large)
+
+@keyframes pulse
+	0%
+		transform rotate(0)
+	40%
+		transform rotate(0)
+	45%
+		transform rotate(15deg)
+	55%
+		transform rotate(-15deg)
+	60%
+		transform rotate(0)
+	100%
+		transform rotate(0)

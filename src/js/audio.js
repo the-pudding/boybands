@@ -6,7 +6,7 @@ let current = null;
 let progressCallback = null;
 let endCallback = null;
 
-Howler.volume(0);
+// Howler.volume(0);
 
 function setCallbacks({ cbEnd, cbProgress }) {
 	progressCallback = cbProgress;
