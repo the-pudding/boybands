@@ -139,7 +139,9 @@ function setupDrawer() {
 		slug: d.slug,
 		band: d.band
 	}));
-	bands.sort((a, b) => d3.ascending(a.band, b.band));
+	bands.sort((a, b) =>
+		d3.ascending(a.band.toLowerCase(), b.band.toLowerCase())
+	);
 	const $li = $drawerMenu
 		.select('.drawer__bands')
 		.selectAll('li')
