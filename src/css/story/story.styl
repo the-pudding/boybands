@@ -3,38 +3,18 @@
 	font-weight 500
 
 main
-	height 100vh
+	height 100vh	
 
 body
-	// background-image repeating-linear-gradient(45deg, transparent, transparent 35px, rgba($fg,.05) 35px, rgba($fg,.05) 70px)
-	
 	background linear-gradient(135deg, rgba($fg, 0.03) 25%, transparent 25%) -50px 0, linear-gradient(225deg, rgba($fg, 0.03) 25%, transparent 25%) -50px 0, linear-gradient(315deg, rgba($fg, 0.03) 25%, transparent 25%), linear-gradient(45deg, rgba($fg, 0.03) 25%, transparent 25%)
 	background-size 100px 100px
 	background-color $bg
 
-	// background radial-gradient(circle closest-side at 60% 43%, $bg 26%, rgba(187,0,51,0) 27%), radial-gradient(circle closest-side at 40% 43%, $bg 26%, rgba(187,0,51,0) 27%), radial-gradient(circle closest-side at 40% 22%, darken($bg, 5) 45%, rgba(221,51,85,0) 46%), radial-gradient(circle closest-side at 60% 22%, darken($bg, 5) 45%, rgba(221,51,85,0) 46%), radial-gradient(circle closest-side at 50% 35%, darken($bg, 5) 30%, rgba(221,51,85,0) 31%), radial-gradient(circle closest-side at 60% 43%, $bg 26%, rgba(187,0,51,0) 27%) 50px 50px, radial-gradient(circle closest-side at 40% 43%, $bg 26%, rgba(187,0,51,0) 27%) 50px 50px, radial-gradient(circle closest-side at 40% 22%, darken($bg, 5) 45%, rgba(221,51,85,0) 46%) 50px 50px, radial-gradient(circle closest-side at 60% 22%, darken($bg, 5) 45%, rgba(221,51,85,0) 46%) 50px 50px, radial-gradient(circle closest-side at 50% 35%, darken($bg, 5) 30%, rgba(221,51,85,0) 31%) 50px 50px
-	// background-color $bg
-	// background-size 100px 100px
-
 section
 	display none
-	margin-top 4rem
+	padding-top 4rem
 	&.is-selected
 		display block
 
 button
 	font-family $sans
-
-.tweet
-	position absolute
-	right 1rem
-	bottom 0.75rem
-	border none
-	display none
-	+mq('bp-5')
-		display block
-	svg
-		stroke none
-		fill $white
-		width 2rem
-		height 2rem	
