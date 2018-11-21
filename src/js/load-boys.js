@@ -1,25 +1,41 @@
 import DB from './db';
-import db from './db';
+import crosswalkRaw from './crosswalk';
+
+const crosswalk = crosswalkRaw.map(d => ({
+	...d,
+	sides: +d.sides,
+	layer_extra: d.layer_extra
+		.split(',')
+		.map(v => v.trim())
+		.filter(v => v)
+}));
+
+function getItem(val) {
+	const match = crosswalk.find(d => d.value === val);
+	if (!match) console.log(`no item in crosswalk: ${val}`);
+	return match;
+}
 
 function slugify(str) {
 	return str.toLowerCase().replace(/[^\w]/g, '_');
 }
 
+function itemize(values) {
+	return values
+		.split(',')
+		.map(v => v.trim())
+		.filter(v => v)
+		.map(getItem);
+}
+
 function clean([bands, boys]) {
 	const cleanBoys = boys.map(d => ({
 		...d,
-		accessories: d.accessories
-			.split(',')
-			.map(v => v.trim())
-			.filter(v => v),
-		top_style: d.top_style
-			.split(',')
-			.map(v => v.trim())
-			.filter(v => v),
-		facial_hair: d.facial_hair
-			.split(',')
-			.map(v => v.trim())
-			.filter(v => v)
+		accessories: itemize(d.accessories),
+		top_style: itemize(d.top_style),
+		bottom_style: itemize(d.bottom_style),
+		hair_style: itemize(d.hair_style),
+		facial_hair: itemize(d.facial_hair)
 	}));
 
 	const nestedBoys = d3

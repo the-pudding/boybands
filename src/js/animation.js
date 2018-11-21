@@ -67,7 +67,16 @@ function transitionEnd() {
 }
 
 function onComplete() {
+	// console.log('onComplete');
 	change();
+}
+
+function onLoopComplete() {
+	// console.log('loopComplete');
+}
+
+function onSegmentStart() {
+	// console.log('segmentStart');
 }
 
 function create({ nodes, group, cb }) {
@@ -80,6 +89,9 @@ function create({ nodes, group, cb }) {
 		};
 		const anim = lottie.loadAnimation(options);
 		anim.addEventListener('complete', onComplete);
+		anim.addEventListener('loopComplete', onLoopComplete);
+		anim.addEventListener('segmentStart', onSegmentStart);
+
 		anim.addEventListener('DOMLoaded', () => {
 			if (!domLoaded) cb();
 			domLoaded = true;

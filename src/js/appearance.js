@@ -2,8 +2,42 @@ import colors from './colors';
 import crosswalkRaw from './crosswalk';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const JACKETS = [
+	'jacket',
+	'vest',
+	'leather jacket',
+	'other jacket',
+	'suit jacket',
+	'windbreaker',
+	'letterman jacket',
+	'trenchcoat'
+];
 
-const layerClasses = [
+const HAT_CASES = [
+	'baseballcap-hightop-short',
+	'baseballcap-hightop-medium',
+	'baseballcap-shaggy',
+	'flathat-hightop-short',
+	'flathat-hightop-medium',
+	'dorag-hightop-medium',
+	'dorag-hightop-short',
+	'bandana-curly-short',
+	'bandana-curly-medium'
+];
+
+const HAT_LAYERS = [
+	'baseballcap',
+	'beanie',
+	'beret',
+	'dorag',
+	'fedora',
+	'flathat',
+	'tophat',
+	'newsboycap',
+	'ushanka'
+];
+
+const LAYER_CLASSES = [
 	'hair-front',
 	'hair-back',
 	'accessories-front',
@@ -14,44 +48,32 @@ const layerClasses = [
 	'instrument'
 ];
 
-const crosswalk = crosswalkRaw.map(d => ({
-	...d,
-	sides: +d.sides,
-	layer_extra: d.layer_extra
-		.split(',')
-		.map(v => v.trim())
-		.filter(v => v)
-}));
-
 function getColor(val) {
 	const c = colors[val];
 	if (!c) console.log(`no color: ${val}`);
 	return c || colors.black;
 }
 
-function getItem(val) {
-	const match = crosswalk.find(d => d.value === val);
-	if (!match) console.log(`no item in crosswalk: ${val}`);
-	return match;
+function getHairHat(d) {
+	let hairHat = null;
+
+	d.accessories.forEach(item => {
+		const hs = d.hair_style[0].layer_extra[0];
+		const hl = d.hair_length;
+		item.layer_extra.forEach(l => {
+			const c = `${l}-${hs}-${hl}`;
+			if (HAT_CASES.includes(c)) hairHat = c;
+		});
+	});
+	return hairHat;
 }
 
 function checkForHat(d) {
 	let hasHat = false;
-	d.accessories.forEach(a => {
-		if (
-			[
-				'baseballcap',
-				'beanie',
-				'beret',
-				'dorag',
-				'fedora',
-				'flathat',
-				'tophat',
-				'newsboycap',
-				'ushanka'
-			].includes(getItem(a))
-		)
-			hasHat = true;
+	d.accessories.forEach(item => {
+		item.layer_extra.forEach(l => {
+			if (HAT_LAYERS.includes(l)) hasHat = true;
+		});
 	});
 	return hasHat;
 }
@@ -144,15 +166,10 @@ function skin({ $svg, d }) {
 }
 
 function hair({ $svg, d }) {
-	const styles = d.hair_style
-		.split(',')
-		.map(v => v.trim())
-		.filter(v => v);
-
+	// turn on bald by default
 	$svg.select('.skin--bald').st('display', 'block');
 
-	styles.forEach(s => {
-		const item = getItem(s);
+	d.hair_style.forEach(item => {
 		const shouldFrost = d.hair_frosted && d.hair_frosted !== 'no';
 		const c = getColor(d.hair_color);
 
@@ -175,9 +192,11 @@ function hair({ $svg, d }) {
 				else {
 					const front = `.hair-front--${layer}-${d.hair_length}`;
 					const back = `.hair-back--${layer}-${d.hair_length}`;
+					const hairHat = getHairHat(d);
 					const hasHat = checkForHat(d);
+					console.log({ layer, hasHat, hairHat });
 					const col = shouldFrost ? frostTips({ $svg, col: c, layer }) : c;
-					if (item.sides < 3 && !hasHat)
+					if (item.sides < 3 && (hairHat || !hasHat))
 						activateLayer({
 							$svg,
 							selector: front,
@@ -185,7 +204,7 @@ function hair({ $svg, d }) {
 							base: c
 						});
 
-					if (item.sides > 1)
+					if (item.sides > 1 && (hairHat || !hasHat))
 						activateLayer({ $svg, selector: back, col, base: c });
 				}
 
@@ -210,12 +229,12 @@ function hair({ $svg, d }) {
 }
 
 function accessories({ $svg, d }) {
-	d.accessories.forEach(accessory => {
-		const item = getItem(accessory);
-
+	d.accessories.forEach(item => {
 		item.layer_extra.forEach(layer => {
-			const front = `.accessories-front--${layer}`;
-			const back = `.accessories-back--${layer}`;
+			const hasHat = checkForHat(d);
+			const l = hasHat ? getHairHat(d) || layer : layer;
+			const front = `.accessories-front--${l}`;
+			const back = `.accessories-back--${l}`;
 			activateLayer({ $svg, selector: front });
 			if (item.sides === 2) activateLayer({ $svg, selector: back });
 		});
@@ -223,18 +242,8 @@ function accessories({ $svg, d }) {
 }
 
 function top({ $svg, d }) {
-	d.top_style.filter(v => v.trim()).forEach(t => {
-		const item = getItem(t);
-		const col = [
-			'jacket',
-			'vest',
-			'leather jacket',
-			'other jacket',
-			'suit jacket',
-			'windbreaker',
-			'letterman jacket',
-			'trenchcoat'
-		].includes(t)
+	d.top_style.forEach(item => {
+		const col = JACKETS.includes(item.value)
 			? getColor(d.jacket_color)
 			: getColor(d.shirt_color);
 
@@ -256,24 +265,24 @@ function top({ $svg, d }) {
 }
 
 function bottom({ $svg, d }) {
-	const item = getItem(d.bottom_style);
-	const col = getColor(d.bottom_color);
+	d.bottom_style.forEach(item => {
+		const col = getColor(d.bottom_color);
 
-	const baseR = `.bottom--right-base-${item.layer_base}`;
-	const baseL = `.bottom--left-base-${item.layer_base}`;
-	const baseW = '.bottom--waist';
-	activateLayer({ $svg, selector: baseR, col });
-	activateLayer({ $svg, selector: baseL, col });
-	activateLayer({ $svg, selector: baseW, col });
+		const baseR = `.bottom--right-base-${item.layer_base}`;
+		const baseL = `.bottom--left-base-${item.layer_base}`;
+		const baseW = '.bottom--waist';
+		activateLayer({ $svg, selector: baseR, col });
+		activateLayer({ $svg, selector: baseL, col });
+		activateLayer({ $svg, selector: baseW, col });
 
-	item.layer_extra.forEach(layer => {
-		activateLayer({ $svg, selector: `.${layer}`, col });
+		item.layer_extra.forEach(layer => {
+			activateLayer({ $svg, selector: `.${layer}`, col });
+		});
 	});
 }
 
 function facialHair({ $svg, d }) {
-	d.facial_hair.forEach(f => {
-		const item = getItem(f);
+	d.facial_hair.forEach(item => {
 		const col = getColor(d.hair_color);
 
 		item.layer_extra.forEach(layer => {
@@ -291,7 +300,7 @@ function instrument({ $svg, d }) {
 }
 
 function disable($svg) {
-	layerClasses.forEach(layer => {
+	LAYER_CLASSES.forEach(layer => {
 		$svg.selectAll(`.${layer}`).st('display', 'none');
 	});
 }

@@ -1,21 +1,20 @@
 import { Howl, Howler } from 'howler';
 
 const FADE_DUR = 500;
-window.bands = {};
-let timer = null;
+const bands = {};
 let current = null;
 let progressCallback = null;
 let endCallback = null;
 
-// Howler.volume(0);
+Howler.volume(0);
 
 function setCallbacks({ cbEnd, cbProgress }) {
 	progressCallback = cbProgress;
 	endCallback = cbEnd;
 }
 
-function mute(shouldMote) {
-	Howler.mute(shouldMote);
+function mute(shouldMute) {
+	Howler.mute(shouldMute);
 }
 
 function pause() {
@@ -87,6 +86,7 @@ function load(filenames) {
 function init(data) {
 	const filenames = data.map(d => d.slug);
 	load(filenames);
-	timer = d3.interval(timerTick, 250);
+	d3.interval(timerTick, 250);
 }
+
 export default { init, play, pause, mute, setCallbacks };
