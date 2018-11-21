@@ -13,6 +13,9 @@ const $songName = $bandInfo.select('.info__song span');
 const $bandName = $bandInfo.select('.info__band span');
 const $bandYoutube = $bandInfo.select('.info__band .band__youtube');
 const $ratingTip = $section.select('.rating__tip');
+const $drawer = $section.select('.history__drawer');
+const $drawerMenu = $drawer.select('.drawer__menu');
+const $drawerTab = $drawer.select('.drawer__tab');
 
 let bandData = [];
 let currentBandIndex = -1;
@@ -26,8 +29,8 @@ function updateInfo(d) {
 	$bandYoutube.attr('href', d.highest_song_vid);
 }
 
-function swapBoys(dir) {
-	currentBandIndex += dir;
+function swapBoys(dir, jump) {
+	currentBandIndex = jump ? dir : currentBandIndex + dir;
 	if (currentBandIndex >= bandData.length) currentBandIndex = 0;
 	else if (currentBandIndex < 0) currentBandIndex = bandData.length - 1;
 	const band = bandData[currentBandIndex];
@@ -46,6 +49,25 @@ function swapBoys(dir) {
 }
 
 // *** EVENTS ***
+function handleMainClick() {
+	$drawerTab.classed('is-hidden', false);
+	$drawerMenu.classed('is-visible', false);
+}
+
+function handleFindBand(d) {
+	d3.event.stopPropagation();
+	$drawerTab.classed('is-hidden', false);
+	$drawerMenu.classed('is-visible', false);
+	swapBoys(d.index, true);
+}
+
+function handleToggleDrawer() {
+	d3.event.stopPropagation();
+	const visible = $drawer.classed('is-visible');
+	$drawerMenu.classed('is-visible', !visible);
+	$drawerTab.classed('is-hidden', !visible);
+}
+
 function handleYoutubeClick() {
 	Tracker.send({ category: 'youtube', action: 'click', once: true });
 }
@@ -110,6 +132,23 @@ function start() {
 	d3.select('body').on('keyup', handleKeyUp);
 }
 
+function setupDrawer() {
+	$drawerTab.on('click', handleToggleDrawer);
+	const bands = bandData.map((d, i) => ({
+		index: i,
+		slug: d.slug,
+		band: d.band
+	}));
+	bands.sort((a, b) => d3.ascending(a.band, b.band));
+	const $li = $drawerMenu
+		.select('.drawer__bands')
+		.selectAll('li')
+		.data(bands)
+		.enter()
+		.append('li');
+	$li.text(d => d.band).on('click', handleFindBand);
+}
+
 function init({ data, cb }) {
 	bandData = data;
 	Player.init(handlePlayerClick);
@@ -120,6 +159,8 @@ function init({ data, cb }) {
 		cbProgress: handleAudioProgress
 	});
 	$bandYoutube.on('click', handleYoutubeClick);
+	d3.select('main').on('click', handleMainClick);
+	setupDrawer();
 }
 
 export default { init, start, resize };
