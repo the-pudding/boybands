@@ -1,7 +1,14 @@
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+import transitionEvent from './utils/transition-event';
+
 const $section = d3.select('#history');
 const $rating = $section.select('.history__rating');
 const $button = $rating.selectAll('button');
-const $tomato = d3.select('.tomato');
+const $reactions = $section.select('.history__reactions');
+
+const REM = 16;
+let reactionWidth = 0;
+let maxEmojiSize = 0;
 
 let clickCallback = null;
 let ratingData = [];
@@ -22,13 +29,37 @@ function update({ slug, rating }) {
 	$rating.select('.rating__hate span').text(hate);
 }
 
+function removeReaction() {
+	d3.select(this).remove();
+}
+
+function createReaction(value) {
+	const left = `${maxEmojiSize * REM +
+		Math.random() * (reactionWidth - maxEmojiSize * REM * 2)}px`;
+	const bottom = `${maxEmojiSize + Math.random() * 10}rem`;
+	const fontSize = `${Math.max(1, maxEmojiSize - 3 + Math.random() * 3)}rem`;
+
+	const v = Math.ceil(Math.random() * 3);
+
+	$reactions
+		.append('div.reaction__item')
+		.text(value === 'love' ? '💜' : '💩')
+		.st({ left, bottom, fontSize, width: fontSize })
+		.classed(`is-float${v}`, true)
+		.on(transitionEvent, removeReaction);
+}
+
 function handleButtonClick() {
 	const $btn = d3.select(this);
 	const value = $btn.at('data-value');
-	$tomato
-		.classed('is-thrown', true)
-		.st('top', '75%')
-		.st('left', '75%');
+
+	reactionWidth = $reactions.node().offsetWidth;
+	maxEmojiSize = reactionWidth < 600 ? 3 : 5;
+
+	// trigger heart (love) or poop (hate)
+	const count = Math.floor(15 + Math.random() * 10);
+	d3.range(count).forEach(() => createReaction(value));
+
 	clickCallback(value);
 }
 

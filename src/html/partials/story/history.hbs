@@ -1,9 +1,15 @@
 <section id='history'>
 	<h2 class='history__title'>{{doc.titleLong}}</h2>
 	<div class='history__rating'>
-		<button class='rating__love' data-value='love'>😍 <span></span></button>
-		<button class='rating__hate' data-value='hate'>😡 <span></span></button>
+		<p class='rating__tip'>Love ‘em or hate ‘em?</p>
+		<div class='rating__buttons'>
+			<button class='rating__love' data-value='love'>😍 <span></span></button>
+			<button class='rating__hate' data-value='hate'>😡 <span></span></button>
+		</div>
+		
 	</div>
+	
+	
 	<figure class='history__figure'>
 		<div class='figure__info'>
 			<p class='info__year'><span></span></p>
@@ -28,8 +34,9 @@
 			<div class='progress__bar'></div>
 		</div>
 	</div>
-	<div class='history__reaction'>
-		<div class='tomato'></div>
-	</div>
+	
 	<a class='tweet' href='' data-value='tweet'>@@include('twitter.svg')</a>
+
+	<div class='history__reactions'>
+	</div>
 </section>

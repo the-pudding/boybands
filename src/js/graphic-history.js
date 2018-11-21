@@ -12,6 +12,7 @@ const $songYear = $bandInfo.select('.info__year span');
 const $songName = $bandInfo.select('.info__song span');
 const $bandName = $bandInfo.select('.info__band span');
 const $bandYoutube = $bandInfo.select('.info__band .band__youtube');
+const $ratingTip = $section.select('.rating__tip');
 
 let bandData = [];
 let currentBandIndex = -1;
@@ -45,6 +46,10 @@ function swapBoys(dir) {
 }
 
 // *** EVENTS ***
+function handleYoutubeClick() {
+	Tracker.send({ category: 'youtube', action: 'click', once: true });
+}
+
 function handleAudioProgress({ seek, duration }) {
 	Player.progress({ seek, duration });
 }
@@ -61,6 +66,7 @@ function handleRatingClick(value) {
 	DB.set({ key: slug, value: rating });
 	Tracker.send({ category: slug, action: value, once: true });
 	Rating.update({ slug, rating });
+	$ratingTip.classed('is-hidden', true);
 }
 
 function handlePlayerClick({ control, state }) {
@@ -113,6 +119,7 @@ function init({ data, cb }) {
 		cbEnd: handleAudioEnd,
 		cbProgress: handleAudioProgress
 	});
+	$bandYoutube.on('click', handleYoutubeClick);
 }
 
 export default { init, start, resize };

@@ -1,20 +1,34 @@
-#history .history__reaction
+#history .history__reactions
 	position absolute
 	top 0
 	left 0
 	width 100%
 	height 100%
-	overflow hidden
 	pointer-events none
-	.tomato
+	.reaction__item
+		display block
 		position absolute
-		width 5rem
-		height 5rem
-		background red
-		top 100%
-		left 0
-		border-radius 50%
-		transition all 300ms ease-in
-		&.is-thrown
-			transform scale(0.33)
-			border-radius 0%
+		margin 0
+		padding 0
+		line-height 1
+		text-align center
+		opacity 0
+		&.is-float1
+			animation float1 2s ease-in forwards
+		&.is-float2
+			animation float1 3s ease-in forwards
+		&.is-float3
+			animation float1 4s ease-in forwards
+
+
+@keyframes float1
+	0%
+		opacity 0
+		transform translate(0, 0)
+	33%
+		opacity 0.5
+	67%
+		opacity 0.5
+	100%
+		opacity 0
+		transform translate(0, -30rem)

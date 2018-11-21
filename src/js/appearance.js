@@ -58,7 +58,7 @@ function getHairHat(d) {
 	let hairHat = null;
 
 	d.accessories.forEach(item => {
-		const hs = d.hair_style[0].layer_extra[0];
+		const hs = d.hair_style.length ? d.hair_style[0].layer_extra[0] : '';
 		const hl = d.hair_length;
 		item.layer_extra.forEach(l => {
 			const c = `${l}-${hs}-${hl}`;
@@ -182,6 +182,8 @@ function hair({ $svg, d }) {
 		// check side count and show front and/or back of style
 		if (item) {
 			item.layer_extra.forEach(layer => {
+				const hairHat = getHairHat(d);
+				const hasHat = checkForHat(d);
 				if (layer === 'rattail')
 					activateLayer({
 						$svg,
@@ -192,9 +194,6 @@ function hair({ $svg, d }) {
 				else {
 					const front = `.hair-front--${layer}-${d.hair_length}`;
 					const back = `.hair-back--${layer}-${d.hair_length}`;
-					const hairHat = getHairHat(d);
-					const hasHat = checkForHat(d);
-					console.log({ layer, hasHat, hairHat });
 					const col = shouldFrost ? frostTips({ $svg, col: c, layer }) : c;
 					if (item.sides < 3 && (hairHat || !hasHat))
 						activateLayer({
@@ -204,12 +203,12 @@ function hair({ $svg, d }) {
 							base: c
 						});
 
-					if (item.sides > 1 && (hairHat || !hasHat))
+					if (item.sides > 1 && (hairHat || !hasHat || layer === 'ponytail'))
 						activateLayer({ $svg, selector: back, col, base: c });
 				}
 
 				// pony
-				if (layer === 'ponytail') {
+				if (layer === 'ponytail' && (hairHat || !hasHat)) {
 					activateLayer({
 						$svg,
 						selector: '.hair-front--crew-short',

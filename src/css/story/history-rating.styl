@@ -2,11 +2,14 @@
 	position fixed
 	right 1rem
 	top 4.5rem
-	display flex
-	flex-direction column
-	justify-content flex-end
-	flex-wrap wrap
 	z-index set-index(top)
+	display flex
+	align-items center
+	.rating__buttons
+		display flex
+		flex-direction column
+		justify-content flex-end
+		flex-wrap wrap
 	button
 		position relative
 		set-type-size(xx-large, false)
@@ -40,3 +43,11 @@
 		transform translateY(-50%)
 		text-shadow none
 		display none
+
+	.rating__tip
+		margin 0
+		padding 0 1rem
+		font-weight 600
+		&.is-hidden
+			display none
+		// set-type-size(large)
