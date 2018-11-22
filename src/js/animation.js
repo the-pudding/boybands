@@ -1,14 +1,14 @@
 // import lottie from 'lottie-web';
 import danceData from './dance';
 
-const animations = {};
+let animations = [];
 let animationData = null;
-let currentGroup = 'all';
-let currentCat = 'default';
-let nextCat = null;
-let currentSubset = [];
-let currentInstruments = [];
 let domLoaded = false;
+let currentSequence = [];
+
+const TRANS_FRAMES = danceData.find(
+	d => d.cat === 'transition' && d.name === 'Shuffle'
+).frames;
 
 function getInstrumentFrames(val) {
 	const match = danceData.find(d => d.cat === 'instrument' && d.name === val);
@@ -16,71 +16,73 @@ function getInstrumentFrames(val) {
 	return danceData[0].frames;
 }
 
-function setFrames(frames) {
-	animations[currentGroup].forEach((a, i) => {
-		const instrument = currentInstruments[i];
-		const f = instrument ? getInstrumentFrames(instrument) : frames;
-		a.playSegments(f, true);
+function setFrames({ frames, index }) {
+	const a = animations[index];
+	a.playSegments(frames, true);
+}
+
+function change(a, index) {
+	const seq = currentSequence[index];
+	const frames = seq.frames[seq.current];
+	seq.current += 1;
+	if (seq.current >= seq.frames.length) seq.current = 0;
+	setFrames({ frames, index });
+}
+
+function generateSequence({ cat = 'default', instruments = [] }) {
+	// TODO start/stop matching, repeat / keep track of basics, weighted basic/complex randomization
+	const choices = danceData.filter(d => d.cat === cat && d.name !== 'N/A');
+
+	const seq = d3.range(30).map(() => {
+		const r = Math.floor(Math.random() * choices.length);
+		const { frames } = choices[r];
+		return frames;
+	});
+
+	currentSequence = animations.map((a, i) => {
+		const instrument = instruments[i];
+		const frames = instrument
+			? seq.map(() => getInstrumentFrames(instrument))
+			: seq.map(s => s);
+		return {
+			current: 0,
+			frames
+		};
 	});
 }
 
-function change() {
-	// TODO start/stop matching, repeat / keep track of basics, weighted basic/complex randomization
-	const choices = danceData.filter(
-		d => d.cat === currentCat && d.name !== 'N/A'
-	);
-
-	const r = Math.floor(Math.random() * choices.length);
-	const { frames } = choices[r];
-	setFrames(frames);
-}
-
 function pause() {
-	animations[currentGroup].forEach(a => {
+	animations.forEach(a => {
 		a.goToAndStop(0, true);
 	});
 }
 
-function play({ group = currentGroup, cat = currentCat }) {
-	if (currentGroup) pause();
-	currentGroup = group;
-	currentCat = cat;
-	if (currentCat !== 'default') change();
+function play() {
+	pause();
+	if (!currentSequence.length) generateSequence({});
+	animations.forEach(change);
 }
 
-function transition({ shift, cat = 'pop', instruments = [], subset = [] }) {
-	nextCat = cat;
-	const prevCat = currentCat;
-	currentCat = shift ? 'transition' : nextCat;
-	currentInstruments = instruments;
-	currentSubset = subset;
+function transition({ shift, cat = 'pop', instruments = [] }) {
+	generateSequence({ cat, instruments });
 	if (shift) {
-		const { frames } = danceData.find(
-			d => d.cat === currentCat && d.name === 'Shuffle'
-		);
-		setFrames(frames);
-	} else if (prevCat === 'default') change();
+		animations.forEach((a, index) => {
+			if (instruments[index]) change(a, index);
+			else setFrames({ frames: TRANS_FRAMES, index });
+		});
+	}
 }
 
 function transitionEnd() {
-	currentCat = nextCat;
+	animations.forEach(change);
 }
 
-function onComplete() {
-	// console.log('onComplete');
-	change();
+function onComplete(index) {
+	change(animations[index], index);
 }
 
-function onLoopComplete() {
-	// console.log('loopComplete');
-}
-
-function onSegmentStart() {
-	// console.log('segmentStart');
-}
-
-function create({ nodes, group, cb }) {
-	animations[group] = nodes.map(n => {
+function create({ nodes, cb }) {
+	animations = nodes.map((n, i) => {
 		const options = {
 			animationData,
 			container: n,
@@ -88,9 +90,8 @@ function create({ nodes, group, cb }) {
 			autoplay: false
 		};
 		const anim = lottie.loadAnimation(options);
-		anim.addEventListener('complete', onComplete);
-		anim.addEventListener('loopComplete', onLoopComplete);
-		anim.addEventListener('segmentStart', onSegmentStart);
+		anim.addEventListener('complete', () => onComplete(i));
+		// anim.addEventListener('loopComplete', onLoopComplete);
 
 		anim.addEventListener('DOMLoaded', () => {
 			if (!domLoaded) cb();

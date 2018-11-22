@@ -39,6 +39,15 @@ function resize() {
 		$boys.st({ height: boyHeight });
 	}
 }
+
+function handleTransitionEnd() {
+	Animation.transitionEnd();
+}
+
+function handleBoyTransitionEnd() {
+	d3.event.stopPropagation();
+}
+
 function updatePosition(subset) {
 	// center out
 	$boy.classed('is-visible', (d, i) => subset[i]);
@@ -47,9 +56,8 @@ function updatePosition(subset) {
 		inRows && total === 3 ? true : !inRows && total % 2 === 0;
 	const offset = shouldOffset ? boyWidth / 2 : 0;
 	$boys.st('left', offset);
-	$boys.on(transitionEvent, () => {
-		Animation.transitionEnd();
-	});
+	$boys.on(transitionEvent, handleTransitionEnd);
+	$boy.on(transitionEvent, handleBoyTransitionEnd);
 }
 
 function updateBoy({ boys, subset }) {
@@ -121,7 +129,7 @@ function init({ bandData, cb }) {
 	$boyEnter.append('p').attr('class', 'boy__name');
 
 	$boy = $boyEnter.merge($boy);
-	Animation.create({ nodes: $boy.nodes(), group: 'all', cb });
+	Animation.create({ nodes: $boy.nodes(), cb });
 	Animation.play({});
 	Appearance.init();
 	resize();
