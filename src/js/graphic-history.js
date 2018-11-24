@@ -59,6 +59,7 @@ function handleFindBand(d) {
 	$drawerTab.classed('is-hidden', false);
 	$drawerMenu.classed('is-visible', false);
 	swapBoys(d.index, true);
+	Player.play();
 }
 
 function handleToggleDrawer() {

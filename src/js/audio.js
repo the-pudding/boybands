@@ -61,7 +61,6 @@ function load(filenames) {
 	const path = 'assets/audio';
 	const loadNext = () => {
 		const f = filenames[i];
-
 		const t = new Howl({
 			src: `${path}/${f}.mp3`,
 			onload: () => {

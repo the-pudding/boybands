@@ -28,6 +28,10 @@ function setToggle(control) {
 	}
 }
 
+function play() {
+	setToggle('forward');
+}
+
 function disable(control) {
 	if (['back', 'forward'].includes(control)) {
 		$button.at('disabled', true);
@@ -68,4 +72,4 @@ function init(cbClick) {
 	$button.on('click', handleButtonClick);
 }
 
-export default { init, progress, queue };
+export default { init, progress, queue, play };
