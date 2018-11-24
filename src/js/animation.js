@@ -1,13 +1,19 @@
 // import lottie from 'lottie-web';
-import danceData from './dance';
+import danceJSON from './dance';
+
+const danceData = danceJSON.map(d => ({
+	...d,
+	frames: [+d.frame_start, +d.frame_end]
+}));
 
 let animations = [];
 let animationData = null;
 let domLoaded = false;
 let currentSequence = [];
+let prevHasInstruments = false;
 
 const TRANS_FRAMES = danceData.find(
-	d => d.cat === 'transition' && d.name === 'Shuffle'
+	d => d.cat === 'transition' && d.name === 'shuffle'
 ).frames;
 
 function getInstrumentFrames(val) {
@@ -31,11 +37,13 @@ function change(a, index) {
 
 function generateSequence({ cat = 'default', instruments = [] }) {
 	// TODO start/stop matching, repeat / keep track of basics, weighted basic/complex randomization
-	const choices = danceData.filter(d => d.cat === cat && d.name !== 'N/A');
-
+	const choices = danceData.filter(d => d.cat === cat);
+	let prevPosEnd = Math.random() < 0.5 || cat === 'default' ? 'a' : 'b';
 	const seq = d3.range(30).map(() => {
-		const r = Math.floor(Math.random() * choices.length);
-		const { frames } = choices[r];
+		const posChoices = choices.filter(c => c.pos_start === prevPosEnd);
+		const r = Math.floor(Math.random() * posChoices.length);
+		const { frames, pos_end } = posChoices[r];
+		prevPosEnd = pos_end;
 		return frames;
 	});
 
@@ -65,12 +73,13 @@ function play() {
 
 function transition({ shift, cat = 'pop', instruments = [] }) {
 	generateSequence({ cat, instruments });
-	if (shift) {
-		animations.forEach((a, index) => {
+	animations.forEach((a, index) => {
+		if (shift) {
 			if (instruments[index]) change(a, index);
 			else setFrames({ frames: TRANS_FRAMES, index });
-		});
-	}
+		} else if (prevHasInstruments) change(a, index);
+	});
+	prevHasInstruments = !!instruments.filter(d => d).length;
 }
 
 function transitionEnd() {
