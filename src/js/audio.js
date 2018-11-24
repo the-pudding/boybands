@@ -5,6 +5,7 @@ const bands = {};
 let current = null;
 let progressCallback = null;
 let endCallback = null;
+let queue = [];
 
 // Howler.volume(0);
 
@@ -52,19 +53,22 @@ function play(slug) {
 			next.volume(0);
 			next.play();
 			next.fade(0, 1, FADE_DUR * 4);
+		} else {
+			// hasn't loaded, move it up in the queue
+			queue.push(queue.splice(queue.indexOf(slug), 1)[0]);
 		}
 	}
 }
 
-function load(filenames) {
-	let i = 0;
+function load() {
 	const path = 'assets/audio';
 	const loadNext = () => {
-		const f = filenames[i];
+		const f = queue.pop();
 		const t = new Howl({
 			src: `${path}/${f}.mp3`,
 			onload: () => {
 				bands[f] = t;
+				if (current === f) play(f);
 				advance();
 			},
 			onloaderror: advance,
@@ -75,16 +79,16 @@ function load(filenames) {
 	};
 
 	const advance = err => {
-		i += 1;
-		if (i < filenames.length) loadNext();
+		if (queue.length) loadNext();
 	};
 
 	loadNext();
 }
 
 function init(data) {
-	const filenames = data.map(d => d.slug);
-	load(filenames);
+	queue = data.map(d => d.slug);
+	queue.reverse();
+	load();
 	d3.interval(timerTick, 250);
 }
 
