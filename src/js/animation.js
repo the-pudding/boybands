@@ -10,9 +10,10 @@ let animations = [];
 let animationData = null;
 let domLoaded = false;
 let currentSequence = [];
+let prevHasInstruments = false;
 
 const TRANS_FRAMES = danceData.find(
-	d => d.cat === 'transition' && d.name === 'Shuffle'
+	d => d.cat === 'transition' && d.name === 'shuffle'
 ).frames;
 
 function getInstrumentFrames(val) {
@@ -56,8 +57,6 @@ function generateSequence({ cat = 'default', instruments = [] }) {
 			frames
 		};
 	});
-
-	console.log(currentSequence);
 }
 
 function pause() {
@@ -74,12 +73,13 @@ function play() {
 
 function transition({ shift, cat = 'pop', instruments = [] }) {
 	generateSequence({ cat, instruments });
-	if (shift) {
-		animations.forEach((a, index) => {
+	animations.forEach((a, index) => {
+		if (shift) {
 			if (instruments[index]) change(a, index);
 			else setFrames({ frames: TRANS_FRAMES, index });
-		});
-	}
+		} else if (prevHasInstruments) change(a, index);
+	});
+	prevHasInstruments = !!instruments.filter(d => d).length;
 }
 
 function transitionEnd() {
