@@ -1,242 +1,470 @@
 [
   {
-    "name": "default",
+    "name": "N/A",
     "cat": "default",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [0, 6]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "0",
+    "frame_end": "6"
   },
   {
     "name": "Shoulder Shimmy",
     "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [6, 54]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "6",
+    "frame_end": "54"
   },
   {
     "name": "Trucker Honk",
     "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [54, 150]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "54",
+    "frame_end": "150"
   },
   {
     "name": "Head Bob",
-    "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [150, 234]
-  },
-  {
-    "name": "Head Bob",
-    "cat": "slow",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [150, 234]
+    "cat": "both",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "150",
+    "frame_end": "234"
   },
   {
     "name": "Hip Rock",
     "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [234, 312]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "234",
+    "frame_end": "312"
   },
   {
     "name": "Lean (Left)",
     "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [312, 366]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "312",
+    "frame_end": "366"
   },
   {
     "name": "Lean (Right)",
     "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [366, 420]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "366",
+    "frame_end": "420"
   },
   {
     "name": "Open Up",
     "cat": "slow",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [420, 474]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "420",
+    "frame_end": "474"
   },
   {
     "name": "Holding Heart",
     "cat": "slow",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [474, 522]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "474",
+    "frame_end": "522"
   },
   {
     "name": "Reaching to Audience",
     "cat": "slow",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [522, 606]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "522",
+    "frame_end": "606"
   },
   {
     "name": "Two-Step (Left)",
     "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [606, 636]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "606",
+    "frame_end": "636"
   },
   {
     "name": "Jump",
     "cat": "pop",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [636, 660]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "636",
+    "frame_end": "660"
   },
   {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [660, 666]
-  },
-  {
-    "name": "drums",
+    "name": "Drums",
     "cat": "instrument",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [666, 702]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "666",
+    "frame_end": "702"
   },
   {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [702, 714]
-  },
-  {
-    "name": "guitar",
+    "name": "Guitar",
     "cat": "instrument",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [714, 750]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "720",
+    "frame_end": "744"
   },
   {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [750, 762]
-  },
-  {
-    "name": "tambourine",
+    "name": "Tambourine",
     "cat": "instrument",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [762, 858]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "768",
+    "frame_end": "792"
   },
   {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [858, 870]
-  },
-  {
-    "name": "bass",
+    "name": "Bass",
     "cat": "instrument",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [870, 966]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "876",
+    "frame_end": "900"
   },
   {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [966, 978]
-  },
-  {
-    "name": "keyboard",
+    "name": "Keyboard",
     "cat": "instrument",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [978, 1026]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "978",
+    "frame_end": "1026"
   },
   {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [1026, 1038]
-  },
-  {
-    "name": "piano",
+    "name": "Piano",
     "cat": "instrument",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [1038, 1086]
-  },
-  {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [1086, 1098]
-  },
-  {
-    "name": "microphone",
-    "cat": "instrument",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [1098, 1138]
-  },
-  {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [1138, 1150]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "1038",
+    "frame_end": "1086"
   },
   {
     "name": "Shuffle",
     "cat": "transition",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [1150, 1166]
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "a",
+    "frame_start": "1098",
+    "frame_end": "1114"
   },
   {
-    "name": "N/A",
-    "cat": "",
-    "move": "basic",
-    "start": 0,
-    "end": 0,
-    "frames": [1166, 1172]
+    "name": "Shoulder Shimmy",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1132",
+    "frame_end": "1180"
+  },
+  {
+    "name": "Trucker Honk",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1192",
+    "frame_end": "1288"
+  },
+  {
+    "name": "Head Bob",
+    "cat": "both",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1300",
+    "frame_end": "1384"
+  },
+  {
+    "name": "Hip Rock",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1396",
+    "frame_end": "1474"
+  },
+  {
+    "name": "Lean (Left)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1486",
+    "frame_end": "1540"
+  },
+  {
+    "name": "Lean (Right)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1552",
+    "frame_end": "1606"
+  },
+  {
+    "name": "Open Up",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1618",
+    "frame_end": "1672"
+  },
+  {
+    "name": "Holding Heart",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1684",
+    "frame_end": "1732"
+  },
+  {
+    "name": "Reaching to Audience",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1744",
+    "frame_end": "1828"
+  },
+  {
+    "name": "Two-Step (Left)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1840",
+    "frame_end": "1870"
+  },
+  {
+    "name": "Jump",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "a",
+    "pos_end": "b",
+    "frame_start": "1882",
+    "frame_end": "1902"
+  },
+  {
+    "name": "Shoulder Shimmy",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "1918",
+    "frame_end": "1966"
+  },
+  {
+    "name": "Trucker Honk",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "1978",
+    "frame_end": "2074"
+  },
+  {
+    "name": "Head Bob",
+    "cat": "both",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2086",
+    "frame_end": "2170"
+  },
+  {
+    "name": "Hip Rock",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2182",
+    "frame_end": "2260"
+  },
+  {
+    "name": "Lean (Left)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2272",
+    "frame_end": "2326"
+  },
+  {
+    "name": "Lean (Right)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2338",
+    "frame_end": "2392"
+  },
+  {
+    "name": "Open Up",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2404",
+    "frame_end": "2458"
+  },
+  {
+    "name": "Holding Heart",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2470",
+    "frame_end": "2518"
+  },
+  {
+    "name": "Reaching to Audience",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2530",
+    "frame_end": "2614"
+  },
+  {
+    "name": "Two-Step (Left)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2626",
+    "frame_end": "2656"
+  },
+  {
+    "name": "Jump",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "a",
+    "frame_start": "2668",
+    "frame_end": "2692"
+  },
+  {
+    "name": "Shoulder Shimmy",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "2704",
+    "frame_end": "2752"
+  },
+  {
+    "name": "Trucker Honk",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "2764",
+    "frame_end": "2860"
+  },
+  {
+    "name": "Head Bob",
+    "cat": "both",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "2872",
+    "frame_end": "2956"
+  },
+  {
+    "name": "Hip Rock",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "2968",
+    "frame_end": "3046"
+  },
+  {
+    "name": "Lean (Left)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "3058",
+    "frame_end": "3112"
+  },
+  {
+    "name": "Lean (Right)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "3124",
+    "frame_end": "3178"
+  },
+  {
+    "name": "Open Up",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "3190",
+    "frame_end": "3244"
+  },
+  {
+    "name": "Holding Heart",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "3256",
+    "frame_end": "3304"
+  },
+  {
+    "name": "Reaching to Audience",
+    "cat": "slow",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "3316",
+    "frame_end": "3400"
+  },
+  {
+    "name": "Two-Step (Left)",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "3412",
+    "frame_end": "3442"
+  },
+  {
+    "name": "Jump",
+    "cat": "pop",
+    "weight": "",
+    "pos_start": "b",
+    "pos_end": "b",
+    "frame_start": "3454",
+    "frame_end": "3478"
   }
 ]

@@ -1,5 +1,10 @@
 // import lottie from 'lottie-web';
-import danceData from './dance';
+import danceJSON from './dance';
+
+const danceData = danceJSON.map(d => ({
+	...d,
+	frames: [+d.frame_start, +d.frame_end]
+}));
 
 let animations = [];
 let animationData = null;
@@ -31,11 +36,13 @@ function change(a, index) {
 
 function generateSequence({ cat = 'default', instruments = [] }) {
 	// TODO start/stop matching, repeat / keep track of basics, weighted basic/complex randomization
-	const choices = danceData.filter(d => d.cat === cat && d.name !== 'N/A');
-
+	const choices = danceData.filter(d => d.cat === cat);
+	let prevPosEnd = Math.random() < 0.5 || cat === 'default' ? 'a' : 'b';
 	const seq = d3.range(30).map(() => {
-		const r = Math.floor(Math.random() * choices.length);
-		const { frames } = choices[r];
+		const posChoices = choices.filter(c => c.pos_start === prevPosEnd);
+		const r = Math.floor(Math.random() * posChoices.length);
+		const { frames, pos_end } = posChoices[r];
+		prevPosEnd = pos_end;
 		return frames;
 	});
 
@@ -49,6 +56,8 @@ function generateSequence({ cat = 'default', instruments = [] }) {
 			frames
 		};
 	});
+
+	console.log(currentSequence);
 }
 
 function pause() {
