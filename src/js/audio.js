@@ -61,7 +61,7 @@ function play(slug) {
 }
 
 function load() {
-	const path = 'assets/audio';
+	const path = 'assets/audio-20-fade';
 	const loadNext = () => {
 		const f = queue.pop();
 		const t = new Howl({
