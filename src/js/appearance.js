@@ -184,6 +184,11 @@ function hair({ $svg, d }) {
 			item.layer_extra.forEach(layer => {
 				const hairHat = getHairHat(d);
 				const hasHat = checkForHat(d);
+				if (hasHat && !hairHat) {
+					$svg.select('.skin--bald').st('display', 'block');
+					$svg.select('.skin--general').st('display', 'none');
+				}
+
 				if (layer === 'rattail')
 					activateLayer({
 						$svg,
@@ -223,6 +228,13 @@ function hair({ $svg, d }) {
 					});
 				}
 			});
+		} else {
+			const hairHat = getHairHat(d);
+			const hasHat = checkForHat(d);
+			if (hasHat && !hairHat) {
+				$svg.select('.skin--bald').st('display', 'block');
+				$svg.select('.skin--general').st('display', 'none');
+			}
 		}
 	});
 }
