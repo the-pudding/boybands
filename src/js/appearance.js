@@ -22,7 +22,8 @@ const HAT_CASES = [
 	'dorag-hightop-medium',
 	'dorag-hightop-short',
 	'bandana-curly-short',
-	'bandana-curly-medium'
+	'bandana-curly-medium',
+	'bandana-fade-short'
 ];
 
 const HAT_LAYERS = [
