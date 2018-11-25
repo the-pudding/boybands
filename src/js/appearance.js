@@ -295,6 +295,12 @@ function instrument({ $svg, d }) {
 	if (d.instrument) {
 		const selector = `.instrument--${d.instrument}`;
 		activateLayer({ $svg, selector });
+		if (d.instrument === 'drums') {
+			const l = '.instrument--left-stick-drums';
+			const r = '.instrument--right-stick-drums';
+			activateLayer({ $svg, selector: l });
+			activateLayer({ $svg, selector: r });
+		}
 	}
 }
 
