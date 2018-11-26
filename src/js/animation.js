@@ -3,6 +3,7 @@ import danceJSON from './dance';
 
 const danceData = danceJSON.map(d => ({
 	...d,
+	repeat: +d.repeat,
 	frames: [+d.frame_start, +d.frame_end]
 }));
 
@@ -37,15 +38,27 @@ function change(a, index) {
 
 function generateSequence({ cat = 'default', instruments = [] }) {
 	// TODO start/stop matching, repeat / keep track of basics, weighted basic/complex randomization
-	const choices = danceData.filter(d => d.cat === cat);
+	const useBoth = ['pop', 'slow'].includes(cat);
+	const choices = danceData.filter(
+		d => d.cat === cat || (useBoth && d.cat === 'both')
+	);
 	let prevPosEnd = Math.random() < 0.5 || cat === 'default' ? 'a' : 'b';
-	const seq = d3.range(30).map(() => {
+
+	const target = 20;
+	const seq = [];
+
+	while (seq.length < target) {
 		const posChoices = choices.filter(c => c.pos_start === prevPosEnd);
 		const r = Math.floor(Math.random() * posChoices.length);
-		const { frames, pos_end } = posChoices[r];
+		const { frames, repeat, pos_end } = posChoices[r];
 		prevPosEnd = pos_end;
-		return frames;
-	});
+		seq.push(frames);
+
+		if (repeat) {
+			const rep = Math.ceil(Math.random() * repeat);
+			d3.range(rep).forEach(() => seq.push(frames));
+		}
+	}
 
 	currentSequence = animations.map((a, i) => {
 		const instrument = instruments[i];
