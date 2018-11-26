@@ -17,9 +17,11 @@ const $ratingTip = $section.select('.rating__tip');
 const $drawer = $section.select('.history__drawer');
 const $drawerMenu = $drawer.select('.drawer__menu');
 const $drawerTab = $drawer.select('.drawer__tab');
+const $tweet = $section.select('.tweet');
 
 let bandData = [];
 let currentBandIndex = -1;
+let currentProgress = 0;
 
 function updateInfo(d) {
 	const parseTime = d3.timeParse('%Y-%m-%d');
@@ -31,7 +33,20 @@ function updateInfo(d) {
 	$bandYoutube.attr('href', d.highest_song_vid);
 }
 
+function trackProgress() {
+	if (currentBandIndex !== -1) {
+		const bin =
+			currentProgress >= 0.95 ? 4 : Math.floor((currentProgress * 20) / 5);
+		Tracker.send({
+			category: 'swap',
+			action: `${currentBandIndex} - ${bin}`,
+			once: false
+		});
+	}
+}
+
 function swapBoys(dir, jump) {
+	trackProgress();
 	currentBandIndex = jump ? dir : currentBandIndex + dir;
 	if (currentBandIndex >= bandData.length) currentBandIndex = 0;
 	else if (currentBandIndex < 0) currentBandIndex = bandData.length - 1;
@@ -52,6 +67,10 @@ function swapBoys(dir, jump) {
 }
 
 // *** EVENTS ***
+function handleTweetClick() {
+	Tracker.send({ category: 'tweet', action: currentBandIndex, once: false });
+}
+
 function handleMainClick() {
 	$drawerTab.classed('is-hidden', false);
 	$drawerMenu.classed('is-visible', false);
@@ -62,6 +81,7 @@ function handleFindBand(d) {
 	$drawerTab.classed('is-hidden', false);
 	$drawerMenu.classed('is-visible', false);
 	swapBoys(d.index, true);
+	Tracker.send({ category: 'drawer', action: 'select', once: true });
 }
 
 function handleToggleDrawer() {
@@ -69,6 +89,7 @@ function handleToggleDrawer() {
 	const visible = $drawer.classed('is-visible');
 	$drawerMenu.classed('is-visible', !visible);
 	$drawerTab.classed('is-hidden', !visible);
+	Tracker.send({ category: 'drawer', action: 'open', once: true });
 }
 
 function handleYoutubeClick() {
@@ -76,6 +97,7 @@ function handleYoutubeClick() {
 }
 
 function handleAudioProgress({ seek, duration }) {
+	currentProgress = seek / duration;
 	Player.progress({ seek, duration });
 }
 
@@ -165,6 +187,7 @@ function init({ data, cb }) {
 	});
 	$bandYoutube.on('click', handleYoutubeClick);
 	d3.select('main').on('click', handleMainClick);
+	$tweet.on('click', handleTweetClick);
 	setupDrawer();
 }
 
