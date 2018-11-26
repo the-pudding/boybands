@@ -37,8 +37,12 @@
 			background-color lighten($tertiary, 3)
 			cursor pointer
 			color $white
+			&:hover
+				background-color $secondary
 			&:nth-child(even)
 				background-color $tertiary
+				&:hover
+					background-color $secondary
 			
 					
 	.drawer__tab
@@ -55,13 +59,19 @@
 		cursor pointer
 		pointer-events auto
 		opacity 1
-		transition opacity 250ms ease-in-out
 		line-height 1
-		set-type-size(x-small, false)
+		font-weight 600
+		text-transform uppercase
+		set-type-size(xx-small, false)
+		letter-spacing 0.05em
+		transition opacity 250ms ease-in-out
+		
 		+mq('bp-5')
-			set-type-size(root, false)
+			set-type-size(small, false)
 			right -0.5em
 			bottom 2rem
+		&:hover
+			background-color $secondary
 		&.is-hidden
 			opacity 0
 			pointer-events none
