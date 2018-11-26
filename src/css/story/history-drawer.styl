@@ -1,5 +1,4 @@
 #history .history__drawer
-	z-index set-index('overlay') - 1
 	position absolute
 	top 0
 	right 0
@@ -15,6 +14,7 @@
 		position absolute
 		top 0
 		right 0
+		z-index set-index('overlay') - 1
 		background-color $fg
 		color $bg
 		transform translateX(100%)
@@ -28,6 +28,7 @@
 			border-right 1px solid lighten($tertiary, 30)
 		&.is-visible
 			transform translateX(0)
+			z-index set-index('overlay') + 1
 
 		li
 			text-align right
