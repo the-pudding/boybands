@@ -1,7 +1,7 @@
 <section id='history'>
 	<h2 class='history__title'>{{doc.titleLong}}</h2>
 	<div class='history__rating'>
-		<p class='rating__tip'>Love ‘em or hate ‘em?</p>
+		<p class='rating__tip'>{{doc.ratingTip}}</p>
 		<div class='rating__buttons'>
 			<button class='rating__love' data-value='love'>😍 <span></span></button>
 			<button class='rating__hate' data-value='hate'>😡 <span></span></button>
@@ -15,6 +15,7 @@
 			<p class='info__year'><span></span></p>
 			<p class='info__band'><a href='' target='_blank' class='band__youtube'>@@include('youtube.svg')</a><span></span></p>
 			<p class='info__song'><span></span></p>
+			<p class='info__position'>Peak: #<span></span></p>
 		</div>
 		<div class='figure__boys'>
 
@@ -42,6 +43,6 @@
 		<div class='drawer__menu'>
 			<ul class='drawer__bands'></ul>
 		</div>
-		<button class='drawer__tab'>Find a band</button>
+		<button class='drawer__tab'>{{doc.drawerTab}}</button>
 	</div>
 </section>

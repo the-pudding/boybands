@@ -11,6 +11,7 @@ const $bandInfo = $section.select('.figure__info');
 const $songYear = $bandInfo.select('.info__year span');
 const $songName = $bandInfo.select('.info__song span');
 const $bandName = $bandInfo.select('.info__band span');
+const $position = $bandInfo.select('.info__position span');
 const $bandYoutube = $bandInfo.select('.info__band .band__youtube');
 const $ratingTip = $section.select('.rating__tip');
 const $drawer = $section.select('.history__drawer');
@@ -26,6 +27,7 @@ function updateInfo(d) {
 	$songYear.text(getYear(parseTime(d.highest_pos_date)));
 	$songName.text(d.highest_song);
 	$bandName.text(d.band);
+	$position.text(d.highest_pos);
 	$bandYoutube.attr('href', d.highest_song_vid);
 }
 
@@ -41,6 +43,7 @@ function swapBoys(dir, jump) {
 	// change music
 	Player.queue(currentBandIndex);
 	Player.progress({ seek: 0, duration: 1 });
+	Player.play();
 	Audio.play(band.slug);
 
 	// change rating button state
@@ -59,7 +62,6 @@ function handleFindBand(d) {
 	$drawerTab.classed('is-hidden', false);
 	$drawerMenu.classed('is-visible', false);
 	swapBoys(d.index, true);
-	Player.play();
 }
 
 function handleToggleDrawer() {
