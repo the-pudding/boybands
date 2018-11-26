@@ -50,13 +50,20 @@ function generateSequence({ cat = 'default', instruments = [] }) {
 	while (seq.length < target) {
 		const posChoices = choices.filter(c => c.pos_start === prevPosEnd);
 		const r = Math.floor(Math.random() * posChoices.length);
-		const { frames, repeat, pos_end } = posChoices[r];
+		const { frames, repeat, pos_start, pos_end, name } = posChoices[r];
 		prevPosEnd = pos_end;
+
 		seq.push(frames);
 
 		if (repeat) {
 			const rep = Math.ceil(Math.random() * repeat);
-			d3.range(rep).forEach(() => seq.push(frames));
+			d3.range(rep).forEach(() => {
+				const choice = choices.find(
+					c => c.name === name && c.pos_start === pos_end
+				);
+				seq.push(choice.frames);
+				prevPosEnd = choice.pos_end;
+			});
 		}
 	}
 
