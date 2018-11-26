@@ -6,6 +6,7 @@ import Rating from './history-rating';
 import Stage from './history-stage';
 import Tracker from './utils/tracker';
 
+const $main = d3.select('main');
 const $section = d3.select('#history');
 const $bandInfo = $section.select('.figure__info');
 const $songYear = $bandInfo.select('.info__year span');
@@ -149,6 +150,10 @@ function handleKeyUp() {
 }
 
 function resize() {
+	const h = window.innerHeight;
+	$drawer.st('height', h);
+	d3.select('.header__menu').st('height', h);
+	$main.st('height', h);
 	Stage.resize();
 }
 
@@ -189,6 +194,7 @@ function init({ data, cb }) {
 	d3.select('main').on('click', handleMainClick);
 	$tweet.on('click', handleTweetClick);
 	setupDrawer();
+	resize();
 }
 
 export default { init, start, resize };
