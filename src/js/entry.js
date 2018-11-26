@@ -8,7 +8,6 @@ import Audio from './audio';
 import GraphicHistory from './graphic-history';
 
 const ns = new NoSleep();
-ns.enable();
 
 const $body = d3.select('body');
 const $intro = $body.select('.intro');
@@ -45,6 +44,7 @@ function handleChoiceClick() {
 	$body.select(`#${value}`).classed('is-selected', true);
 	if (value === 'history') GraphicHistory.start();
 	$intro.classed('is-hidden', true);
+	ns.enable();
 }
 
 function onReady() {

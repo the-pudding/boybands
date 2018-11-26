@@ -193,6 +193,7 @@ function init({ data, cb }) {
 	$bandYoutube.on('click', handleYoutubeClick);
 	d3.select('main').on('click', handleMainClick);
 	$tweet.on('click', handleTweetClick);
+	$ratingTip.classed('is-hidden', !!bandData.find(d => d.rating));
 	setupDrawer();
 	resize();
 }
