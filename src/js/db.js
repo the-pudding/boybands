@@ -13,6 +13,7 @@ function get(slug) {
 }
 
 function set({ key, value }) {
+	console.log(hasStorage, key, value);
 	if (hasStorage) window.localStorage.setItem(`pudding_boybands_${key}`, value);
 }
 

@@ -1,4 +1,3 @@
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 import transitionEvent from './utils/transition-event';
 
 const $section = d3.select('#history');
@@ -35,7 +34,7 @@ function removeReaction() {
 
 function createReaction(value) {
 	const left = `${maxEmojiSize * REM +
-		Math.random() * (reactionWidth - maxEmojiSize * REM * 2)}px`;
+		Math.random() * (reactionWidth - maxEmojiSize * REM * 3)}px`;
 	const bottom = `${maxEmojiSize + Math.random() * 10}rem`;
 	const fontSize = `${Math.max(1, maxEmojiSize - 3 + Math.random() * 3)}rem`;
 
