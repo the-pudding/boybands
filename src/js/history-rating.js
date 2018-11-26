@@ -74,7 +74,7 @@ function loadRatings() {
 	d3.loadData(url, (err, response) => {
 		if (err) console.log(err);
 		else {
-			console.log(new Date(response[0].timestamp));
+			console.log('ratings', new Date(response[0].timestamp));
 			ratingData = response[0].data.map(d => {
 				const slug = d.key;
 				const love = getCount(d.values, 'love');
