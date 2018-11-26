@@ -1,10 +1,14 @@
 /* global d3 */
 import debounce from 'lodash.debounce';
+import NoSleep from 'nosleep.js';
 import isMobile from './utils/is-mobile';
 import loadBoys from './load-boys';
 import Animation from './animation';
 import Audio from './audio';
 import GraphicHistory from './graphic-history';
+
+const ns = new NoSleep();
+ns.enable();
 
 const $body = d3.select('body');
 const $intro = $body.select('.intro');
