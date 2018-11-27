@@ -4,7 +4,7 @@
 	<a href='https://pudding.cool' target='_blank' class='logo'>
 		@@include('logo-small.svg')
 	</a>
-	<a class='header__overline' href='{{meta.url}}'>IBBDb</a>
+	<a class='header__overline' href='{{meta.url}}'>@@include('overline.svg')</a>
 	 {{#ifEquals this 'sticky'}} {{> base/sticky }} {{/ifEquals}}
 	 {{#ifEquals this 'sticky-dark'}} {{> base/sticky }} {{/ifEquals}}
 </header>
