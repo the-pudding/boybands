@@ -98,8 +98,9 @@ function transition({ shift, cat = 'pop', instruments = [] }) {
 			if (instruments[index]) change(a, index);
 			else setFrames({ frames: TRANS_FRAMES, index });
 		} else if (prevHasInstruments) change(a, index);
-		else if (instruments[index]) change(a, index);
+		else change(a, index);
 	});
+
 	prevHasInstruments = !!instruments.filter(d => d).length;
 }
 
