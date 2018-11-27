@@ -81,7 +81,7 @@ function handleFindBand(d) {
 	d3.event.stopPropagation();
 	$drawerTab.classed('is-hidden', false);
 	$drawerMenu.classed('is-visible', false);
-	swapBoys(d.index, true);
+	if (d.index !== currentBandIndex) swapBoys(d.index, true);
 	Tracker.send({ category: 'drawer', action: 'select', once: true });
 }
 
