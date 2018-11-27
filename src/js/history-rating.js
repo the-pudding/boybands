@@ -64,8 +64,8 @@ function handleButtonClick() {
 
 function loadRatings() {
 	const getCount = (values, rating) => {
-		const match = values.find(v => v.rating === rating);
-		return match ? +match.count : 0;
+		const match = values.filter(v => v.rating === rating);
+		return match.length ? d3.sum(match, m => +m.count) : 0;
 	};
 
 	const v = Date.now();
