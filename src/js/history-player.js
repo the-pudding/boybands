@@ -5,6 +5,7 @@ const $player = $section.select('.history__player');
 const $progressBar = $player.select('.progress__bar');
 const $button = $player.selectAll('button');
 const $queueCurrent = $player.select('.queue__current');
+const $loading = $player.select('.player__loading');
 
 let clickCallback = null;
 
@@ -17,6 +18,7 @@ function queue(val) {
 }
 
 function progress({ seek, duration }) {
+	$loading.classed('is-visible', false);
 	const percent = formatPercent(1 - seek / duration);
 	$progressBar.st('width', percent);
 }
@@ -30,6 +32,7 @@ function setToggle(control) {
 
 function play() {
 	setToggle('forward');
+	$loading.classed('is-visible', true);
 }
 
 function disable(control) {

@@ -25,7 +25,7 @@
 		width 6rem
 		+mq('bp-4')
 			font-size 20px
-			margin 0 1rem
+			margin 0
 			width 5.5rem
 		
 	button
@@ -104,4 +104,27 @@
 			height 100%
 			width 100%
 			background-color $bg
-			transition width 267ms linear
+			transition width 251ms linear
+	
+	.player__loading
+		position absolute
+		top 0
+		left 0
+		width 100%
+		text-align center
+		pointer-events none
+		margin 0
+		text-transform uppercase
+		letter-spacing 0.05em
+		font-weight 700
+		line-height 1
+		set-type-size(xx-small, false)
+		color $tertiary
+		transform translateY(-1rem)
+		opacity 0.0
+		transition opacity 1s 250ms ease-in-out
+		&.is-visible
+			opacity 0.75
+		+mq('bp-5')
+			set-type-size(small, false)
+				
