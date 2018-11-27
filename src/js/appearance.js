@@ -1,5 +1,4 @@
 import colors from './colors';
-import crosswalkRaw from './crosswalk';
 
 const ALPHABET = 'abcdefghijklmnopqrstuvwxyz'.split('');
 const JACKETS = [
@@ -69,23 +68,21 @@ function getHairHat(d) {
 	return hairHat;
 }
 
+function isHat(l) {
+	return HAT_LAYERS.includes(l);
+}
+
 function checkForHat(d) {
 	let hasHat = false;
 	d.accessories.forEach(item => {
 		item.layer_extra.forEach(l => {
-			if (HAT_LAYERS.includes(l)) hasHat = true;
+			if (isHat(l)) hasHat = true;
 		});
 	});
 	return hasHat;
 }
 
-function checkIfHat(layer){
-	let isHat = false
-	let l = layer.layer_extra
-	if (HAT_LAYERS.includes(l)) isHat = true
-}
-
-function frostTips({ $svg, col, layer }) {
+function frostTips({ $svg, col, tip, layer }) {
 	// add gradient for future frosted tips
 	// Append a defs (for definition) element to your SVG
 	$svg.select('defs').remove();
@@ -97,6 +94,7 @@ function frostTips({ $svg, col, layer }) {
 		.map(() => ALPHABET[Math.floor(Math.random() * ALPHABET.length)])
 		.join('');
 
+	const tipColor = tip === 'yes' ? getColor('blonde') : getColor(tip);
 	const linearGradient = defs.append('linearGradient').at({
 		id,
 		x1: '0%',
@@ -104,18 +102,38 @@ function frostTips({ $svg, col, layer }) {
 		y1: layer.includes('swept') ? '0%' : '100%',
 		y2: layer.includes('swept') ? '100%' : '0%'
 	});
-	linearGradient
-		.append('stop')
-		.at('offset', '0%')
-		.at('stop-color', col);
-	linearGradient
-		.append('stop')
-		.at('offset', '60%')
-		.at('stop-color', col);
-	linearGradient
-		.append('stop')
-		.at('offset', '100%')
-		.at('stop-color', getColor('blonde'));
+
+	if (layer.includes('curly') || layer.includes('swept')) {
+		linearGradient
+			.append('stop')
+			.at('offset', '0%')
+			.at('stop-color', col);
+		linearGradient
+			.append('stop')
+			.at('offset', '60%')
+			.at('stop-color', col);
+		linearGradient
+			.append('stop')
+			.at('offset', '100%')
+			.at('stop-color', tipColor);
+	} else {
+		linearGradient
+			.append('stop')
+			.at('offset', '0%')
+			.at('stop-color', col);
+		linearGradient
+			.append('stop')
+			.at('offset', '55%')
+			.at('stop-color', col);
+		linearGradient
+			.append('stop')
+			.at('offset', '70%')
+			.at('stop-color', tipColor);
+		linearGradient
+			.append('stop')
+			.at('offset', '100%')
+			.at('stop-color', tipColor);
+	}
 
 	return `url(#${id})`;
 }
@@ -138,7 +156,6 @@ function getLight(col) {
 }
 
 function activateLayer({ $svg, selector, col, base }) {
-	// console.log(`activate: ${selector}`);
 	const baseColor = base || col;
 	const $el = $svg.select(selector);
 	if ($el.size()) {
@@ -206,7 +223,9 @@ function hair({ $svg, d }) {
 				else {
 					const front = `.hair-front--${layer}-${d.hair_length}`;
 					const back = `.hair-back--${layer}-${d.hair_length}`;
-					const col = shouldFrost ? frostTips({ $svg, col: c, layer }) : c;
+					const col = shouldFrost
+						? frostTips({ $svg, col: c, tip: d.hair_frosted, layer })
+						: c;
 					if (item.sides < 3 && (hairHat || !hasHat))
 						activateLayer({
 							$svg,
@@ -249,8 +268,7 @@ function hair({ $svg, d }) {
 function accessories({ $svg, d }) {
 	d.accessories.forEach(item => {
 		item.layer_extra.forEach(layer => {
-			const isHat = checkIfHat(layer)
-			const hasHat = checkForHat(d);
+			const hasHat = isHat(layer);
 			const l = hasHat ? getHairHat(d) || layer : layer;
 			const front = `.accessories-front--${l}`;
 			const back = `.accessories-back--${l}`;
