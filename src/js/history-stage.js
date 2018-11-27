@@ -2,6 +2,7 @@ import Animation from './animation';
 import Appearance from './appearance';
 import transitionEvent from './utils/transition-event';
 
+const REM = 16;
 const BOY_W = 170;
 const BOY_H = 320;
 const IDEAL_BOY_SIZE = 100;
@@ -11,6 +12,7 @@ const $section = d3.select('#history');
 const $figure = $section.select('figure');
 const $info = $figure.select('.figure__info');
 const $boys = $figure.select('.figure__boys');
+const $player = $section.select('.history__player');
 
 let $boy = null;
 let maxBoys = 0;
@@ -38,6 +40,14 @@ function resize() {
 		$boy.st({ width: boyWidth, height: boyHeight });
 		$boys.st({ height: boyHeight });
 	}
+
+	const playerH = $player.node().offsetHeight;
+	const total = boyHeight + 16 * REM + playerH;
+	const adjust = total - window.innerHeight;
+	if (adjust > 0 && w >= 800) {
+		const top = 12 * REM - adjust;
+		$boys.st({ top });
+	} else $boys.st({ top: 12 * REM });
 }
 
 function handleTransitionEnd() {
